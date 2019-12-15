@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using DataModel;
 
@@ -12,8 +7,6 @@ namespace BayesianNetworkInterface
 {
     public partial class MainForm : Form
     {
-        // True case is indexed on index 1
-
         // TODO: read values from file
         private List<TextBox> gripListTextBoxes=new List<TextBox>();
         private Gripa gripa = new Gripa();
@@ -33,8 +26,6 @@ namespace BayesianNetworkInterface
         private List<TextBox> anorexieFalseTextBoxes = new List<TextBox>();
 
         private Anorexie anorexie = new Anorexie();
-        double[] labValues;
-        int noValues;
 
         public MainForm()
         {
@@ -70,10 +61,6 @@ namespace BayesianNetworkInterface
 
         }
 
-        private void label17_Click(object sender, EventArgs e)
-        {
-
-        }
         //populare date initiale
         private void button2_Click(object sender, EventArgs e)
         {
@@ -85,40 +72,25 @@ namespace BayesianNetworkInterface
             abcesListTextBoxes[1].Text = abces.PAn.ToString();
             //datele pt febra
 
-            for (int i = 0; i < Febra.NoData; i++)
+            for (var i = 0; i < Febra.NoData; i++)
             {
                 febraTrueListTextBoxes[i].Text = febra.PFd[i].ToString();
                 febraFalseListTextBoxes[i].Text = febra.PFn[i].ToString();
             }
             //datele pt oboseala
 
-            for (int i = 0; i < Oboseala.NoData; i++)
+            for (var i = 0; i < Oboseala.NoData; i++)
             {
                 obosealaTrueTextBoxes[i].Text = oboseala.POd[i].ToString();
                 obosealaFalseTextBoxes[i].Text = oboseala.POn[i].ToString();
             }
             //datele pt anorexie
 
-            for (int i = 0; i < Anorexie.NoData; i++)
+            for (var i = 0; i < Anorexie.NoData; i++)
             {
                 anorexieTrueTextBoxes[i].Text = anorexie.PXd[i].ToString();
                 anorexieFalseTextBoxes[i].Text = anorexie.PXn[i].ToString();
             }
-        }
-
-        private void textBox12_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox11_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -104,7 +104,6 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Calculează";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // resultBox
             // 
@@ -332,7 +331,6 @@
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(73, 20);
             this.textBox11.TabIndex = 34;
-            this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
             // 
             // textBox12
             // 
@@ -340,7 +338,6 @@
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(73, 20);
             this.textBox12.TabIndex = 35;
-            this.textBox12.TextChanged += new System.EventHandler(this.textBox12_TextChanged);
             // 
             // textBox13
             // 
@@ -411,7 +408,6 @@
             this.label17.Size = new System.Drawing.Size(21, 13);
             this.label17.TabIndex = 42;
             this.label17.Text = "Da";
-            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // label18
             // 
@@ -528,7 +524,7 @@
             this.label27.TabIndex = 57;
             this.label27.Text = "P (Abces= Nu)";
             // 
-            // dro
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -586,7 +582,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkedListBox1);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Bayesian Network Interface";
             this.ResumeLayout(false);
             this.PerformLayout();
 
