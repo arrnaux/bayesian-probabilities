@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace BayesianNetworkInterface
 {
-    partial class dro
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -104,6 +104,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Calculează";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // resultBox
             // 
@@ -584,7 +585,7 @@
             this.Controls.Add(this.resultBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkedListBox1);
-            this.Name = "dro";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

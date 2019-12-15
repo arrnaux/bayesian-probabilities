@@ -6,18 +6,24 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DataModel;
 
-namespace WindowsFormsApplication1
+namespace BayesianNetworkInterface
 {
-    public partial class dro : Form
+    public partial class MainForm : Form
     {
         // True case is indexed on index 1
 
         // TODO: read values from file
+        private Gripa gripa = new Gripa();
+        private Abces abces = new Abces();
+        private Febra febra = new Febra();
+        private Oboseala oboseala = new Oboseala();
+        private Anorexie anorexie = new Anorexie();
         double[] labValues;
         int noValues;
 
-        public dro()
+        public MainForm()
         {
             InitializeComponent();
             labValues = new double[] {-1,
@@ -52,6 +58,11 @@ namespace WindowsFormsApplication1
         }
 
         private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }
