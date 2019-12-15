@@ -8,7 +8,7 @@ namespace DataModel
 {
     public class Anorexie
     {
-        private const int NoData = 2;
+        public const int NoData = 2;
 
         public double[] PXd { get; set; }
         public double[] PXn { get; set; }
@@ -17,7 +17,7 @@ namespace DataModel
 
         public Anorexie()
         {
-            PXd = new double[NoData] { 0.5, 0.5 };
+            PXd = new double[NoData] { 0.5, 0.1 };
             PXn = new double[NoData];
             for (int i = 0; i < NoData; i++)
             {

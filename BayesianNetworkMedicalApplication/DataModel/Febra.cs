@@ -9,7 +9,7 @@ namespace DataModel
 {
     public class Febra
     {
-        private const int NoData = 4;
+        public const int NoData = 4;
         
         public double[] PFd { get; set; }
         public double[] PFn { get; set; }

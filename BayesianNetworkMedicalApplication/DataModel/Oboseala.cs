@@ -8,7 +8,7 @@ namespace DataModel
 {
     public class Oboseala
     {
-        private const int NoData = 2;
+        public const int NoData = 2;
 
         public double[] POd { get; set; }
         public double[] POn { get; set; }
