@@ -97,18 +97,19 @@ namespace BayesianNetworkInterface
         {
             
             string data = comboBox1.Text;
-            
+
             foreach (var c in Controls)
             {
-                if (c is GroupBox box)
+                if (c is GroupBox)
                 {
-                    if (box.Name.Contains(data))
+                    string name = (c as GroupBox).Name;
+                    if (name.Contains(data))
                     {
-                        box.Enabled = false;
+                        (c as GroupBox).Enabled = false;
                     }
                     else
                     {
-                        box.Enabled = true;
+                        (c as GroupBox).Enabled = true;
                     }
                 }
             }
