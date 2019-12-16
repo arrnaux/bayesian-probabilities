@@ -45,6 +45,7 @@
     <Compile Include="Anorexie.cs" />
     <Compile Include="Febra.cs" />
     <Compile Include="Gripa.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Oboseala.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

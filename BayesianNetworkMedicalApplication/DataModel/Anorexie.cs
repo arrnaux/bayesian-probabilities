@@ -1,6 +1,8 @@
-﻿namespace DataModel
+﻿using System.Collections.Generic;
+
+namespace DataModel
 {
-    public class Anorexie
+    public class Anorexie :Node
     {
         public const int NoData = 2;
 
@@ -31,6 +33,19 @@
                     PXn[i] = 1 - PXd[i];
                 }
             }
+        }
+
+        public int GetNoOfParents()
+        {
+            return 1;
+        }
+
+        public IList<string> GetListOfParents()
+        {
+            return new List<string>()
+            {
+                "Febra"
+            };
         }
     }
 }

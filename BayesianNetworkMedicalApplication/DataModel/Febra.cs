@@ -1,9 +1,12 @@
-﻿namespace DataModel
+﻿using System.Collections.Generic;
+using System.Runtime.Remoting.Lifetime;
+
+namespace DataModel
 {
-    public class Febra
+    public class Febra : Node
     {
         public const int NoData = 4;
-        
+
         public double[] PFd { get; set; }
         public double[] PFn { get; set; }
         // index 0 -> gripa da, abces da
@@ -13,8 +16,8 @@
 
         public Febra()
         {
-            PFd = new double[NoData] {0.8, 0.7, 0.25, 0.05};
-            PFn=new double[NoData];
+            PFd = new double[NoData] { 0.8, 0.7, 0.25, 0.05 };
+            PFn = new double[NoData];
             for (int i = 0; i < NoData; i++)
             {
                 PFn[i] = 1 - PFd[i];
@@ -33,6 +36,20 @@
                     PFn[i] = 1 - PFd[i];
                 }
             }
+        }
+
+        public int GetNoOfParents()
+        {
+            return 2;
+        }
+
+        public IList<string> GetListOfParents()
+        {
+            return new List<string>
+            {
+                "Gripa",
+                "Abces"
+            };
         }
     }
 }

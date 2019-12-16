@@ -1,6 +1,8 @@
-﻿namespace DataModel
+﻿using System.Collections.Generic;
+
+namespace DataModel
 {
-    public class Oboseala
+    public class Oboseala : Node
     {
         public const int NoData = 2;
 
@@ -31,6 +33,19 @@
                     POn[i] = 1 - POd[i];
                 }
             }
+        }
+
+        public int GetNoOfParents()
+        {
+            return 1;
+        }
+
+        public IList<string> GetListOfParents()
+        {
+            return new List<string>()
+            {
+                "Febra"
+            };
         }
     }
 }

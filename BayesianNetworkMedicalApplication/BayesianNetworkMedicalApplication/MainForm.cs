@@ -92,5 +92,26 @@ namespace BayesianNetworkInterface
                 anorexieFalseTextBoxes[i].Text = anorexie.PXn[i].ToString();
             }
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            string data = comboBox1.Text;
+            
+            foreach (var c in Controls)
+            {
+                if (c is GroupBox box)
+                {
+                    if (box.Name.Contains(data))
+                    {
+                        box.Enabled = false;
+                    }
+                    else
+                    {
+                        box.Enabled = true;
+                    }
+                }
+            }
+        }
     }
 }

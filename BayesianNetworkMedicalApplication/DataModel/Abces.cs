@@ -1,6 +1,8 @@
-﻿namespace DataModel
+﻿using System.Collections.Generic;
+
+namespace DataModel
 {
-    public class Abces
+    public class Abces: Node
     {
         public double PAd { get; set; } //Prob abces da
         public double PAn { get; set; } //Prob abces nu
@@ -15,6 +17,16 @@
         {
             PAd = pAd;
             PAn = 1 - pAd;
+        }
+
+        public int GetNoOfParents()
+        {
+            return 0;
+        }
+
+        public IList<string> GetListOfParents()
+        {
+            return null;
         }
     }
 }

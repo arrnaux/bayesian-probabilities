@@ -1,6 +1,8 @@
-﻿namespace DataModel
+﻿using System.Collections.Generic;
+
+namespace DataModel
 {
-    public class Gripa
+    public class Gripa : Node
     {
         public double PGd { get; set; } //Prob gripa da
         public double PGn { get; set; } //Prob gripa nu
@@ -18,5 +20,14 @@
             PGn = 1 - pGd;
         }
 
+        public int GetNoOfParents()
+        {
+            return 0;
+        }
+
+        public IList<string> GetListOfParents()
+        {
+            return null;
+        }
     }
 }
