@@ -41,12 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abces.cs" />
-    <Compile Include="Anorexie.cs" />
-    <Compile Include="Febra.cs" />
-    <Compile Include="Gripa.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="Oboseala.cs" />
+    <Compile Include="NodeGeneric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

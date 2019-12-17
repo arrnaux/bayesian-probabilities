@@ -125,7 +125,8 @@
             this.resultBox.Location = new System.Drawing.Point(12, 398);
             this.resultBox.Multiline = true;
             this.resultBox.Name = "resultBox";
-            this.resultBox.Size = new System.Drawing.Size(256, 29);
+            this.resultBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.resultBox.Size = new System.Drawing.Size(256, 66);
             this.resultBox.TabIndex = 2;
             // 
             // comboBox1

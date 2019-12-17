@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DataModel;
 
@@ -8,28 +9,91 @@ namespace BayesianNetworkInterface
     public partial class MainForm : Form
     {
         // TODO: read values from file
-        private List<TextBox> gripListTextBoxes=new List<TextBox>();
-        private Gripa gripa = new Gripa();
+        private List<TextBox> gripListTextBoxes = new List<TextBox>();
 
-        private List<TextBox> abcesListTextBoxes=new List<TextBox>();
-        private Abces abces = new Abces();
+        private NodeGeneric gripa = new NodeGeneric()
+        {
+            Name = "Gripa",
+            ListOfParents = new List<NodeGeneric>(),
+            ProbTrue = new List<double>() { 0.1 },
+            ProbFalse = new List<double>() { 0.9 }
+        };
 
-        private List<TextBox> febraTrueListTextBoxes=new List<TextBox>();
+        private List<TextBox> abcesListTextBoxes = new List<TextBox>();
+
+        private NodeGeneric abces = new NodeGeneric()
+        {
+            Name = "Abces",
+            ListOfParents = new List<NodeGeneric>(),
+            ProbTrue = new List<double>() { 0.05 },
+            ProbFalse = new List<double>() { 0.95 }
+        };
+
+        private List<TextBox> febraTrueListTextBoxes = new List<TextBox>();
         private List<TextBox> febraFalseListTextBoxes = new List<TextBox>();
-        private Febra febra = new Febra();
 
-        private List<TextBox> obosealaTrueTextBoxes=new List<TextBox>();
+
+        private NodeGeneric febra = new NodeGeneric()
+        {
+            Name = "Febra",
+            ListOfParents = new List<NodeGeneric>(),
+            ProbTrue = new List<double>()
+            {
+                0.8, 0.7, 0.25, 0.05
+            },
+            ProbFalse = new List<double>()
+            {
+                0.2,0.3,0.75,0.95
+            }
+        };
+
+        private List<TextBox> obosealaTrueTextBoxes = new List<TextBox>();
         private List<TextBox> obosealaFalseTextBoxes = new List<TextBox>();
-        private Oboseala oboseala = new Oboseala();
+        private NodeGeneric oboseala = new NodeGeneric()
+        {
+            Name = "Oboseala",
+            ListOfParents = new List<NodeGeneric>(),
+            ProbTrue = new List<double>()
+            {
+                0.6,0.2
+            },
+            ProbFalse = new List<double>()
+            {
+            0.4,0.8
+        }
+        };
 
         private List<TextBox> anorexieTrueTextBoxes = new List<TextBox>();
         private List<TextBox> anorexieFalseTextBoxes = new List<TextBox>();
 
-        private Anorexie anorexie = new Anorexie();
+        private NodeGeneric anorexie = new NodeGeneric()
+        {
+            Name = "Anorexie",
+            ListOfParents = new List<NodeGeneric>(),
+            ProbTrue = new List<double>()
+            {
+                0.5,0.1
+            },
+            ProbFalse = new List<double>()
+            {
+                0.5,0.8
+            }
+        };
 
         public MainForm()
         {
             InitializeComponent();
+
+            febra.ListOfParents.Add(abces);
+            febra.ListOfParents.Add(gripa);
+            oboseala.ListOfParents.Add(febra);
+            anorexie.ListOfParents.Add(febra);
+
+            gripa.SetProbFalse();
+            abces.SetProbFalse();
+            febra.SetProbFalse();
+            oboseala.SetProbFalse();
+            anorexie.SetProbFalse();
 
             gripListTextBoxes.Add(textBox1);//PGd
             gripListTextBoxes.Add(textBox2);//PGn
@@ -65,37 +129,37 @@ namespace BayesianNetworkInterface
         private void button2_Click(object sender, EventArgs e)
         {
             //datele pt gripa
-            gripListTextBoxes[0].Text = gripa.PGd.ToString();
-            gripListTextBoxes[1].Text = gripa.PGn.ToString();
+            gripListTextBoxes[0].Text = gripa.ProbTrue.FirstOrDefault().ToString();
+            gripListTextBoxes[1].Text = gripa.ProbFalse.FirstOrDefault().ToString();
             //datele pt abces
-            abcesListTextBoxes[0].Text = abces.PAd.ToString();
-            abcesListTextBoxes[1].Text = abces.PAn.ToString();
+            abcesListTextBoxes[0].Text = abces.ProbTrue.FirstOrDefault().ToString();
+            abcesListTextBoxes[1].Text = abces.ProbTrue.FirstOrDefault().ToString();
             //datele pt febra
 
-            for (var i = 0; i < Febra.NoData; i++)
+            for (var i = 0; i < febra.ProbTrue.Count; i++)
             {
-                febraTrueListTextBoxes[i].Text = febra.PFd[i].ToString();
-                febraFalseListTextBoxes[i].Text = febra.PFn[i].ToString();
+                febraTrueListTextBoxes[i].Text = febra.ProbTrue[i].ToString();
+                febraFalseListTextBoxes[i].Text = febra.ProbFalse[i].ToString();
             }
             //datele pt oboseala
 
-            for (var i = 0; i < Oboseala.NoData; i++)
+            for (var i = 0; i < oboseala.ProbTrue.Count; i++)
             {
-                obosealaTrueTextBoxes[i].Text = oboseala.POd[i].ToString();
-                obosealaFalseTextBoxes[i].Text = oboseala.POn[i].ToString();
+                obosealaTrueTextBoxes[i].Text = oboseala.ProbTrue[i].ToString();
+                obosealaFalseTextBoxes[i].Text = oboseala.ProbFalse[i].ToString();
             }
             //datele pt anorexie
 
-            for (var i = 0; i < Anorexie.NoData; i++)
+            for (var i = 0; i < anorexie.ProbTrue.Count; i++)
             {
-                anorexieTrueTextBoxes[i].Text = anorexie.PXd[i].ToString();
-                anorexieFalseTextBoxes[i].Text = anorexie.PXn[i].ToString();
+                anorexieTrueTextBoxes[i].Text = anorexie.ProbTrue[i].ToString();
+                anorexieFalseTextBoxes[i].Text = anorexie.ProbFalse[i].ToString();
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             string data = comboBox1.Text;
 
             foreach (var c in Controls)
@@ -114,5 +178,19 @@ namespace BayesianNetworkInterface
                 }
             }
         }
+
+        public double ComputeBayesianNetwork(NodeGeneric currentNode)
+        {
+            if (currentNode.ListOfParents.Count == 0)
+            {
+                return currentNode.ProbTrue.FirstOrDefault();
+            }
+            else
+            {
+            }
+            return 0;
+        }
+
+
     }
 }
