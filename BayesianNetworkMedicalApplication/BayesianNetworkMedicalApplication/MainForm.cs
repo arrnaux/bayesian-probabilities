@@ -161,22 +161,22 @@ namespace BayesianNetworkInterface
             //datele pt abces
             abcesListTextBoxes[0].Text = abces.ProbTrue.FirstOrDefault().ToString();
             abcesListTextBoxes[1].Text = abces.ProbFalse.FirstOrDefault().ToString();
+            
             //datele pt febra
-
             for (var i = 0; i < febra.ProbTrue.Count; i++)
             {
                 febraTrueListTextBoxes[i].Text = febra.ProbTrue[i].ToString();
                 febraFalseListTextBoxes[i].Text = febra.ProbFalse[i].ToString();
             }
+            
             //datele pt oboseala
-
             for (var i = 0; i < oboseala.ProbTrue.Count; i++)
             {
                 obosealaTrueTextBoxes[i].Text = oboseala.ProbTrue[i].ToString();
                 obosealaFalseTextBoxes[i].Text = oboseala.ProbFalse[i].ToString();
             }
+            
             //datele pt anorexie
-
             for (var i = 0; i < anorexie.ProbTrue.Count; i++)
             {
                 anorexieTrueTextBoxes[i].Text = anorexie.ProbTrue[i].ToString();
@@ -218,6 +218,28 @@ namespace BayesianNetworkInterface
             return 0;
         }
 
-
+        private void inputTextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox inputTextBox = (TextBox)sender;
+            string input = inputTextBox.Text;
+            double value;
+            if(input!="")
+            {
+                bool result = Double.TryParse(input, out value);
+                if (result)
+                {
+                    if (value < 0)
+                    {
+                        MessageBox.Show("Numarul trebuie sa fie pozitiv!");
+                        inputTextBox.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Caracter invalid!");
+                    inputTextBox.Focus();
+                }
+            }         
+        }
     }
 }
