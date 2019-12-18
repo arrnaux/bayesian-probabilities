@@ -105,47 +105,49 @@ namespace BayesianNetworkInterface
             // read defaultValues from file
             try
             {
-                FileStream fileStream = File.OpenRead("defaultValues.txt");
-                StreamReader streamReader = new StreamReader(fileStream, Encoding.UTF8);
-                String content = streamReader.ReadToEnd();
-                string[] values = content.Split(' ', '\n');
-                for (int i = 0; i < 1; ++i)
+                var fileStream = File.OpenRead("defaultValues.txt");
+                var streamReader = new StreamReader(fileStream, Encoding.UTF8);
+                var content = streamReader.ReadToEnd();
+                var values = content.Split(' ', '\n');
+                for (var index = 0; index < values.Length; ++index)
                 {
-                    gripa.ProbTrue.Add(Double.Parse(values[i]));
+                    var probValue = double.Parse(values[index]);
+                    if (index % 2 != 0) continue;
+                    if (index <= 1)
+                    {
+                        gripa.ProbTrue.Add(probValue);
+                        gripa.ProbFalse.Add(1 - probValue);
+                    }
+                    else
+                    {
+                        if (index <= 3)
+                        {
+                            abces.ProbTrue.Add(probValue);
+                            abces.ProbFalse.Add(1 - probValue);
+                        }
+                        else
+                        {
+                            if (index <= 11)
+                            {
+                                febra.ProbTrue.Add(probValue);
+                                febra.ProbFalse.Add(1 - probValue);
+                            }
+                            else
+                            {
+                                if (index <= 15)
+                                {
+                                    oboseala.ProbTrue.Add(probValue);
+                                    oboseala.ProbFalse.Add(1 - probValue);
+                                }
+                                else
+                                {
+                                    anorexie.ProbTrue.Add(probValue);
+                                    anorexie.ProbFalse.Add(1 - probValue);
+                                }
+                            }
+                        }
+                    }
                 }
-
-                for (int i = 1; i < 2; ++i)
-                {
-                    gripa.ProbFalse.Add(Double.Parse(values[i]));
-                }
-
-                for (int i = 2; i < 3; ++i)
-                {
-                    abces.ProbTrue.Add(Double.Parse(values[i]));
-                }
-
-                for (int i = 3; i < 4; ++i)
-                {
-                    abces.ProbFalse.Add(Double.Parse(values[i]));
-                }
-
-                febra.ProbTrue.Add(Double.Parse(values[4]));
-                febra.ProbTrue.Add(Double.Parse(values[6]));
-                febra.ProbTrue.Add(Double.Parse(values[8]));
-                febra.ProbTrue.Add(Double.Parse(values[10]));
-                oboseala.ProbTrue.Add(Double.Parse(values[12]));
-                oboseala.ProbTrue.Add(Double.Parse(values[14]));
-                anorexie.ProbTrue.Add(Double.Parse(values[16]));
-                anorexie.ProbTrue.Add(Double.Parse(values[18]));
-
-                febra.ProbFalse.Add(Double.Parse(values[5]));
-                febra.ProbFalse.Add(Double.Parse(values[7]));
-                febra.ProbFalse.Add(Double.Parse(values[9]));
-                febra.ProbFalse.Add(Double.Parse(values[11]));
-                oboseala.ProbFalse.Add(Double.Parse(values[13]));
-                oboseala.ProbFalse.Add(Double.Parse(values[15]));
-                anorexie.ProbFalse.Add(Double.Parse(values[17]));
-                anorexie.ProbFalse.Add(Double.Parse(values[19]));
             }
             catch (IOException exception)
             {
@@ -155,9 +157,10 @@ namespace BayesianNetworkInterface
             //datele pt gripa
             gripListTextBoxes[0].Text = gripa.ProbTrue.FirstOrDefault().ToString();
             gripListTextBoxes[1].Text = gripa.ProbFalse.FirstOrDefault().ToString();
+
             //datele pt abces
             abcesListTextBoxes[0].Text = abces.ProbTrue.FirstOrDefault().ToString();
-            abcesListTextBoxes[1].Text = abces.ProbTrue.FirstOrDefault().ToString();
+            abcesListTextBoxes[1].Text = abces.ProbFalse.FirstOrDefault().ToString();
             //datele pt febra
 
             for (var i = 0; i < febra.ProbTrue.Count; i++)
