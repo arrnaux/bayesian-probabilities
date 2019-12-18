@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Security;
+using System.Text;
 using System.Windows.Forms;
 using DataModel;
 
@@ -14,9 +17,7 @@ namespace BayesianNetworkInterface
         private NodeGeneric gripa = new NodeGeneric()
         {
             Name = "Gripa",
-            ListOfParents = new List<NodeGeneric>(),
-            ProbTrue = new List<double>() { 0.1 },
-            ProbFalse = new List<double>() { 0.9 }
+            ListOfParents = new List<NodeGeneric>()
         };
 
         private List<TextBox> abcesListTextBoxes = new List<TextBox>();
@@ -24,43 +25,25 @@ namespace BayesianNetworkInterface
         private NodeGeneric abces = new NodeGeneric()
         {
             Name = "Abces",
-            ListOfParents = new List<NodeGeneric>(),
-            ProbTrue = new List<double>() { 0.05 },
-            ProbFalse = new List<double>() { 0.95 }
+            ListOfParents = new List<NodeGeneric>()
         };
 
         private List<TextBox> febraTrueListTextBoxes = new List<TextBox>();
         private List<TextBox> febraFalseListTextBoxes = new List<TextBox>();
 
-
         private NodeGeneric febra = new NodeGeneric()
         {
             Name = "Febra",
-            ListOfParents = new List<NodeGeneric>(),
-            ProbTrue = new List<double>()
-            {
-                0.8, 0.7, 0.25, 0.05
-            },
-            ProbFalse = new List<double>()
-            {
-                0.2,0.3,0.75,0.95
-            }
+            ListOfParents = new List<NodeGeneric>()
         };
 
         private List<TextBox> obosealaTrueTextBoxes = new List<TextBox>();
         private List<TextBox> obosealaFalseTextBoxes = new List<TextBox>();
+
         private NodeGeneric oboseala = new NodeGeneric()
         {
             Name = "Oboseala",
-            ListOfParents = new List<NodeGeneric>(),
-            ProbTrue = new List<double>()
-            {
-                0.6,0.2
-            },
-            ProbFalse = new List<double>()
-            {
-            0.4,0.8
-        }
+            ListOfParents = new List<NodeGeneric>()
         };
 
         private List<TextBox> anorexieTrueTextBoxes = new List<TextBox>();
@@ -70,14 +53,6 @@ namespace BayesianNetworkInterface
         {
             Name = "Anorexie",
             ListOfParents = new List<NodeGeneric>(),
-            ProbTrue = new List<double>()
-            {
-                0.5,0.1
-            },
-            ProbFalse = new List<double>()
-            {
-                0.5,0.8
-            }
         };
 
         public MainForm()
@@ -95,11 +70,11 @@ namespace BayesianNetworkInterface
             oboseala.SetProbFalse();
             anorexie.SetProbFalse();
 
-            gripListTextBoxes.Add(textBox1);//PGd
-            gripListTextBoxes.Add(textBox2);//PGn
+            gripListTextBoxes.Add(textBox1); //PGd
+            gripListTextBoxes.Add(textBox2); //PGn
 
-            abcesListTextBoxes.Add(textBox3);//PAd
-            abcesListTextBoxes.Add(textBox4);//PAn
+            abcesListTextBoxes.Add(textBox3); //PAd
+            abcesListTextBoxes.Add(textBox4); //PAn
 
             febraTrueListTextBoxes.Add(textBox5);
             febraTrueListTextBoxes.Add(textBox7);
@@ -122,12 +97,61 @@ namespace BayesianNetworkInterface
 
             anorexieFalseTextBoxes.Add(textBox18);
             anorexieFalseTextBoxes.Add(textBox20);
-
         }
 
         //populare date initiale
         private void button2_Click(object sender, EventArgs e)
         {
+            // read defaultValues from file
+            try
+            {
+                FileStream fileStream = File.OpenRead("defaultValues.txt");
+                StreamReader streamReader = new StreamReader(fileStream, Encoding.UTF8);
+                String content = streamReader.ReadToEnd();
+                string[] values = content.Split(' ', '\n');
+                for (int i = 0; i < 1; ++i)
+                {
+                    gripa.ProbTrue.Add(Double.Parse(values[i]));
+                }
+
+                for (int i = 1; i < 2; ++i)
+                {
+                    gripa.ProbFalse.Add(Double.Parse(values[i]));
+                }
+
+                for (int i = 2; i < 3; ++i)
+                {
+                    abces.ProbTrue.Add(Double.Parse(values[i]));
+                }
+
+                for (int i = 3; i < 4; ++i)
+                {
+                    abces.ProbFalse.Add(Double.Parse(values[i]));
+                }
+
+                febra.ProbTrue.Add(Double.Parse(values[4]));
+                febra.ProbTrue.Add(Double.Parse(values[6]));
+                febra.ProbTrue.Add(Double.Parse(values[8]));
+                febra.ProbTrue.Add(Double.Parse(values[10]));
+                oboseala.ProbTrue.Add(Double.Parse(values[12]));
+                oboseala.ProbTrue.Add(Double.Parse(values[14]));
+                anorexie.ProbTrue.Add(Double.Parse(values[16]));
+                anorexie.ProbTrue.Add(Double.Parse(values[18]));
+
+                febra.ProbFalse.Add(Double.Parse(values[5]));
+                febra.ProbFalse.Add(Double.Parse(values[7]));
+                febra.ProbFalse.Add(Double.Parse(values[9]));
+                febra.ProbFalse.Add(Double.Parse(values[11]));
+                oboseala.ProbFalse.Add(Double.Parse(values[13]));
+                oboseala.ProbFalse.Add(Double.Parse(values[15]));
+                anorexie.ProbFalse.Add(Double.Parse(values[17]));
+                anorexie.ProbFalse.Add(Double.Parse(values[19]));
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine(exception.StackTrace);
+            }
+
             //datele pt gripa
             gripListTextBoxes[0].Text = gripa.ProbTrue.FirstOrDefault().ToString();
             gripListTextBoxes[1].Text = gripa.ProbFalse.FirstOrDefault().ToString();
