@@ -161,21 +161,21 @@ namespace BayesianNetworkInterface
             //datele pt abces
             abcesListTextBoxes[0].Text = abces.ProbTrue.FirstOrDefault().ToString();
             abcesListTextBoxes[1].Text = abces.ProbFalse.FirstOrDefault().ToString();
-            
+
             //datele pt febra
             for (var i = 0; i < febra.ProbTrue.Count; i++)
             {
                 febraTrueListTextBoxes[i].Text = febra.ProbTrue[i].ToString();
                 febraFalseListTextBoxes[i].Text = febra.ProbFalse[i].ToString();
             }
-            
+
             //datele pt oboseala
             for (var i = 0; i < oboseala.ProbTrue.Count; i++)
             {
                 obosealaTrueTextBoxes[i].Text = oboseala.ProbTrue[i].ToString();
                 obosealaFalseTextBoxes[i].Text = oboseala.ProbFalse[i].ToString();
             }
-            
+
             //datele pt anorexie
             for (var i = 0; i < anorexie.ProbTrue.Count; i++)
             {
@@ -221,25 +221,85 @@ namespace BayesianNetworkInterface
         private void inputTextBox_TextChanged(object sender, EventArgs e)
         {
             TextBox inputTextBox = (TextBox)sender;
+
+            String textBoxName = inputTextBox.Name;
+            int lastIndex = textBoxName.Length - 1;
+            int textBoxNumber = (textBoxName[lastIndex]) - '0';
+            var x = Int32.Parse(textBoxName.Substring(7)) + 1;
+            var nextBox = "textBox" + x;
+            TextBox nextTextBox = new TextBox();
+            foreach (var c in Controls)
+            {
+                if (c is TextBox && (c as TextBox).Name == nextBox)
+                    nextTextBox = c as TextBox;
+            }
+
             string input = inputTextBox.Text;
             double value;
-            if(input!="")
+            if (input != "")
             {
                 bool result = Double.TryParse(input, out value);
                 if (result)
                 {
-                    if (value < 0)
+                    if (value < 0 || value > 1)
                     {
-                        MessageBox.Show("Numarul trebuie sa fie pozitiv!");
-                        inputTextBox.Focus();
+                        MessageBox.Show("Numarul trebuie sa fie in intervalul [0,1]!");
+                        inputTextBox.Clear();
+                    }
+                    else
+                    {                        
+                        nextTextBox.Text = (1 - value).ToString();
                     }
                 }
                 else
                 {
                     MessageBox.Show("Caracter invalid!");
-                    inputTextBox.Focus();
+                    inputTextBox.Clear();
                 }
-            }         
+            }
+
+        }
+
+        private void inputTextBox_TextChangedReverse(object sender, EventArgs e)
+        {
+            TextBox inputTextBox = (TextBox)sender;
+
+            String textBoxName = inputTextBox.Name;
+            int lastIndex = textBoxName.Length - 1;
+            int textBoxNumber = (textBoxName[lastIndex]) - '0';
+            var x = Int32.Parse(textBoxName.Substring(7)) - 1;
+            var nextBox = "textBox" + x;
+            TextBox nextTextBox = new TextBox();
+            foreach (var c in Controls)
+            {
+                if (c is TextBox && (c as TextBox).Name == nextBox)
+                    nextTextBox = c as TextBox;
+            }
+
+            string input = inputTextBox.Text;
+            double value;
+            if (input != "")
+            {
+                bool result = Double.TryParse(input, out value);
+                if (result)
+                {
+                    if (value < 0 || value > 1)
+                    {
+                        MessageBox.Show("Numarul trebuie sa fie in intervalul [0,1]!");
+                        inputTextBox.Clear();
+                    }
+                    else
+                    {
+                        nextTextBox.Text = (1 - value).ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Caracter invalid!");
+                    inputTextBox.Clear();
+                }
+            }
+
         }
     }
 }

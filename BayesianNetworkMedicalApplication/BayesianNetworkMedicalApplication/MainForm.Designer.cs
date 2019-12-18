@@ -159,7 +159,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(73, 20);
             this.textBox2.TabIndex = 5;
-            this.textBox2.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox2.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // label1
             // 
@@ -193,7 +193,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(73, 20);
             this.textBox4.TabIndex = 8;
-            this.textBox4.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox4.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // textBox5
             // 
@@ -209,7 +209,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(73, 20);
             this.textBox6.TabIndex = 10;
-            this.textBox6.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox6.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // textBox7
             // 
@@ -225,7 +225,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(73, 20);
             this.textBox8.TabIndex = 12;
-            this.textBox8.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox8.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // textBox9
             // 
@@ -241,7 +241,7 @@
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(73, 20);
             this.textBox10.TabIndex = 14;
-            this.textBox10.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox10.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // label3
             // 
@@ -367,7 +367,7 @@
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(73, 20);
             this.textBox12.TabIndex = 35;
-            this.textBox12.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox12.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // textBox13
             // 
@@ -383,7 +383,7 @@
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new System.Drawing.Size(73, 20);
             this.textBox14.TabIndex = 37;
-            this.textBox14.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox14.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // textBox15
             // 
@@ -399,7 +399,7 @@
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new System.Drawing.Size(73, 20);
             this.textBox16.TabIndex = 39;
-            this.textBox16.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox16.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // textBox17
             // 
@@ -415,7 +415,7 @@
             this.textBox18.Name = "textBox18";
             this.textBox18.Size = new System.Drawing.Size(73, 20);
             this.textBox18.TabIndex = 41;
-            this.textBox18.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox18.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // label15
             // 
@@ -542,7 +542,7 @@
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new System.Drawing.Size(73, 20);
             this.textBox20.TabIndex = 55;
-            this.textBox20.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.textBox20.TextChanged += new System.EventHandler(this.inputTextBox_TextChangedReverse);
             // 
             // label26
             // 
