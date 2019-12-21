@@ -64,6 +64,11 @@ namespace BayesianNetworkInterface
             oboseala.ListOfParents.Add(febra);
             anorexie.ListOfParents.Add(febra);
 
+            gripa.ListOfChildren.Add(febra);
+            abces.ListOfChildren.Add(febra);
+            febra.ListOfChildren.Add(oboseala);
+            febra.ListOfChildren.Add(anorexie);
+
             gripa.SetProbFalse();
             abces.SetProbFalse();
             febra.SetProbFalse();

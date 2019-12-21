@@ -17,11 +17,13 @@ namespace DataModel
         public List<double> ProbTrue;
         public List<double> ProbFalse;
         //valoare observata bool sau index
+        public List<NodeGeneric> ListOfChildren;
         public bool IsObservable { get; set; }
 
         public NodeGeneric()
         {
             ListOfParents = new List<NodeGeneric>();
+            ListOfChildren=new List<NodeGeneric>();   
             ProbTrue = new List<double>();
 
             ProbFalse = new List<double>(ProbTrue.Count);
