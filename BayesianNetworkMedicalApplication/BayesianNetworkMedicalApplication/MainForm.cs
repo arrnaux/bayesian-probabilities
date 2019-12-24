@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Security;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Windows.Forms;
 using DataModel;
@@ -305,6 +306,20 @@ namespace BayesianNetworkInterface
                 }
             }
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var s = new LinkedList<NodeGeneric>();
+            s.AddFirst(gripa);
+            s.AddLast(abces);
+            var l = NodeGeneric.SortareTopologica(s);
+            foreach (var node in l )
+            {
+                resultBox.Text += node.Name + " ";
+            }
+
+            resultBox.Text += "\r\n";
         }
     }
 }

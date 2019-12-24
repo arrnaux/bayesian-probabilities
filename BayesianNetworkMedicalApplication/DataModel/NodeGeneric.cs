@@ -37,5 +37,30 @@ namespace DataModel
                 ProbFalse[i] = 1 - ProbTrue[i];
             }
         }
+
+        public static LinkedList<NodeGeneric> SortareTopologica(LinkedList<NodeGeneric> s)
+        {
+            LinkedList<NodeGeneric> l = new LinkedList<NodeGeneric>();
+            while (s.Count != 0)
+            {
+                var n = s.First();
+                s.RemoveFirst();
+                l.AddFirst(n);
+                foreach (var m in l)
+                {
+                    var e = m.ListOfChildren.FirstOrDefault();
+                    if (e != null)
+                    {
+                        m.ListOfChildren.RemoveAt(0);
+                        if (m.ListOfChildren.Count == 0)
+                        {
+                            s.AddFirst(m);
+                        }
+                    }
+                }
+            }
+
+            return l;
+        }
     }
 }
