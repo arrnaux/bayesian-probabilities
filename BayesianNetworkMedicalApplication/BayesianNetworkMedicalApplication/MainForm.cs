@@ -13,7 +13,8 @@ namespace BayesianNetworkInterface
     public partial class MainForm : Form
     {
         // TODO: read values from file
-        private List<TextBox> gripListTextBoxes = new List<TextBox>();
+        private List<TextBox> gripTrueListTextBoxes = new List<TextBox>();
+        private List<TextBox> gripFalseListTextBoxes = new List<TextBox>();
 
         private NodeGeneric gripa = new NodeGeneric()
         {
@@ -21,7 +22,8 @@ namespace BayesianNetworkInterface
             ListOfParents = new List<NodeGeneric>()
         };
 
-        private List<TextBox> abcesListTextBoxes = new List<TextBox>();
+        private List<TextBox> abcesTrueListTextBoxes = new List<TextBox>();
+        private List<TextBox> abcesFalseListTextBoxes = new List<TextBox>();
 
         private NodeGeneric abces = new NodeGeneric()
         {
@@ -76,11 +78,17 @@ namespace BayesianNetworkInterface
             oboseala.SetProbFalse();
             anorexie.SetProbFalse();
 
-            gripListTextBoxes.Add(textBox1); //PGd
-            gripListTextBoxes.Add(textBox2); //PGn
+            gripTrueListTextBoxes.Add(textBox1); //PGd
+            gripFalseListTextBoxes.Add(textBox2); //PGn
 
-            abcesListTextBoxes.Add(textBox3); //PAd
-            abcesListTextBoxes.Add(textBox4); //PAn
+            gripa.ProbTrue = gripTrueListTextBoxes;
+            gripa.ProbFalse = gripFalseListTextBoxes;
+
+            abcesTrueListTextBoxes.Add(textBox3); //PAd
+            abcesFalseListTextBoxes.Add(textBox4); //PAn
+
+            abces.ProbTrue = abcesTrueListTextBoxes;
+            abces.ProbFalse = abcesFalseListTextBoxes;
 
             febraTrueListTextBoxes.Add(textBox5);
             febraTrueListTextBoxes.Add(textBox7);
@@ -92,102 +100,111 @@ namespace BayesianNetworkInterface
             febraFalseListTextBoxes.Add(textBox10);
             febraFalseListTextBoxes.Add(textBox12);
 
+            febra.ProbTrue = febraTrueListTextBoxes;
+            febra.ProbFalse = febraFalseListTextBoxes;
+
             obosealaTrueTextBoxes.Add(textBox13);
             obosealaTrueTextBoxes.Add(textBox15);
 
             obosealaFalseTextBoxes.Add(textBox14);
             obosealaFalseTextBoxes.Add(textBox16);
 
+            oboseala.ProbTrue = obosealaTrueTextBoxes;
+            oboseala.ProbFalse = obosealaFalseTextBoxes;
+
             anorexieTrueTextBoxes.Add(textBox17);
             anorexieTrueTextBoxes.Add(textBox19);
 
             anorexieFalseTextBoxes.Add(textBox18);
             anorexieFalseTextBoxes.Add(textBox20);
+
+            anorexie.ProbTrue = anorexieTrueTextBoxes;
+            anorexie.ProbFalse = anorexieFalseTextBoxes;
         }
 
         //populare date initiale
         private void button2_Click(object sender, EventArgs e)
         {
-            // read defaultValues from file
-            try
-            {
-                var fileStream = File.OpenRead("defaultValues.txt");
-                var streamReader = new StreamReader(fileStream, Encoding.UTF8);
-                var content = streamReader.ReadToEnd();
-                var values = content.Split(' ', '\n');
-                for (var index = 0; index < values.Length; ++index)
-                {
-                    var probValue = double.Parse(values[index]);
-                    if (index % 2 != 0) continue;
-                    if (index <= 1)
-                    {
-                        gripa.ProbTrue.Add(probValue);
-                        gripa.ProbFalse.Add(1 - probValue);
-                    }
-                    else
-                    {
-                        if (index <= 3)
-                        {
-                            abces.ProbTrue.Add(probValue);
-                            abces.ProbFalse.Add(1 - probValue);
-                        }
-                        else
-                        {
-                            if (index <= 11)
-                            {
-                                febra.ProbTrue.Add(probValue);
-                                febra.ProbFalse.Add(1 - probValue);
-                            }
-                            else
-                            {
-                                if (index <= 15)
-                                {
-                                    oboseala.ProbTrue.Add(probValue);
-                                    oboseala.ProbFalse.Add(1 - probValue);
-                                }
-                                else
-                                {
-                                    anorexie.ProbTrue.Add(probValue);
-                                    anorexie.ProbFalse.Add(1 - probValue);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (IOException exception)
-            {
-                Console.WriteLine(exception.StackTrace);
-            }
+            //read defaultValues from file
+            //try
+            //{
+            //    var fileStream = File.OpenRead("defaultValues.txt");
+            //    var streamReader = new StreamReader(fileStream, Encoding.UTF8);
+            //    var content = streamReader.ReadToEnd();
+            //    var values = content.Split(' ', '\n');
+            //    for (var index = 0; index < values.Length; ++index)
+            //    {
+            //        var probValue = double.Parse(values[index]);
+            //        if (index % 2 != 0) continue;
+            //        if (index <= 1)
+            //        {
+            //            gripa.ProbTrue.Add(probValue);
+            //            gripa.ProbFalse.Add(1 - probValue);
+            //        }
+            //        else
+            //        {
+            //            if (index <= 3)
+            //            {
+            //                abces.ProbTrue.Add(probValue);
+            //                abces.ProbFalse.Add(1 - probValue);
+            //            }
+            //            else
+            //            {
+            //                if (index <= 11)
+            //                {
+            //                    febra.ProbTrue.Add(probValue);
+            //                    febra.ProbFalse.Add(1 - probValue);
+            //                }
+            //                else
+            //                {
+            //                    if (index <= 15)
+            //                    {
+            //                        oboseala.ProbTrue.Add(probValue);
+            //                        oboseala.ProbFalse.Add(1 - probValue);
+            //                    }
+            //                    else
+            //                    {
+            //                        anorexie.ProbTrue.Add(probValue);
+            //                        anorexie.ProbFalse.Add(1 - probValue);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (IOException exception)
+            //{
+            //    Console.WriteLine(exception.StackTrace);
+            //}
 
-            //datele pt gripa
-            gripListTextBoxes[0].Text = gripa.ProbTrue.FirstOrDefault().ToString();
-            gripListTextBoxes[1].Text = gripa.ProbFalse.FirstOrDefault().ToString();
+            ////datele pt gripa
+            //gripListTextBoxes[0].Text = gripa.ProbTrue.FirstOrDefault().ToString();
+            //gripListTextBoxes[1].Text = gripa.ProbFalse.FirstOrDefault().ToString();
 
-            //datele pt abces
-            abcesListTextBoxes[0].Text = abces.ProbTrue.FirstOrDefault().ToString();
-            abcesListTextBoxes[1].Text = abces.ProbFalse.FirstOrDefault().ToString();
+            ////datele pt abces
+            //abcesListTextBoxes[0].Text = abces.ProbTrue.FirstOrDefault().ToString();
+            //abcesListTextBoxes[1].Text = abces.ProbFalse.FirstOrDefault().ToString();
 
-            //datele pt febra
-            for (var i = 0; i < febra.ProbTrue.Count; i++)
-            {
-                febraTrueListTextBoxes[i].Text = febra.ProbTrue[i].ToString();
-                febraFalseListTextBoxes[i].Text = febra.ProbFalse[i].ToString();
-            }
+            ////datele pt febra
+            //for (var i = 0; i < febra.ProbTrue.Count; i++)
+            //{
+            //    febraTrueListTextBoxes[i].Text = febra.ProbTrue[i].ToString();
+            //    febraFalseListTextBoxes[i].Text = febra.ProbFalse[i].ToString();
+            //}
 
-            //datele pt oboseala
-            for (var i = 0; i < oboseala.ProbTrue.Count; i++)
-            {
-                obosealaTrueTextBoxes[i].Text = oboseala.ProbTrue[i].ToString();
-                obosealaFalseTextBoxes[i].Text = oboseala.ProbFalse[i].ToString();
-            }
+            ////datele pt oboseala
+            //for (var i = 0; i < oboseala.ProbTrue.Count; i++)
+            //{
+            //    obosealaTrueTextBoxes[i].Text = oboseala.ProbTrue[i].ToString();
+            //    obosealaFalseTextBoxes[i].Text = oboseala.ProbFalse[i].ToString();
+            //}
 
-            //datele pt anorexie
-            for (var i = 0; i < anorexie.ProbTrue.Count; i++)
-            {
-                anorexieTrueTextBoxes[i].Text = anorexie.ProbTrue[i].ToString();
-                anorexieFalseTextBoxes[i].Text = anorexie.ProbFalse[i].ToString();
-            }
+            ////datele pt anorexie
+            //for (var i = 0; i < anorexie.ProbTrue.Count; i++)
+            //{
+            //    anorexieTrueTextBoxes[i].Text = anorexie.ProbTrue[i].ToString();
+            //    anorexieFalseTextBoxes[i].Text = anorexie.ProbFalse[i].ToString();
+            //}
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -216,7 +233,7 @@ namespace BayesianNetworkInterface
         {
             if (currentNode.ListOfParents.Count == 0)
             {
-                return currentNode.ProbTrue.FirstOrDefault();
+                //return currentNode.ProbTrue.FirstOrDefault();
             }
             else
             {
