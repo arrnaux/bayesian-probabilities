@@ -15,7 +15,7 @@ namespace BayesianNetworkInterface
         // TODO: read values from file
         private List<TextBox> gripTrueListTextBoxes = new List<TextBox>();
         private List<TextBox> gripFalseListTextBoxes = new List<TextBox>();
-
+        private List<NodeGeneric> allNodeGenerics;
         private NodeGeneric gripa = new NodeGeneric()
         {
             Name = "Gripa",
@@ -120,6 +120,8 @@ namespace BayesianNetworkInterface
 
             anorexie.ProbTrue = anorexieTrueTextBoxes;
             anorexie.ProbFalse = anorexieFalseTextBoxes;
+
+            allNodeGenerics = new List<NodeGeneric>() {gripa, anorexie, febra, abces, oboseala};
         }
 
         //populare date initiale
@@ -229,17 +231,6 @@ namespace BayesianNetworkInterface
             }
         }
 
-        public double ComputeBayesianNetwork(NodeGeneric currentNode)
-        {
-            if (currentNode.ListOfParents.Count == 0)
-            {
-                //return currentNode.ProbTrue.FirstOrDefault();
-            }
-            else
-            {
-            }
-            return 0;
-        }
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -327,16 +318,15 @@ namespace BayesianNetworkInterface
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var s = new LinkedList<NodeGeneric>();
-            s.AddFirst(gripa);
-            s.AddLast(abces);
-            var l = NodeGeneric.SortareTopologica(s);
-            foreach (var node in l )
+            string nodeName = comboBox1.Text;
+            foreach (var node in allNodeGenerics)
             {
-                resultBox.Text += node.Name + " ";
+                if (node.Name == nodeName)
+                {
+                    resultBox.Text += NodeGeneric.ComputeBayes(node).ToString();
+                    resultBox.Text += "\r\n";
+                }
             }
-
-            resultBox.Text += "\r\n";
         }
     }
 }

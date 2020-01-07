@@ -7,6 +7,13 @@ using System.Windows.Forms;
 
 namespace DataModel
 {
+    public enum IsUsed
+    {
+        TRUE,
+        FALSE,
+        UNSPECIFIED,
+        NA
+    }
     public class NodeGeneric
     {
         //
@@ -19,6 +26,7 @@ namespace DataModel
         public List<TextBox> ProbFalse;
         //valoare observata bool sau index
         public List<NodeGeneric> ListOfChildren;
+        public IsUsed NodeStatus;
         public bool IsObservable { get; set; }
 
         public NodeGeneric()
@@ -29,6 +37,7 @@ namespace DataModel
 
             ProbFalse = new List<TextBox>(ProbTrue.Count);
             IsObservable = false;
+            NodeStatus = IsUsed.NA;
         }
 
         public void SetProbFalse()
@@ -40,34 +49,33 @@ namespace DataModel
             }
         }
 
-        public static LinkedList<NodeGeneric> SortareTopologica(LinkedList<NodeGeneric> s)
+        public static double ComputeBayes(NodeGeneric node)
         {
-            LinkedList<NodeGeneric> l = new LinkedList<NodeGeneric>();
-            while (s.Count != 0)
+            if (node.ListOfParents.Count==0)
             {
-                var n = s.First();
-                s.RemoveFirst();
-                l.AddFirst(n);
-                foreach (var m in l)
+                return double.Parse(node.ProbTrue.FirstOrDefault().Text);
+            }
+            else
+            {
+                var sum = 0.0;
+                foreach (var parents in node.ListOfParents)
                 {
-                    foreach (var x in m.ListOfChildren)
+                    switch (parents.NodeStatus)
                     {
-                        var e = x.ListOfChildren.FirstOrDefault();
-                        if (e != null)
-                        {
-                            x.ListOfChildren.RemoveAt(0);
-                            if (x.ListOfChildren.Count == 0)
-                            {
-                                s.AddFirst(m);
-                            }
-                        }
-
+                        case IsUsed.TRUE:
+                            break;
+                        case IsUsed.FALSE:
+                            break;
+                        case IsUsed.UNSPECIFIED:
+                            break;
+                        case IsUsed.NA:
+                            break;
                     }
+                    //do some magic
                 }
             }
-
-            return l;
-
+            return 0;
         }
+
     }
 }
