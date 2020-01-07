@@ -58,6 +58,8 @@ namespace BayesianNetworkInterface
             ListOfParents = new List<NodeGeneric>(),
         };
 
+        private List<GroupBox> groupBoxList;
+
         public MainForm()
         {
             InitializeComponent();
@@ -122,6 +124,7 @@ namespace BayesianNetworkInterface
             anorexie.ProbFalse = anorexieFalseTextBoxes;
 
             allNodeGenerics = new List<NodeGeneric>() {gripa, anorexie, febra, abces, oboseala};
+            groupBoxList = new List<GroupBox>() { groupBoxGripa, groupBoxAnorexie, groupBoxFebra, groupBoxAbces, groupBoxOboseala };
         }
 
         //populare date initiale
@@ -316,8 +319,49 @@ namespace BayesianNetworkInterface
 
         }
 
+        private void setNodeStatusValue()
+        {
+            for(int i=0; i<groupBoxList.Count; i++)
+            {
+                if(groupBoxList[i].Enabled == true)
+                {
+                    var checkedRadio = groupBoxList[i].Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
+                    string checkedRadioText = checkedRadio.Text;
+  
+                    switch (checkedRadioText)
+                    {
+                        case "Da":
+                            allNodeGenerics[i].NodeStatus = IsUsed.TRUE;
+                            break;
+                        case "Nu":
+                            allNodeGenerics[i].NodeStatus = IsUsed.FALSE;
+                            break;
+                        case "Necunoscut":
+                            allNodeGenerics[i].NodeStatus = IsUsed.UNSPECIFIED;
+                            break;
+                        default:
+                            allNodeGenerics[i].NodeStatus = IsUsed.NA;
+                            break;
+                    }
+                }
+                else
+                {
+                    allNodeGenerics[i].NodeStatus = IsUsed.NA;
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            setNodeStatusValue();
+            for(int i=0; i<allNodeGenerics.Count; i++)
+            {
+                resultBox.Text += allNodeGenerics[i].Name;
+                resultBox.Text += "->";
+                resultBox.Text += allNodeGenerics[i].NodeStatus;
+                resultBox.Text += "\r\n";
+            }
+
             string nodeName = comboBox1.Text;
             foreach (var node in allNodeGenerics)
             {
