@@ -16,6 +16,8 @@ namespace DataModel
     }
     public class NodeGeneric
     {
+        private const int MAX_PARENTS = 10;
+
         //
         //public int NoOfParents { get; set; }
 
@@ -29,6 +31,8 @@ namespace DataModel
         public IsUsed NodeStatus;
         public bool IsObservable { get; set; }
 
+        // TODO: decide when this needs to be populated & allocate memory for it.
+        public double[,] probabilities=null;
         public NodeGeneric()
         {
             ListOfParents = new List<NodeGeneric>();
@@ -38,6 +42,7 @@ namespace DataModel
             ProbFalse = new List<TextBox>(ProbTrue.Count);
             IsObservable = false;
             NodeStatus = IsUsed.NA;
+            probabilities = new double[MAX_PARENTS, MAX_PARENTS];
         }
 
         public void SetProbFalse()

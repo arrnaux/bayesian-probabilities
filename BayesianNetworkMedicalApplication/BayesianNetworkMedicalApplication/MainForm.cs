@@ -123,7 +123,7 @@ namespace BayesianNetworkInterface
             anorexie.ProbTrue = anorexieTrueTextBoxes;
             anorexie.ProbFalse = anorexieFalseTextBoxes;
 
-            allNodeGenerics = new List<NodeGeneric>() {gripa, anorexie, febra, abces, oboseala};
+            allNodeGenerics = new List<NodeGeneric>() { gripa, anorexie, febra, abces, oboseala };
             groupBoxList = new List<GroupBox>() { groupBoxGripa, groupBoxAnorexie, groupBoxFebra, groupBoxAbces, groupBoxOboseala };
         }
 
@@ -321,13 +321,13 @@ namespace BayesianNetworkInterface
 
         private void setNodeStatusValue()
         {
-            for(int i=0; i<groupBoxList.Count; i++)
+            for (int i = 0; i < groupBoxList.Count; i++)
             {
-                if(groupBoxList[i].Enabled == true)
+                if (groupBoxList[i].Enabled == true)
                 {
                     var checkedRadio = groupBoxList[i].Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
                     string checkedRadioText = checkedRadio.Text;
-  
+
                     switch (checkedRadioText)
                     {
                         case "Da":
@@ -354,7 +354,7 @@ namespace BayesianNetworkInterface
         private void button1_Click(object sender, EventArgs e)
         {
             setNodeStatusValue();
-            for(int i=0; i<allNodeGenerics.Count; i++)
+            for (int i = 0; i < allNodeGenerics.Count; i++)
             {
                 resultBox.Text += allNodeGenerics[i].Name;
                 resultBox.Text += "->";
@@ -362,15 +362,27 @@ namespace BayesianNetworkInterface
                 resultBox.Text += "\r\n";
             }
 
-            string nodeName = comboBox1.Text;
-            foreach (var node in allNodeGenerics)
-            {
-                if (node.Name == nodeName)
-                {
-                    resultBox.Text += NodeGeneric.ComputeBayes(node).ToString();
-                    resultBox.Text += "\r\n";
-                }
-            }
+            //string nodeName = comboBox1.Text;
+            //foreach (var node in allNodeGenerics)
+            //{
+            //    if (node.Name == nodeName)
+            //    {
+            //        resultBox.Text += NodeGeneric.ComputeBayes(node).ToString();
+            //        resultBox.Text += "\r\n";
+            //    }
+            //}
+
+
+            // assume that NodeGeneric objects from interface have the options selected.
+            
+            // the node under observation & it's value of truth (TRUE/FALSE)
+            NodeGeneric observedSick = null;
+
+            // the affections are stored in this list
+            List<NodeGeneric> currentAffections = new List<NodeGeneric>();
+            
+            // prob(observedSick) = sum (1,n) [P(observedSick | the others)]
+
         }
     }
 }
