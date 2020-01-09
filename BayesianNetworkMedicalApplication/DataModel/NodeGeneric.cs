@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DataModel
@@ -40,7 +38,7 @@ namespace DataModel
         /// NO             YES             value       value
         /// NO             NO             value       value
         /// </summary>
-        public double[,] probabilities=null;
+        public double[,] probabilities;
 
         public NodeGeneric()
         {
@@ -73,38 +71,55 @@ namespace DataModel
                 if (node.NodeStatus == IsUsed.TRUE)
                 {
                     return node.probabilities[0, 0];
-                } else if (node.NodeStatus == IsUsed.FALSE)
+                }
+
+                if (node.NodeStatus == IsUsed.FALSE)
                 {
                     return node.probabilities[0, 1];
                 }
-           }
-
-
-            if (node.ListOfParents.Count==0)
-            {
-                return double.Parse(node.ProbTrue.FirstOrDefault().Text);
             }
             else
             {
-                var sum = 0.0;
-                foreach (var parents in node.ListOfParents)
+                // TODO: add a function for computing the line
+                // the column should be determined by current node Status
+                // mapping on matrix
+                int columnIndex = -1;
+                int rowIndex = -1;
+                if (node.NodeStatus == IsUsed.TRUE)
                 {
-                    switch (parents.NodeStatus)
+                    columnIndex = 0;
+                }
+                if (node.NodeStatus == IsUsed.FALSE)
+                {
+                    columnIndex = 1;
+                }
+                if (node.ListOfParents.ElementAt(0).NodeStatus == IsUsed.TRUE)
+                {
+                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.TRUE)
                     {
-                        case IsUsed.TRUE:
-                            break;
-                        case IsUsed.FALSE:
-                            break;
-                        case IsUsed.UNSPECIFIED:
-                            break;
-                        case IsUsed.NA:
-                            break;
+                        rowIndex = 0;
                     }
-                    //do some magic
+
+                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.FALSE)
+                    {
+                        rowIndex = 1;
+                    }
+                }
+
+                if (node.ListOfParents.ElementAt(0).NodeStatus == IsUsed.FALSE)
+                {
+                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.TRUE)
+                    {
+                        rowIndex = 2;
+                    }
+
+                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.FALSE)
+                    {
+                        rowIndex = 3;
+                    }
                 }
             }
-            return 0;
         }
-
+ 
     }
 }

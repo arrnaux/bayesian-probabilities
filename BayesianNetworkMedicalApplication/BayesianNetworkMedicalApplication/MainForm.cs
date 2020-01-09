@@ -264,7 +264,7 @@ namespace BayesianNetworkInterface
                         inputTextBox.Clear();
                     }
                     else
-                    {                        
+                    {
                         nextTextBox.Text = (1 - value).ToString();
                     }
                 }
@@ -373,16 +373,27 @@ namespace BayesianNetworkInterface
             //}
 
 
-            // assume that NodeGeneric objects from interface have the options selected.
-            
-            // the node under observation & it's value of truth (TRUE/FALSE)
-            NodeGeneric observedSick = null;
+            // stabileste ce variabila este nod evidenta
+            // @Nicu -> pune-o in variabila de jos
 
-            // the affections are stored in this list
-            List<NodeGeneric> currentAffections = new List<NodeGeneric>();
-            
-            // prob(observedSick) = sum (1,n) [P(observedSick | the others)]
+            NodeGeneric evidenceNode = febra;
+            // aici vin calculate 2 sume, una cu true si una cu false
+            //double trueValue=EnumerateAll(evidenceNode true)
+            //double falseValue=EnumerateAll(evidenceNode false)
+       
+        }
 
+        private double EnumerateAll (List<NodeGeneric> nodesThatMatter, NodeGeneric evidenceNode)
+        {
+            NodeGeneric smth = nodesThatMatter.ElementAt(0);
+            if (smth.NodeStatus != IsUsed.UNSPECIFIED)
+            {
+                nodesThatMatter.Remove(smth);
+                //return probabilitate  * enumerateAll)
+               // functie creata de Igna
+
+            }
+            return -1;
         }
     }
 }
