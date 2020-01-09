@@ -83,6 +83,12 @@ namespace DataModel
                 // TODO: add a function for computing the line
                 // the column should be determined by current node Status
                 // mapping on matrix
+                
+                // Computing the line.
+                // TODO: maybe bit operation will work easier.
+                // for i =0; i<noParents; ++i
+                // first parent has MSB bite. If it's TRUE, that bit is 0, else 1.
+                // do this for every parent. At the end should get the line.
                 int columnIndex = -1;
                 int rowIndex = -1;
                 if (node.NodeStatus == IsUsed.TRUE)
