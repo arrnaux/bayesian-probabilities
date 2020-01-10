@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ namespace DataModel
         UNSPECIFIED,
         NA
     }
+
     public class NodeGeneric
     {
         private const int MAX_PARENTS = 10;
@@ -19,10 +21,11 @@ namespace DataModel
         public List<NodeGeneric> ListOfParents;
         public string Name { get; set; }
         public List<TextBox> ProbTrue;
+
         public List<TextBox> ProbFalse;
         //valoare observata bool sau index
 
-            // NO LONGER USED
+        // NO LONGER USED
         public List<NodeGeneric> ListOfChildren;
         public IsUsed NodeStatus;
         public bool IsObservable { get; set; }
@@ -49,7 +52,9 @@ namespace DataModel
             ProbFalse = new List<TextBox>(ProbTrue.Count);
             IsObservable = false;
             NodeStatus = IsUsed.NA;
-            probabilities = new double[MAX_PARENTS, MAX_PARENTS];
+            
+            // TODO: not MAX_PARENTS. Correct: 2^MAX_PARENTS
+            probabilities = new double[MAX_PARENTS, 2];
         }
 
         public void SetProbFalse()
@@ -65,67 +70,52 @@ namespace DataModel
         {
             // The probability of a node is:
             // the probability of that node if has no parents
-            // the probability conditionated by the parents if it has any
+            // the probability conditioned by the parents if it has any
             if (node.ListOfParents.Count == 0)
             {
                 if (node.NodeStatus == IsUsed.TRUE)
                 {
                     return node.probabilities[0, 0];
                 }
-
-                if (node.NodeStatus == IsUsed.FALSE)
+                else if (node.NodeStatus == IsUsed.FALSE)
                 {
                     return node.probabilities[0, 1];
                 }
             }
             else
             {
-                // TODO: add a function for computing the line
-                // the column should be determined by current node Status
-                // mapping on matrix
+                // The line in matrix is determined by a combination between TRUE/FALSE values of the parents.
+                // The column is determined by TRUE/FALSE status of current node.
+                // In case of TRUE, the column is 0, otherwise 1.
                 
-                // Computing the line.
-                // TODO: maybe bit operation will work easier.
-                // for i =0; i<noParents; ++i
-                // first parent has MSB bite. If it's TRUE, that bit is 0, else 1.
-                // do this for every parent. At the end should get the line.
-                int columnIndex = -1;
-                int rowIndex = -1;
-                if (node.NodeStatus == IsUsed.TRUE)
-                {
-                    columnIndex = 0;
-                }
+                // By default, the variable is set to TRUE.
+                int column = 0;
                 if (node.NodeStatus == IsUsed.FALSE)
                 {
-                    columnIndex = 1;
+                    column = 1;
                 }
-                if (node.ListOfParents.ElementAt(0).NodeStatus == IsUsed.TRUE)
+
+                bool[] correspondingValues = new bool[node.ListOfParents.Count];
+                for (int i = 0; i < node.ListOfParents.Count; ++i)
                 {
-                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.TRUE)
+                    NodeGeneric parent = node.ListOfParents.ElementAt(i);
+                    if (parent.NodeStatus == IsUsed.FALSE)
                     {
-                        rowIndex = 0;
+                        correspondingValues[i] = true;
                     }
-
-                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.FALSE)
+                    else if (parent.NodeStatus == IsUsed.TRUE)
                     {
-                        rowIndex = 1;
-                    }
-                }
-
-                if (node.ListOfParents.ElementAt(0).NodeStatus == IsUsed.FALSE)
-                {
-                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.TRUE)
-                    {
-                        rowIndex = 2;
-                    }
-
-                    if (node.ListOfParents.ElementAt(1).NodeStatus == IsUsed.FALSE)
-                    {
-                        rowIndex = 3;
+                        correspondingValues[i] = false;
                     }
                 }
+
+                var bitArray = new BitArray(correspondingValues);
+                var array = new int[1];
+                bitArray.CopyTo(array, 0);
+                return node.probabilities[array[0], column];
             }
+
+            return -1;
         }
- 
     }
 }
