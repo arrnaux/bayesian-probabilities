@@ -319,8 +319,9 @@ namespace BayesianNetworkInterface
 
         }
 
-        private void setNodeStatusValue()
+        private NodeGeneric setNodeStatusValue()
         {
+            NodeGeneric evidenceNode = new NodeGeneric();
             for (int i = 0; i < groupBoxList.Count; i++)
             {
                 if (groupBoxList[i].Enabled == true)
@@ -341,27 +342,21 @@ namespace BayesianNetworkInterface
                             break;
                         default:
                             allNodeGenerics[i].NodeStatus = IsUsed.NA;
+                            evidenceNode = allNodeGenerics[i];
                             break;
                     }
                 }
                 else
                 {
                     allNodeGenerics[i].NodeStatus = IsUsed.NA;
+                    evidenceNode = allNodeGenerics[i];
                 }
             }
+            return evidenceNode;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            setNodeStatusValue();
-            for (int i = 0; i < allNodeGenerics.Count; i++)
-            {
-                resultBox.Text += allNodeGenerics[i].Name;
-                resultBox.Text += "->";
-                resultBox.Text += allNodeGenerics[i].NodeStatus;
-                resultBox.Text += "\r\n";
-            }
-
             //string nodeName = comboBox1.Text;
             //foreach (var node in allNodeGenerics)
             //{
@@ -373,10 +368,18 @@ namespace BayesianNetworkInterface
             //}
 
 
-            // stabileste ce variabila este nod evidenta
-            // @Nicu -> pune-o in variabila de jos
+            NodeGeneric evidenceNode = setNodeStatusValue();
+            //cod pt debug
+            for (int i = 0; i < allNodeGenerics.Count; i++)
+            {
+                resultBox.Text += allNodeGenerics[i].Name;
+                resultBox.Text += "->";
+                resultBox.Text += allNodeGenerics[i].NodeStatus;
+                resultBox.Text += "\r\n";
+            }
+            resultBox.Text += "\r\nNod evidenta: ";
+            resultBox.Text += evidenceNode.Name;
 
-            NodeGeneric evidenceNode = febra;
             gripa.SetProbabilitis("gripa.txt");
             // aici vin calculate 2 sume, una cu true si una cu false
             //double trueValue=EnumerateAll(evidenceNode true)
