@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace DataModel
@@ -16,7 +18,7 @@ namespace DataModel
 
     public class NodeGeneric
     {
-        private const int MAX_PARENTS = 10;
+        private const int MAX_PARENTS = 3;
 
         public List<NodeGeneric> ListOfParents;
         public string Name { get; set; }
@@ -43,6 +45,8 @@ namespace DataModel
         /// </summary>
         public double[,] probabilities;
 
+
+
         public NodeGeneric()
         {
             ListOfParents = new List<NodeGeneric>();
@@ -52,9 +56,31 @@ namespace DataModel
             ProbFalse = new List<TextBox>(ProbTrue.Count);
             IsObservable = false;
             NodeStatus = IsUsed.NA;
-            
+
             // TODO: not MAX_PARENTS. Correct: 2^MAX_PARENTS
-            probabilities = new double[MAX_PARENTS, 2];
+            probabilities = new double[(int)Math.Pow(2, MAX_PARENTS), 2];
+        }
+
+        public void SetProbabilitis(string textFileName)
+        {
+            try
+            {
+                var fileStream = File.OpenRead(textFileName);
+                var streamReader = new StreamReader(fileStream, Encoding.UTF8);
+                var content = streamReader.ReadToEnd();
+                var values = content.Split(' ', '\n');
+                for (var i = 0; i < values.Length; i++)
+                {
+                    probabilities[i, 0] = Double.Parse(values[i]);
+                    probabilities[i, 1] = 1 - Double.Parse(values[i]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         public void SetProbFalse()
@@ -87,7 +113,7 @@ namespace DataModel
                 // The line in matrix is determined by a combination between TRUE/FALSE values of the parents.
                 // The column is determined by TRUE/FALSE status of current node.
                 // In case of TRUE, the column is 0, otherwise 1.
-                
+
                 // By default, the variable is set to TRUE.
                 int column = 0;
                 if (node.NodeStatus == IsUsed.FALSE)

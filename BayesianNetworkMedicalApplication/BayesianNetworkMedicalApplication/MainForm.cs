@@ -377,6 +377,7 @@ namespace BayesianNetworkInterface
             // @Nicu -> pune-o in variabila de jos
 
             NodeGeneric evidenceNode = febra;
+            gripa.SetProbabilitis("gripa.txt");
             // aici vin calculate 2 sume, una cu true si una cu false
             //double trueValue=EnumerateAll(evidenceNode true)
             //double falseValue=EnumerateAll(evidenceNode false)
