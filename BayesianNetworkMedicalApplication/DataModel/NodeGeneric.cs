@@ -53,6 +53,7 @@ namespace DataModel
         {
             try
             {
+
                 var fileStream = File.OpenRead(textFileName);
                 var streamReader = new StreamReader(fileStream, Encoding.UTF8);
                 var content = streamReader.ReadToEnd();

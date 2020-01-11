@@ -364,7 +364,11 @@ namespace BayesianNetworkInterface
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
+            gripa.SetProbabilitis("gripa.txt");
+            abces.SetProbabilitis("abces.txt");
             febra.SetProbabilitis("febra.txt");
+            oboseala.SetProbabilitis("oboseala.txt");
+            anorexie.SetProbabilitis("anorexie.txt");
             // aici vin calculate 2 sume, una cu true si una cu false
             //double trueValue=EnumerateAll(evidenceNode true)
             //double falseValue=EnumerateAll(evidenceNode false)
