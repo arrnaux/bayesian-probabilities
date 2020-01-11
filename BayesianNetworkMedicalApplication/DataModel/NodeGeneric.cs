@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace DataModel
@@ -46,7 +48,9 @@ namespace DataModel
         {
             try
             {
-
+                CultureInfo ci = new CultureInfo("en-US");
+                Thread.CurrentThread.CurrentCulture = ci;
+                Thread.CurrentThread.CurrentUICulture = ci;
                 var fileStream = File.OpenRead(textFileName);
                 var streamReader = new StreamReader(fileStream, Encoding.UTF8);
                 var content = streamReader.ReadToEnd();
