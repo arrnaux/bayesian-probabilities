@@ -25,8 +25,7 @@ namespace DataModel
         public List<TextBox> ProbTrue;
         public List<TextBox> ProbFalse;
 
-        public Status NodeStatus;
-
+        public Status NodeStatus { get; set; }
 
         /// <summary>
         /// The structure is:
@@ -49,7 +48,7 @@ namespace DataModel
             probabilities = new double[(int)Math.Pow(2, MAX_PARENTS), 2];
         }
 
-        public void SetProbabilitis(string textFileName)
+        public void SetProbabilities(string textFileName)
         {
             try
             {
@@ -84,19 +83,19 @@ namespace DataModel
         /// </summary>
         /// <param name="node"></param>
         /// <returns>A probability of a node with a value (T/F), considering its parents and their values (T/F)</returns>
-        public static double ComputeBayes(NodeGeneric node)
+        public double ComputeProbabilityConsideringParents()
         {
             // The probability of a node is:
             // the probability of that node if has no parents
             // the probability conditioned by the parents if it has any
-            if (node.ListOfParents.Count == 0)
+            if (this.ListOfParents.Count == 0)
             {
-                switch (node.NodeStatus)
+                switch (this.NodeStatus)
                 {
                     case Status.TRUE:
-                        return node.probabilities[0, 0];
+                        return this.probabilities[0, 0];
                     case Status.FALSE:
-                        return node.probabilities[0, 1];
+                        return this.probabilities[0, 1];
                 }
             }
             else
@@ -107,15 +106,15 @@ namespace DataModel
 
                 // By default, the variable is set to TRUE.
                 int column = 0;
-                if (node.NodeStatus == Status.FALSE)
+                if (this.NodeStatus == Status.FALSE)
                 {
                     column = 1;
                 }
 
-                bool[] correspondingValues = new bool[node.ListOfParents.Count];
-                for (int i = 0; i < node.ListOfParents.Count; ++i)
+                bool[] correspondingValues = new bool[this.ListOfParents.Count];
+                for (int i = 0; i < this.ListOfParents.Count; ++i)
                 {
-                    NodeGeneric parent = node.ListOfParents.ElementAt(i);
+                    NodeGeneric parent = this.ListOfParents.ElementAt(i);
                     // TODO: replace this with normal logic, and after that, negate the result.
                     if (parent.NodeStatus == Status.FALSE)
                     {
@@ -130,7 +129,7 @@ namespace DataModel
                 var bitArray = new BitArray(correspondingValues);
                 var array = new int[1];
                 bitArray.CopyTo(array, 0);
-                return node.probabilities[array[0], column];
+                return this.probabilities[array[0], column];
             }
 
             return -1;
