@@ -52,7 +52,15 @@ namespace DataModel
                 ProbFalse[i].Text = probabilities[i, 1].ToString();
             }
         }
-        
+
+        public void SetMatrixValuesFormTextBox()
+        {
+            for (var i = 0; i < ProbTrue.Count; i++)
+            {
+                probabilities[i, 0] = double.Parse(ProbTrue[i].Text);
+                probabilities[i, 1] = double.Parse(ProbFalse[i].Text);
+            }
+        }
         public void SetProbabilities()
         {
             const string basicPath = @"..\..\..\probabilities\";

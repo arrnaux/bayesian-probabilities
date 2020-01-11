@@ -123,86 +123,6 @@ namespace BayesianNetworkInterface
 
             SetProbabilitiesFromFile();
             SetTextBoxProbabilities();
-            //read defaultValues from file
-            //try
-            //{
-            //    var fileStream = File.OpenRead("defaultValues.txt");
-            //    var streamReader = new StreamReader(fileStream, Encoding.UTF8);
-            //    var content = streamReader.ReadToEnd();
-            //    var values = content.Split(' ', '\n');
-            //    for (var index = 0; index < values.Length; ++index)
-            //    {
-            //        var probValue = double.Parse(values[index]);
-            //        if (index % 2 != 0) continue;
-            //        if (index <= 1)
-            //        {
-            //            gripa.ProbTrue.Add(probValue);
-            //            gripa.ProbFalse.Add(1 - probValue);
-            //        }
-            //        else
-            //        {
-            //            if (index <= 3)
-            //            {
-            //                abces.ProbTrue.Add(probValue);
-            //                abces.ProbFalse.Add(1 - probValue);
-            //            }
-            //            else
-            //            {
-            //                if (index <= 11)
-            //                {
-            //                    febra.ProbTrue.Add(probValue);
-            //                    febra.ProbFalse.Add(1 - probValue);
-            //                }
-            //                else
-            //                {
-            //                    if (index <= 15)
-            //                    {
-            //                        oboseala.ProbTrue.Add(probValue);
-            //                        oboseala.ProbFalse.Add(1 - probValue);
-            //                    }
-            //                    else
-            //                    {
-            //                        anorexie.ProbTrue.Add(probValue);
-            //                        anorexie.ProbFalse.Add(1 - probValue);
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (IOException exception)
-            //{
-            //    Console.WriteLine(exception.StackTrace);
-            //}
-
-            ////datele pt gripa
-            //gripListTextBoxes[0].Text = gripa.ProbTrue.FirstOrDefault().ToString();
-            //gripListTextBoxes[1].Text = gripa.ProbFalse.FirstOrDefault().ToString();
-
-            ////datele pt abces
-            //abcesListTextBoxes[0].Text = abces.ProbTrue.FirstOrDefault().ToString();
-            //abcesListTextBoxes[1].Text = abces.ProbFalse.FirstOrDefault().ToString();
-
-            ////datele pt febra
-            //for (var i = 0; i < febra.ProbTrue.Count; i++)
-            //{
-            //    febraTrueListTextBoxes[i].Text = febra.ProbTrue[i].ToString();
-            //    febraFalseListTextBoxes[i].Text = febra.ProbFalse[i].ToString();
-            //}
-
-            ////datele pt oboseala
-            //for (var i = 0; i < oboseala.ProbTrue.Count; i++)
-            //{
-            //    obosealaTrueTextBoxes[i].Text = oboseala.ProbTrue[i].ToString();
-            //    obosealaFalseTextBoxes[i].Text = oboseala.ProbFalse[i].ToString();
-            //}
-
-            ////datele pt anorexie
-            //for (var i = 0; i < anorexie.ProbTrue.Count; i++)
-            //{
-            //    anorexieTrueTextBoxes[i].Text = anorexie.ProbTrue[i].ToString();
-            //    anorexieFalseTextBoxes[i].Text = anorexie.ProbFalse[i].ToString();
-            //}
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -350,6 +270,10 @@ namespace BayesianNetworkInterface
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            //check if it's working
+            SetMatrixValues();
+
             NodeGeneric evidenceNode = setStatusValue();
             //cod pt debug
             for (int i = 0; i < affections.Count; i++)
@@ -362,7 +286,7 @@ namespace BayesianNetworkInterface
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
-            // this.ComputeProbabilityForEvidenceNode();
+                        // this.ComputeProbabilityForEvidenceNode();
             double val = this.ComputeProbabilityForEvidenceNode2();
             resultBox.AppendText("\n" + val);
 
@@ -450,6 +374,14 @@ namespace BayesianNetworkInterface
             foreach (var node in affections)
             {
                 node.SetTextBoxValues();
+            }
+        }
+
+        private void SetMatrixValues()
+        {
+            foreach (var node in affections)
+            {
+                node.SetMatrixValuesFormTextBox();
             }
         }
     }
