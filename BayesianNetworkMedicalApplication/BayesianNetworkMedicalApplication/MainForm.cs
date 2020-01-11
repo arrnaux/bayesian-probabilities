@@ -120,6 +120,9 @@ namespace BayesianNetworkInterface
         //populare date initiale
         private void button2_Click(object sender, EventArgs e)
         {
+
+            SetProbabilitiesFromFile();
+            SetTextBoxProbabilities();
             //read defaultValues from file
             //try
             //{
@@ -359,10 +362,6 @@ namespace BayesianNetworkInterface
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
-            // TODO: move this somewhere else, maybe with a button from UI.
-            // TODO: extract path to a string
-            SetProbabilitiesFromFile();
-
             // this.ComputeProbabilityForEvidenceNode();
             double val = this.ComputeProbabilityForEvidenceNode2();
             resultBox.AppendText("\n" + val);
@@ -444,6 +443,13 @@ namespace BayesianNetworkInterface
             foreach (var node in affections)
             {
                 node.SetProbabilities();
+            }
+        }
+        private void SetTextBoxProbabilities()
+        {
+            foreach (var node in affections)
+            {
+                node.SetTextBoxValues();
             }
         }
     }
