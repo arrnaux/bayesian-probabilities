@@ -359,7 +359,6 @@ namespace BayesianNetworkInterface
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
-
             // TODO: move this somewhere else, maybe with a button from UI.
             // TODO: extract path to a string
             gripa.SetProbabilities("..\\..\\..\\probabilities\\gripa.txt");
@@ -368,7 +367,10 @@ namespace BayesianNetworkInterface
             oboseala.SetProbabilities("..\\..\\..\\probabilities\\oboseala.txt");
             anorexie.SetProbabilities("..\\..\\..\\probabilities\\anorexie.txt");
 
-            this.ComputeProbabilityForEvidenceNode();
+            // this.ComputeProbabilityForEvidenceNode();
+            double val = this.ComputeProbabilityForEvidenceNode2();
+            resultBox.AppendText("\n" + val);
+
         }
 
         /// <summary>
@@ -401,6 +403,40 @@ namespace BayesianNetworkInterface
                 }
                 // TODO: check if same effect can be obtained with equals()
             }
+            double alfa = 1.0 / (trueProb + falseProb);
+            return alfa * trueProb;
+        }
+
+        public double EnumerateAll(List<NodeGeneric> affections)
+        {
+            if (affections.Count == 0)
+            {
+                return 1.0;
+            }
+            // TODO: assure that are 2 different objects, otherwise reference problems will occur
+            List<NodeGeneric> updatedAffections = new List<NodeGeneric>(affections);
+            NodeGeneric affection = affections.ElementAt(0);
+            updatedAffections.RemoveAt(0);
+            if (affection.Status == Status.FALSE || affection.Status == Status.TRUE)
+            {
+                return affection.ComputeProbabilityConsideringParents() * EnumerateAll(updatedAffections);
+            }
+            else
+            {
+                affection.Status = Status.FALSE;
+                double falseValue = affection.ComputeProbabilityConsideringParents() * EnumerateAll(updatedAffections);
+                affection.Status = Status.TRUE;
+                double trueValue = affection.ComputeProbabilityConsideringParents() * EnumerateAll(updatedAffections);
+                return falseValue + trueValue;
+            }
+        }
+
+        public double ComputeProbabilityForEvidenceNode2()
+        {
+            evidenceNode.Status = Status.TRUE;
+            double trueProb = EnumerateAll(affections);
+            evidenceNode.Status = Status.FALSE;
+            double falseProb = EnumerateAll(affections);
             double alfa = 1.0 / (trueProb + falseProb);
             return alfa * trueProb;
         }
