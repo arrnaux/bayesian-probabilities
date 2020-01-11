@@ -10,10 +10,7 @@ namespace DataModel
 {
     public enum Status
     {
-        TRUE,
-        FALSE,
-        UNSPECIFIED,
-        NA
+        TRUE, FALSE, UNSPECIFIED, NA
     }
 
     public class NodeGeneric
@@ -25,7 +22,7 @@ namespace DataModel
         public List<TextBox> ProbTrue;
         public List<TextBox> ProbFalse;
 
-        public Status NodeStatus { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         /// The structure is:
@@ -43,7 +40,7 @@ namespace DataModel
             ProbTrue = new List<TextBox>();
             ProbFalse = new List<TextBox>(ProbTrue.Count);
 
-            NodeStatus = Status.NA;
+            Status = Status.NA;
 
             probabilities = new double[(int)Math.Pow(2, MAX_PARENTS), 2];
         }
@@ -91,7 +88,7 @@ namespace DataModel
             // the probability conditioned by the parents if it has any
             if (this.ListOfParents.Count == 0)
             {
-                switch (this.NodeStatus)
+                switch (this.Status)
                 {
                     case Status.TRUE:
                         return this.probabilities[0, 0];
@@ -107,7 +104,7 @@ namespace DataModel
 
                 // By default, the variable is set to TRUE.
                 int column = 0;
-                if (this.NodeStatus == Status.FALSE)
+                if (this.Status == Status.FALSE)
                 {
                     column = 1;
                 }
@@ -117,11 +114,11 @@ namespace DataModel
                 {
                     NodeGeneric parent = this.ListOfParents.ElementAt(i);
                     // TODO: replace this with normal logic, and after that, negate the result.
-                    if (parent.NodeStatus == Status.FALSE)
+                    if (parent.Status == Status.FALSE)
                     {
                         correspondingValues[i] = true;
                     }
-                    else if (parent.NodeStatus == Status.TRUE)
+                    else if (parent.Status == Status.TRUE)
                     {
                         correspondingValues[i] = false;
                     }
