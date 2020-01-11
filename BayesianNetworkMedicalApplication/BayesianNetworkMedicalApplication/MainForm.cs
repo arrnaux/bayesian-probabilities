@@ -306,6 +306,9 @@ namespace BayesianNetworkInterface
 
         }
 
+        // TODO: refactor this, it's scary :)
+        // TODO: the evidenceNode should be picked by the value from drop-down menu
+        // Or not, @Nicu?
         private NodeGeneric setStatusValue()
         {
             for (int i = 0; i < groupBoxList.Count; i++)
@@ -366,6 +369,11 @@ namespace BayesianNetworkInterface
 
             this.ComputeProbabilityForEvidenceNode();
         }
+
+        /// <summary>
+        /// Computes the probability for the evidence node, considering the entire BN.
+        /// </summary>
+        /// <returns>The value corresponding for evidence node, when its status is T.</returns>
         public double ComputeProbabilityForEvidenceNode()
         {
             // TODO: compute a probability for the case when the variable is T, one for F, find alpha and serve the probability
@@ -386,7 +394,8 @@ namespace BayesianNetworkInterface
                 falseProb *= affection.ComputeProbabilityConsideringParents();
                 // TODO: check if same effect can be obtained with equals()
             }
-            return -1;
+            double alfa = 1.0 / (trueProb + falseProb);
+            return alfa * trueProb;
         }
     }
 }
