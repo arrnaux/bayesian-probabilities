@@ -58,6 +58,7 @@ namespace DataModel
         public void SetTextBoxValues()
         {
             for (var i = 0; i < ProbTrue.Count; i++)
+
             {
                 ProbTrue[i].Text = probabilities[i, 0].ToString();
                 ProbFalse[i].Text = probabilities[i, 1].ToString();
