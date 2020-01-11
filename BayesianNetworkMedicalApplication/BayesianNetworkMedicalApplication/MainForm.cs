@@ -362,14 +362,12 @@ namespace BayesianNetworkInterface
 
             // TODO: move this somewhere else, maybe with a button from UI.
             // TODO: extract path to a string
-            gripa.SetProbabilities("..\\..\\..\\probabilities\\gripa.txt");
-            abces.SetProbabilities("..\\..\\..\\probabilities\\abces.txt");
-            febra.SetProbabilities("..\\..\\..\\probabilities\\febra.txt");
-            oboseala.SetProbabilities("..\\..\\..\\probabilities\\oboseala.txt");
-            anorexie.SetProbabilities("..\\..\\..\\probabilities\\anorexie.txt");
+            SetProbabilitiesFromFile();
 
             this.ComputeProbabilityForEvidenceNode();
         }
+
+
 
         /// <summary>
         /// Computes the probability for the evidence node, considering the entire BN.
@@ -403,6 +401,14 @@ namespace BayesianNetworkInterface
             }
             double alfa = 1.0 / (trueProb + falseProb);
             return alfa * trueProb;
+        }
+
+        private void SetProbabilitiesFromFile()
+        {
+            foreach (var node in affections)
+            {
+                node.SetProbabilities();
+            }
         }
     }
 }
