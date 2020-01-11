@@ -357,11 +357,12 @@ namespace BayesianNetworkInterface
 
 
             // TODO: move this somewhere else, maybe with a button from UI.
-            gripa.SetProbabilities("gripa.txt");
-            abces.SetProbabilities("abces.txt");
-            febra.SetProbabilities("febra.txt");
-            oboseala.SetProbabilities("oboseala.txt");
-            anorexie.SetProbabilities("anorexie.txt");
+            // TODO: extract path to a string
+            gripa.SetProbabilities("..\\..\\..\\probabilities\\gripa.txt");
+            abces.SetProbabilities("..\\..\\..\\probabilities\\abces.txt");
+            febra.SetProbabilities("..\\..\\..\\probabilities\\febra.txt");
+            oboseala.SetProbabilities("..\\..\\..\\probabilities\\oboseala.txt");
+            anorexie.SetProbabilities("..\\..\\..\\probabilities\\anorexie.txt");
 
             this.ComputeProbabilityForEvidenceNode();
         }
