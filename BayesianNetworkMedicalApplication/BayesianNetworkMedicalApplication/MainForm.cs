@@ -15,10 +15,13 @@ namespace BayesianNetworkInterface
         // TODO: read values from file
         private List<TextBox> gripTrueListTextBoxes = new List<TextBox>();
         private List<TextBox> gripFalseListTextBoxes = new List<TextBox>();
-        private List<NodeGeneric> allNodeGenerics;
+        private List<NodeGeneric> affections;
+        NodeGeneric evidenceNode = new NodeGeneric();
+
         private NodeGeneric gripa = new NodeGeneric()
         {
             Name = "Gripa",
+            // Dont know if this is necessarry since this is already defined in the constructor.
             ListOfParents = new List<NodeGeneric>()
         };
 
@@ -28,6 +31,7 @@ namespace BayesianNetworkInterface
         private NodeGeneric abces = new NodeGeneric()
         {
             Name = "Abces",
+            // Dont know if this is necessarry since this is already defined in the constructor.
             ListOfParents = new List<NodeGeneric>()
         };
 
@@ -37,6 +41,7 @@ namespace BayesianNetworkInterface
         private NodeGeneric febra = new NodeGeneric()
         {
             Name = "Febra",
+            // Dont know if this is necessarry since this is already defined in the constructor.
             ListOfParents = new List<NodeGeneric>()
         };
 
@@ -46,6 +51,7 @@ namespace BayesianNetworkInterface
         private NodeGeneric oboseala = new NodeGeneric()
         {
             Name = "Oboseala",
+            // Dont know if this is necessarry since this is already defined in the constructor.
             ListOfParents = new List<NodeGeneric>()
         };
 
@@ -55,6 +61,7 @@ namespace BayesianNetworkInterface
         private NodeGeneric anorexie = new NodeGeneric()
         {
             Name = "Anorexie",
+            // Dont know if this is necessarry since this is already defined in the constructor.
             ListOfParents = new List<NodeGeneric>(),
         };
 
@@ -118,7 +125,7 @@ namespace BayesianNetworkInterface
             anorexie.ProbTrue = anorexieTrueTextBoxes;
             anorexie.ProbFalse = anorexieFalseTextBoxes;
 
-            allNodeGenerics = new List<NodeGeneric>() { gripa, anorexie, febra, abces, oboseala };
+            affections = new List<NodeGeneric>() { gripa, anorexie, febra, abces, oboseala };
             groupBoxList = new List<GroupBox>() { groupBoxGripa, groupBoxAnorexie, groupBoxFebra, groupBoxAbces, groupBoxOboseala };
         }
 
@@ -316,7 +323,6 @@ namespace BayesianNetworkInterface
 
         private NodeGeneric setNodeStatusValue()
         {
-            NodeGeneric evidenceNode = new NodeGeneric();
             for (int i = 0; i < groupBoxList.Count; i++)
             {
                 if (groupBoxList[i].Enabled == true)
@@ -327,24 +333,24 @@ namespace BayesianNetworkInterface
                     switch (checkedRadioText)
                     {
                         case "Da":
-                            allNodeGenerics[i].NodeStatus = Status.TRUE;
+                            affections[i].NodeStatus = Status.TRUE;
                             break;
                         case "Nu":
-                            allNodeGenerics[i].NodeStatus = Status.FALSE;
+                            affections[i].NodeStatus = Status.FALSE;
                             break;
                         case "Necunoscut":
-                            allNodeGenerics[i].NodeStatus = Status.UNSPECIFIED;
+                            affections[i].NodeStatus = Status.UNSPECIFIED;
                             break;
                         default:
-                            allNodeGenerics[i].NodeStatus = Status.NA;
-                            evidenceNode = allNodeGenerics[i];
+                            affections[i].NodeStatus = Status.NA;
+                            evidenceNode = affections[i];
                             break;
                     }
                 }
                 else
                 {
-                    allNodeGenerics[i].NodeStatus = Status.NA;
-                    evidenceNode = allNodeGenerics[i];
+                    affections[i].NodeStatus = Status.NA;
+                    evidenceNode = affections[i];
                 }
             }
             return evidenceNode;
@@ -354,11 +360,11 @@ namespace BayesianNetworkInterface
         {
             NodeGeneric evidenceNode = setNodeStatusValue();
             //cod pt debug
-            for (int i = 0; i < allNodeGenerics.Count; i++)
+            for (int i = 0; i < affections.Count; i++)
             {
-                resultBox.Text += allNodeGenerics[i].Name;
+                resultBox.Text += affections[i].Name;
                 resultBox.Text += "->";
-                resultBox.Text += allNodeGenerics[i].NodeStatus;
+                resultBox.Text += affections[i].NodeStatus;
                 resultBox.Text += "\r\n";
             }
             resultBox.Text += "\r\nNod evidenta: ";
@@ -369,21 +375,20 @@ namespace BayesianNetworkInterface
             febra.SetProbabilitis("febra.txt");
             oboseala.SetProbabilitis("oboseala.txt");
             anorexie.SetProbabilitis("anorexie.txt");
+
             // aici vin calculate 2 sume, una cu true si una cu false
             //double trueValue=EnumerateAll(evidenceNode true)
             //double falseValue=EnumerateAll(evidenceNode false)
-
+            febra.ComputeProbabilityConsideringParents();
         }
-
-        private double EnumerateAll(List<NodeGeneric> nodesThatMatter, NodeGeneric evidenceNode)
+        public double ComputeProbabilityInBN()
         {
-            NodeGeneric smth = nodesThatMatter.ElementAt(0);
-            if (smth.NodeStatus != Status.UNSPECIFIED)
+            // TODO: compute a probability for the case when the variable is T, one for F, find alpha and serve the probability
+            double trueProb = 1, falseProb = 1;
+            // Evidence node is considered to be T. 
+            foreach (var affection in affections)
             {
-                nodesThatMatter.Remove(smth);
-                //return probabilitate  * enumerateAll)
-                // functie creata de Igna
-
+                // TODO: check if same effect can be obtained with equals()
             }
             return -1;
         }
