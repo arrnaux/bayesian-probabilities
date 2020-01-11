@@ -9,15 +9,12 @@ using System.Windows.Forms;
 namespace DataModel
 {
     public enum Status
-    {
-        TRUE, FALSE, UNSPECIFIED, NA
-    }
-
+    { TRUE, FALSE, UNSPECIFIED, NA }
     public class NodeGeneric
     {
         private const int MAX_PARENTS = 3;
-
         public List<NodeGeneric> ListOfParents;
+
         public string Name { get; set; }
         public List<TextBox> ProbTrue;
         public List<TextBox> ProbFalse;
@@ -124,13 +121,21 @@ namespace DataModel
                     }
                 }
 
-                var bitArray = new BitArray(correspondingValues);
-                var array = new int[1];
-                bitArray.CopyTo(array, 0);
-                return this.probabilities[array[0], column];
+                int val = 0;
+                for (int i=0; i<this.ListOfParents.Count; ++i)
+                {
+                    val = (val << 1) | toDigit(correspondingValues[i]);
+                }
+                return this.probabilities[val, column];
             }
-
+            // TODO: probability 0?
             return -1;
         }
+
+        private int toDigit(Boolean b) {
+            return b ? 1 : 0;
+
+        }
+
     }
 }

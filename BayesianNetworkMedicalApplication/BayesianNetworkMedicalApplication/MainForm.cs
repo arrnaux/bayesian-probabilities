@@ -13,6 +13,7 @@ namespace BayesianNetworkInterface
     public partial class MainForm : Form
     {
         // TODO: read values from file
+        // Important: always ensure that the affections are in topological order.
         private List<NodeGeneric> affections;
         NodeGeneric evidenceNode;
 
@@ -112,8 +113,8 @@ namespace BayesianNetworkInterface
             anorexie.ProbTrue = anorexieTrueTextBoxes;
             anorexie.ProbFalse = anorexieFalseTextBoxes;
 
-            affections = new List<NodeGeneric>() { gripa, anorexie, febra, abces, oboseala };
-            groupBoxList = new List<GroupBox>() { groupBoxGripa, groupBoxAnorexie, groupBoxFebra, groupBoxAbces, groupBoxOboseala };
+            affections = new List<NodeGeneric>() { gripa, abces, febra, oboseala, anorexie };
+            groupBoxList = new List<GroupBox>() { groupBoxGripa, groupBoxAbces, groupBoxFebra, groupBoxOboseala, groupBoxAnorexie };
         }
 
         //populare date initiale
@@ -383,7 +384,10 @@ namespace BayesianNetworkInterface
             evidenceNode.Status = Status.TRUE;
             foreach (var affection in affections)
             {
-                trueProb *= affection.ComputeProbabilityConsideringParents();
+                if (affection != evidenceNode)
+                {
+                    trueProb *= affection.ComputeProbabilityConsideringParents();
+                }
                 // TODO: check if same effect can be obtained with equals()
             }
 
@@ -391,7 +395,10 @@ namespace BayesianNetworkInterface
             evidenceNode.Status = Status.FALSE;
             foreach (var affection in affections)
             {
-                falseProb *= affection.ComputeProbabilityConsideringParents();
+                if (affection != evidenceNode)
+                {
+                    falseProb *= affection.ComputeProbabilityConsideringParents();
+                }
                 // TODO: check if same effect can be obtained with equals()
             }
             double alfa = 1.0 / (trueProb + falseProb);
