@@ -12,7 +12,6 @@ namespace BayesianNetworkInterface
 {
     public partial class MainForm : Form
     {
-        // TODO: read values from file
         // Important: always ensure that the affections are in topological order.
         private List<NodeGeneric> affections;
         NodeGeneric evidenceNode;
@@ -266,7 +265,6 @@ namespace BayesianNetworkInterface
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             //check if it's working
             SetMatrixValues();
 
@@ -287,7 +285,7 @@ namespace BayesianNetworkInterface
         /// <returns>The value corresponding for evidence node, when its status is T.</returns>
         public double ComputeProbabilityForEvidenceNode()
         {
-            // TODO: compute a probability for the case when the variable is T, one for F, find alpha and serve the probability
+            // Compute a probability for the case when the variable is T, one for F, find alpha and serve the probability.
             double trueProb = 1, falseProb = 1;
 
             // Evidence node is considered to be T.
@@ -342,6 +340,7 @@ namespace BayesianNetworkInterface
                 affection.Status = Status.TRUE;
                 double trueValue = affection.ComputeProbabilityConsideringParents();
                 trueValue*= EnumerateAll(copy2);
+                affection.Status = Status.UNSPECIFIED;
                 return falseValue + trueValue;
             }
         }

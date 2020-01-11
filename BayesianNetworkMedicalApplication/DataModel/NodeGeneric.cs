@@ -147,6 +147,7 @@ namespace DataModel
                 {
                     NodeGeneric parent = this.ListOfParents.ElementAt(i);
                     // TODO: replace this with normal logic, and after that, negate the result.
+                    // @Ștefan
                     if (parent.Status == Status.FALSE)
                     {
                         correspondingValues[i] = true;
