@@ -230,10 +230,7 @@ namespace BayesianNetworkInterface
 
         }
 
-        // TODO: refactor this, it's scary :)
-        // TODO: the evidenceNode should be picked by the value from drop-down menu
-        // Or not, @Nicu?
-        private NodeGeneric setStatusValue()
+        private void setStatusValue()
         {
             for (int i = 0; i < groupBoxList.Count; i++)
             {
@@ -265,7 +262,6 @@ namespace BayesianNetworkInterface
                     evidenceNode = affections[i];
                 }
             }
-            return evidenceNode;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -274,21 +270,14 @@ namespace BayesianNetworkInterface
             //check if it's working
             SetMatrixValues();
 
-            NodeGeneric evidenceNode = setStatusValue();
-            //cod pt debug
-            for (int i = 0; i < affections.Count; i++)
-            {
-                resultBox.Text += affections[i].Name;
-                resultBox.Text += "->";
-                resultBox.Text += affections[i].Status;
-                resultBox.Text += "\r\n";
-            }
+            setStatusValue();
+            
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
-                        // this.ComputeProbabilityForEvidenceNode();
+            // this.ComputeProbabilityForEvidenceNode();
             double val = this.ComputeProbabilityForEvidenceNode2();
-            resultBox.AppendText("\n" + val);
+            resultBox.AppendText("\r\n" + val);
 
         }
 
