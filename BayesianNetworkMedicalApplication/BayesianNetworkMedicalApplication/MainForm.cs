@@ -369,8 +369,6 @@ namespace BayesianNetworkInterface
 
         }
 
-
-
         /// <summary>
         /// Computes the probability for the evidence node, considering the entire BN.
         /// </summary>
@@ -412,29 +410,38 @@ namespace BayesianNetworkInterface
                 return 1.0;
             }
             // TODO: assure that are 2 different objects, otherwise reference problems will occur
-            List<NodeGeneric> updatedAffections = new List<NodeGeneric>(affections);
+            //List<NodeGeneric> updatedAffections = new List<NodeGeneric>(affections);
             NodeGeneric affection = affections.ElementAt(0);
-            updatedAffections.RemoveAt(0);
+            affections.RemoveAt(0);
             if (affection.Status == Status.FALSE || affection.Status == Status.TRUE)
             {
-                return affection.ComputeProbabilityConsideringParents() * EnumerateAll(updatedAffections);
+                double val = affection.ComputeProbabilityConsideringParents();
+                return val * EnumerateAll(affections);
             }
             else
             {
+                List<NodeGeneric> copy1 = new List<NodeGeneric>(affections);
+                List<NodeGeneric> copy2 = new List<NodeGeneric>(affections);
                 affection.Status = Status.FALSE;
-                double falseValue = affection.ComputeProbabilityConsideringParents() * EnumerateAll(updatedAffections);
+                double falseValue = affection.ComputeProbabilityConsideringParents();
+                falseValue*= EnumerateAll(copy1);
+
+                // here affections is empty and returns 1
                 affection.Status = Status.TRUE;
-                double trueValue = affection.ComputeProbabilityConsideringParents() * EnumerateAll(updatedAffections);
+                double trueValue = affection.ComputeProbabilityConsideringParents();
+                trueValue*= EnumerateAll(copy2);
                 return falseValue + trueValue;
             }
         }
 
         public double ComputeProbabilityForEvidenceNode2()
         {
+            List<NodeGeneric> copy = new List<NodeGeneric>(affections);
+            List<NodeGeneric> copy2 = new List<NodeGeneric>(affections);
             evidenceNode.Status = Status.TRUE;
-            double trueProb = EnumerateAll(affections);
+            double trueProb = EnumerateAll(copy);
             evidenceNode.Status = Status.FALSE;
-            double falseProb = EnumerateAll(affections);
+            double falseProb = EnumerateAll(copy2);
             double alfa = 1.0 / (trueProb + falseProb);
             return alfa * trueProb;
         }
