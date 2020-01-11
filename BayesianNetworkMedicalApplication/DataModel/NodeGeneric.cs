@@ -44,14 +44,17 @@ namespace DataModel
             probabilities = new double[(int)Math.Pow(2, MAX_PARENTS), 2];
         }
 
-        public void SetProbabilities(string textFileName)
+        public void SetProbabilities()
         {
+            const string basicPath = @"..\..\..\probabilities\";
             try
             {
+                var fileName = Path.Combine(basicPath, Name.ToLower() + ".txt");
+                
                 CultureInfo ci = new CultureInfo("en-US");
                 Thread.CurrentThread.CurrentCulture = ci;
                 Thread.CurrentThread.CurrentUICulture = ci;
-                var fileStream = File.OpenRead(textFileName);
+                var fileStream = File.OpenRead(fileName);
                 var streamReader = new StreamReader(fileStream, Encoding.UTF8);
                 var content = streamReader.ReadToEnd();
                 var values = content.Split(' ', '\n');
