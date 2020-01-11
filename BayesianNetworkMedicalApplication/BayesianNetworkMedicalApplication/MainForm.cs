@@ -69,11 +69,6 @@ namespace BayesianNetworkInterface
             oboseala.ListOfParents.Add(febra);
             anorexie.ListOfParents.Add(febra);
 
-            gripa.ListOfChildren.Add(febra);
-            abces.ListOfChildren.Add(febra);
-            febra.ListOfChildren.Add(oboseala);
-            febra.ListOfChildren.Add(anorexie);
-
             gripa.SetProbFalse();
             abces.SetProbFalse();
             febra.SetProbFalse();
@@ -332,23 +327,23 @@ namespace BayesianNetworkInterface
                     switch (checkedRadioText)
                     {
                         case "Da":
-                            allNodeGenerics[i].NodeStatus = IsUsed.TRUE;
+                            allNodeGenerics[i].NodeStatus = Status.TRUE;
                             break;
                         case "Nu":
-                            allNodeGenerics[i].NodeStatus = IsUsed.FALSE;
+                            allNodeGenerics[i].NodeStatus = Status.FALSE;
                             break;
                         case "Necunoscut":
-                            allNodeGenerics[i].NodeStatus = IsUsed.UNSPECIFIED;
+                            allNodeGenerics[i].NodeStatus = Status.UNSPECIFIED;
                             break;
                         default:
-                            allNodeGenerics[i].NodeStatus = IsUsed.NA;
+                            allNodeGenerics[i].NodeStatus = Status.NA;
                             evidenceNode = allNodeGenerics[i];
                             break;
                     }
                 }
                 else
                 {
-                    allNodeGenerics[i].NodeStatus = IsUsed.NA;
+                    allNodeGenerics[i].NodeStatus = Status.NA;
                     evidenceNode = allNodeGenerics[i];
                 }
             }
@@ -357,17 +352,6 @@ namespace BayesianNetworkInterface
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string nodeName = comboBox1.Text;
-            //foreach (var node in allNodeGenerics)
-            //{
-            //    if (node.Name == nodeName)
-            //    {
-            //        resultBox.Text += NodeGeneric.ComputeBayes(node).ToString();
-            //        resultBox.Text += "\r\n";
-            //    }
-            //}
-
-
             NodeGeneric evidenceNode = setNodeStatusValue();
             //cod pt debug
             for (int i = 0; i < allNodeGenerics.Count; i++)
@@ -380,21 +364,21 @@ namespace BayesianNetworkInterface
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
-            gripa.SetProbabilitis("gripa.txt");
+            febra.SetProbabilitis("febra.txt");
             // aici vin calculate 2 sume, una cu true si una cu false
             //double trueValue=EnumerateAll(evidenceNode true)
             //double falseValue=EnumerateAll(evidenceNode false)
-       
+
         }
 
-        private double EnumerateAll (List<NodeGeneric> nodesThatMatter, NodeGeneric evidenceNode)
+        private double EnumerateAll(List<NodeGeneric> nodesThatMatter, NodeGeneric evidenceNode)
         {
             NodeGeneric smth = nodesThatMatter.ElementAt(0);
-            if (smth.NodeStatus != IsUsed.UNSPECIFIED)
+            if (smth.NodeStatus != Status.UNSPECIFIED)
             {
                 nodesThatMatter.Remove(smth);
                 //return probabilitate  * enumerateAll)
-               // functie creata de Igna
+                // functie creata de Igna
 
             }
             return -1;

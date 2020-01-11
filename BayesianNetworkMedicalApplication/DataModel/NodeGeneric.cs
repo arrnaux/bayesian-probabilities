@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace DataModel
 {
-    public enum IsUsed
+    public enum Status
     {
         TRUE,
         FALSE,
@@ -23,41 +23,29 @@ namespace DataModel
         public List<NodeGeneric> ListOfParents;
         public string Name { get; set; }
         public List<TextBox> ProbTrue;
-
         public List<TextBox> ProbFalse;
-        //valoare observata bool sau index
 
-        // NO LONGER USED
-        public List<NodeGeneric> ListOfChildren;
-        public IsUsed NodeStatus;
-        public bool IsObservable { get; set; }
+        public Status NodeStatus;
 
-        // TODO: decide when this needs to be populated & allocate memory for it.
-        // Also, this can replace the list for ProbTrue/ProbFalse
-        // Should be allocated with 2*nX 2 linesXcolumns, where n = noParents.
+
         /// <summary>
         /// The structure is:
         /// FIRST PARENT    SECOND PARENT   NODE YES    NODE NO
         /// YES             YES             value       value
-        /// YES             NO             value       value
-        /// NO             YES             value       value
-        /// NO             NO             value       value
+        /// YES             NO              value       value
+        /// NO              YES             value       value
+        /// NO              NO              value       value
         /// </summary>
         public double[,] probabilities;
-
-
 
         public NodeGeneric()
         {
             ListOfParents = new List<NodeGeneric>();
-            ListOfChildren = new List<NodeGeneric>();
             ProbTrue = new List<TextBox>();
-
             ProbFalse = new List<TextBox>(ProbTrue.Count);
-            IsObservable = false;
-            NodeStatus = IsUsed.NA;
 
-            // TODO: not MAX_PARENTS. Correct: 2^MAX_PARENTS
+            NodeStatus = Status.NA;
+
             probabilities = new double[(int)Math.Pow(2, MAX_PARENTS), 2];
         }
 
@@ -80,7 +68,6 @@ namespace DataModel
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         public void SetProbFalse()
@@ -92,6 +79,11 @@ namespace DataModel
             }
         }
 
+        /// <summary>
+        /// Compute a probability for a node.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns>A probability of a node with a value (T/F), considering its parents and their values (T/F)</returns>
         public static double ComputeBayes(NodeGeneric node)
         {
             // The probability of a node is:
@@ -99,13 +91,12 @@ namespace DataModel
             // the probability conditioned by the parents if it has any
             if (node.ListOfParents.Count == 0)
             {
-                if (node.NodeStatus == IsUsed.TRUE)
+                switch (node.NodeStatus)
                 {
-                    return node.probabilities[0, 0];
-                }
-                else if (node.NodeStatus == IsUsed.FALSE)
-                {
-                    return node.probabilities[0, 1];
+                    case Status.TRUE:
+                        return node.probabilities[0, 0];
+                    case Status.FALSE:
+                        return node.probabilities[0, 1];
                 }
             }
             else
@@ -116,7 +107,7 @@ namespace DataModel
 
                 // By default, the variable is set to TRUE.
                 int column = 0;
-                if (node.NodeStatus == IsUsed.FALSE)
+                if (node.NodeStatus == Status.FALSE)
                 {
                     column = 1;
                 }
@@ -125,11 +116,12 @@ namespace DataModel
                 for (int i = 0; i < node.ListOfParents.Count; ++i)
                 {
                     NodeGeneric parent = node.ListOfParents.ElementAt(i);
-                    if (parent.NodeStatus == IsUsed.FALSE)
+                    // TODO: replace this with normal logic, and after that, negate the result.
+                    if (parent.NodeStatus == Status.FALSE)
                     {
                         correspondingValues[i] = true;
                     }
-                    else if (parent.NodeStatus == IsUsed.TRUE)
+                    else if (parent.NodeStatus == Status.TRUE)
                     {
                         correspondingValues[i] = false;
                     }
