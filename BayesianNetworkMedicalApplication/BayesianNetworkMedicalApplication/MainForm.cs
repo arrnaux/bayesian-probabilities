@@ -203,7 +203,6 @@ namespace BayesianNetworkInterface
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             string data = comboBox1.Text;
 
             foreach (var c in Controls)
@@ -222,7 +221,6 @@ namespace BayesianNetworkInterface
                 }
             }
         }
-
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -357,18 +355,17 @@ namespace BayesianNetworkInterface
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
-            gripa.SetProbabilitis("gripa.txt");
-            abces.SetProbabilitis("abces.txt");
-            febra.SetProbabilitis("febra.txt");
-            oboseala.SetProbabilitis("oboseala.txt");
-            anorexie.SetProbabilitis("anorexie.txt");
 
-            // aici vin calculate 2 sume, una cu true si una cu false
-            //double trueValue=EnumerateAll(evidenceNode true)
-            //double falseValue=EnumerateAll(evidenceNode false)
-            febra.ComputeProbabilityConsideringParents();
+            // TODO: move this somewhere else, maybe with a button from UI.
+            gripa.SetProbabilities("gripa.txt");
+            abces.SetProbabilities("abces.txt");
+            febra.SetProbabilities("febra.txt");
+            oboseala.SetProbabilities("oboseala.txt");
+            anorexie.SetProbabilities("anorexie.txt");
+
+            this.ComputeProbabilityForEvidenceNode();
         }
-        public double ComputeProbabilityInBN()
+        public double ComputeProbabilityForEvidenceNode()
         {
             // TODO: compute a probability for the case when the variable is T, one for F, find alpha and serve the probability
             double trueProb = 1, falseProb = 1;
