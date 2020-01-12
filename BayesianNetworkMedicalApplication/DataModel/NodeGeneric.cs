@@ -20,16 +20,6 @@ namespace DataModel
 
     public class NodeGeneric : IEquatable<NodeGeneric>
     {
-        public static bool operator ==(NodeGeneric left, NodeGeneric right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(NodeGeneric left, NodeGeneric right)
-        {
-            return !Equals(left, right);
-        }
-
         private const int MaxParents = 3;
         public List<NodeGeneric> ListOfParents;
 
@@ -103,7 +93,7 @@ namespace DataModel
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 throw;
             }
         }

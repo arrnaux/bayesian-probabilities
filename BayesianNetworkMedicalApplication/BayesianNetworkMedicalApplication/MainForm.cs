@@ -183,7 +183,7 @@ namespace BayesianNetworkInterface
             }
         }
 
-        private void setStatusValue()
+        private void SetStatusValue()
         {
             for (int i = 0; i < groupBoxList.Count; i++)
             {
@@ -222,17 +222,15 @@ namespace BayesianNetworkInterface
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //check if it's working
             SetMatrixValues();
-
-            setStatusValue();
+            SetStatusValue();
 
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
             // this.ComputeProbabilityForEvidenceNode();
-            double val = this.ComputeEvidenceNodeProbability();
-            resultBox.AppendText("\r\n" + val);
+            double val = this.ComputeEvidenceNodeProbability()*100;
+            resultBox.AppendText("\r\n" + val + "%");
         }
         
 //        public double ComputeProbabilityForEvidenceNode()
