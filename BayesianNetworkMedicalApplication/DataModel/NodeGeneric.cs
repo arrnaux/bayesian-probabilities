@@ -73,12 +73,13 @@ namespace DataModel
                 probabilities[i, 1] = double.Parse(ProbFalse[i].Text);
             }
         }
-        public void SetProbabilities()
+        public void SetProbabilities(bool labValue)
         {
             const string basicPath = @"..\..\..\probabilities\";
             try
             {
-                var fileName = Path.Combine(basicPath, Name.ToLower() + ".txt");
+
+                var fileName = (labValue)? Path.Combine(basicPath, "laborator",Name.ToLower() + ".txt") : Path.Combine(basicPath, "date", Name.ToLower() + ".txt");
 
                 CultureInfo ci = new CultureInfo("en-US");
                 Thread.CurrentThread.CurrentCulture = ci;

@@ -120,7 +120,7 @@ namespace BayesianNetworkInterface
         private void button2_Click(object sender, EventArgs e)
         {
 
-            SetProbabilitiesFromFile();
+            SetProbabilitiesFromFile(true);
             SetTextBoxProbabilities();
         }
 
@@ -357,11 +357,11 @@ namespace BayesianNetworkInterface
             return alfa * trueProb;
         }
 
-        private void SetProbabilitiesFromFile()
+        private void SetProbabilitiesFromFile(bool labValue)
         {
             foreach (var node in affections)
             {
-                node.SetProbabilities();
+                node.SetProbabilities(labValue);
             }
         }
         private void SetTextBoxProbabilities()
@@ -378,6 +378,12 @@ namespace BayesianNetworkInterface
             {
                 node.SetMatrixValuesFormTextBox();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SetProbabilitiesFromFile(false);
+            SetTextBoxProbabilities();
         }
     }
 }
