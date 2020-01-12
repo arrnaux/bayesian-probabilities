@@ -143,14 +143,18 @@ namespace DataModel
                     // @Ștefan
                     if (parent.Status == Status.FALSE)
                     {
-                        correspondingValues[i] = true;
+                        correspondingValues[i] = false;
                     }
                     else if (parent.Status == Status.TRUE)
                     {
-                        correspondingValues[i] = false;
+                        correspondingValues[i] = true;
                     }
                 }
 
+                for (int i = 0; i < ListOfParents.Count; i++)
+                {
+                    correspondingValues[i] = correspondingValues[i] ^ true;
+                }
                 int val = 0;
                 for (int i = 0; i < this.ListOfParents.Count; ++i)
                 {
