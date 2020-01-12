@@ -101,14 +101,6 @@ namespace DataModel
             }
         }
 
-        public void SetProbFalse()
-        {
-            for (int i = 0; i < ProbTrue.Count; i++)
-            {
-                var x = Double.Parse(ProbTrue[i].Text);
-                ProbFalse[i].Text = (1.0 - x).ToString();
-            }
-        }
 
         /// <summary>
         /// Compute a probability for a node.

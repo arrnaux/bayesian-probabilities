@@ -58,63 +58,16 @@ namespace BayesianNetworkInterface
         {
             InitializeComponent();
 
-            febra.ListOfParents.Add(gripa);
-            febra.ListOfParents.Add(abces);
-            oboseala.ListOfParents.Add(febra);
-            anorexie.ListOfParents.Add(febra);
-
-            gripa.SetProbFalse();
-            abces.SetProbFalse();
-            febra.SetProbFalse();
-            oboseala.SetProbFalse();
-            anorexie.SetProbFalse();
-
-            gripTrueListTextBoxes.Add(textBox1); //PGd
-            gripFalseListTextBoxes.Add(textBox2); //PGn
-
-            gripa.ProbTrue = gripTrueListTextBoxes;
-            gripa.ProbFalse = gripFalseListTextBoxes;
-
-            abcesTrueListTextBoxes.Add(textBox3); //PAd
-            abcesFalseListTextBoxes.Add(textBox4); //PAn
-
-            abces.ProbTrue = abcesTrueListTextBoxes;
-            abces.ProbFalse = abcesFalseListTextBoxes;
-
-            febraTrueListTextBoxes.Add(textBox5);
-            febraTrueListTextBoxes.Add(textBox7);
-            febraTrueListTextBoxes.Add(textBox9);
-            febraTrueListTextBoxes.Add(textBox11);
-
-            febraFalseListTextBoxes.Add(textBox6);
-            febraFalseListTextBoxes.Add(textBox8);
-            febraFalseListTextBoxes.Add(textBox10);
-            febraFalseListTextBoxes.Add(textBox12);
-
-            febra.ProbTrue = febraTrueListTextBoxes;
-            febra.ProbFalse = febraFalseListTextBoxes;
-
-            obosealaTrueTextBoxes.Add(textBox13);
-            obosealaTrueTextBoxes.Add(textBox15);
-
-            obosealaFalseTextBoxes.Add(textBox14);
-            obosealaFalseTextBoxes.Add(textBox16);
-
-            oboseala.ProbTrue = obosealaTrueTextBoxes;
-            oboseala.ProbFalse = obosealaFalseTextBoxes;
-
-            anorexieTrueTextBoxes.Add(textBox17);
-            anorexieTrueTextBoxes.Add(textBox19);
-
-            anorexieFalseTextBoxes.Add(textBox18);
-            anorexieFalseTextBoxes.Add(textBox20);
-
-            anorexie.ProbTrue = anorexieTrueTextBoxes;
-            anorexie.ProbFalse = anorexieFalseTextBoxes;
+            SetNodeProperties();
 
             affections = new List<NodeGeneric>() { gripa, abces, febra, oboseala, anorexie };
             groupBoxList = new List<GroupBox>() { groupBoxGripa, groupBoxAbces, groupBoxFebra, groupBoxOboseala, groupBoxAnorexie };
+
+            SetProbabilitiesFromFile(true);
+            SetTextBoxProbabilities();
         }
+
+        
 
         //populare date initiale
         private void button2_Click(object sender, EventArgs e)
@@ -384,6 +337,56 @@ namespace BayesianNetworkInterface
         {
             SetProbabilitiesFromFile(false);
             SetTextBoxProbabilities();
+        }
+        private void SetNodeProperties()
+        {
+            febra.ListOfParents.Add(gripa);
+            febra.ListOfParents.Add(abces);
+            oboseala.ListOfParents.Add(febra);
+            anorexie.ListOfParents.Add(febra);
+
+            gripTrueListTextBoxes.Add(textBox1); //PGd
+            gripFalseListTextBoxes.Add(textBox2); //PGn
+
+            gripa.ProbTrue = gripTrueListTextBoxes;
+            gripa.ProbFalse = gripFalseListTextBoxes;
+
+            abcesTrueListTextBoxes.Add(textBox3); //PAd
+            abcesFalseListTextBoxes.Add(textBox4); //PAn
+
+            abces.ProbTrue = abcesTrueListTextBoxes;
+            abces.ProbFalse = abcesFalseListTextBoxes;
+
+            febraTrueListTextBoxes.Add(textBox5);
+            febraTrueListTextBoxes.Add(textBox7);
+            febraTrueListTextBoxes.Add(textBox9);
+            febraTrueListTextBoxes.Add(textBox11);
+
+            febraFalseListTextBoxes.Add(textBox6);
+            febraFalseListTextBoxes.Add(textBox8);
+            febraFalseListTextBoxes.Add(textBox10);
+            febraFalseListTextBoxes.Add(textBox12);
+
+            febra.ProbTrue = febraTrueListTextBoxes;
+            febra.ProbFalse = febraFalseListTextBoxes;
+
+            obosealaTrueTextBoxes.Add(textBox13);
+            obosealaTrueTextBoxes.Add(textBox15);
+
+            obosealaFalseTextBoxes.Add(textBox14);
+            obosealaFalseTextBoxes.Add(textBox16);
+
+            oboseala.ProbTrue = obosealaTrueTextBoxes;
+            oboseala.ProbFalse = obosealaFalseTextBoxes;
+
+            anorexieTrueTextBoxes.Add(textBox17);
+            anorexieTrueTextBoxes.Add(textBox19);
+
+            anorexieFalseTextBoxes.Add(textBox18);
+            anorexieFalseTextBoxes.Add(textBox20);
+
+            anorexie.ProbTrue = anorexieTrueTextBoxes;
+            anorexie.ProbFalse = anorexieFalseTextBoxes;
         }
     }
 }
