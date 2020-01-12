@@ -106,6 +106,7 @@
             this.groupBoxAnorexie = new System.Windows.Forms.GroupBox();
             this.label33 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.label34 = new System.Windows.Forms.Label();
             this.groupBoxGripa.SuspendLayout();
             this.groupBoxAbces.SuspendLayout();
             this.groupBoxFebra.SuspendLayout();
@@ -115,7 +116,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 325);
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(15, 320);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -141,7 +143,7 @@
             "Febra",
             "Oboseala",
             "Anorexie"});
-            this.comboBox1.Location = new System.Drawing.Point(133, 26);
+            this.comboBox1.Location = new System.Drawing.Point(133, 20);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(135, 21);
             this.comboBox1.TabIndex = 3;
@@ -514,7 +516,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(12, 379);
+            this.label25.Location = new System.Drawing.Point(12, 384);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(46, 13);
             this.label25.TabIndex = 52;
@@ -522,7 +524,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(171, 325);
+            this.button2.Location = new System.Drawing.Point(171, 320);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(97, 23);
             this.button2.TabIndex = 53;
@@ -785,7 +787,7 @@
             this.groupBoxGripa.Controls.Add(this.radioButton1);
             this.groupBoxGripa.Controls.Add(this.radioButton2);
             this.groupBoxGripa.Controls.Add(this.radioButton3);
-            this.groupBoxGripa.Location = new System.Drawing.Point(15, 72);
+            this.groupBoxGripa.Location = new System.Drawing.Point(16, 83);
             this.groupBoxGripa.Name = "groupBoxGripa";
             this.groupBoxGripa.Size = new System.Drawing.Size(253, 38);
             this.groupBoxGripa.TabIndex = 78;
@@ -797,7 +799,7 @@
             this.groupBoxAbces.Controls.Add(this.radioButton6);
             this.groupBoxAbces.Controls.Add(this.radioButton5);
             this.groupBoxAbces.Controls.Add(this.radioButton4);
-            this.groupBoxAbces.Location = new System.Drawing.Point(15, 116);
+            this.groupBoxAbces.Location = new System.Drawing.Point(16, 127);
             this.groupBoxAbces.Name = "groupBoxAbces";
             this.groupBoxAbces.Size = new System.Drawing.Size(253, 38);
             this.groupBoxAbces.TabIndex = 79;
@@ -809,7 +811,7 @@
             this.groupBoxFebra.Controls.Add(this.radioButton9);
             this.groupBoxFebra.Controls.Add(this.radioButton8);
             this.groupBoxFebra.Controls.Add(this.radioButton7);
-            this.groupBoxFebra.Location = new System.Drawing.Point(15, 160);
+            this.groupBoxFebra.Location = new System.Drawing.Point(16, 171);
             this.groupBoxFebra.Name = "groupBoxFebra";
             this.groupBoxFebra.Size = new System.Drawing.Size(253, 38);
             this.groupBoxFebra.TabIndex = 80;
@@ -821,7 +823,7 @@
             this.groupBoxOboseala.Controls.Add(this.label31);
             this.groupBoxOboseala.Controls.Add(this.radioButton12);
             this.groupBoxOboseala.Controls.Add(this.radioButton10);
-            this.groupBoxOboseala.Location = new System.Drawing.Point(15, 204);
+            this.groupBoxOboseala.Location = new System.Drawing.Point(16, 215);
             this.groupBoxOboseala.Name = "groupBoxOboseala";
             this.groupBoxOboseala.Size = new System.Drawing.Size(253, 38);
             this.groupBoxOboseala.TabIndex = 81;
@@ -833,7 +835,7 @@
             this.groupBoxAnorexie.Controls.Add(this.label32);
             this.groupBoxAnorexie.Controls.Add(this.radioButton15);
             this.groupBoxAnorexie.Controls.Add(this.radioButton14);
-            this.groupBoxAnorexie.Location = new System.Drawing.Point(15, 249);
+            this.groupBoxAnorexie.Location = new System.Drawing.Point(16, 260);
             this.groupBoxAnorexie.Name = "groupBoxAnorexie";
             this.groupBoxAnorexie.Size = new System.Drawing.Size(253, 38);
             this.groupBoxAnorexie.TabIndex = 82;
@@ -842,15 +844,15 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(13, 26);
+            this.label33.Location = new System.Drawing.Point(14, 23);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(114, 13);
+            this.label33.Size = new System.Drawing.Size(115, 13);
             this.label33.TabIndex = 83;
-            this.label33.Text = "Probabilitate de calcul:";
+            this.label33.Text = "Variabila de interogare:";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(171, 354);
+            this.button3.Location = new System.Drawing.Point(171, 352);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(97, 23);
             this.button3.TabIndex = 84;
@@ -858,11 +860,21 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(14, 61);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(100, 13);
+            this.label34.TabIndex = 85;
+            this.label34.Text = "Variabile observate:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 490);
+            this.Controls.Add(this.label34);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.groupBoxAnorexie);
@@ -1017,6 +1029,7 @@
         private System.Windows.Forms.GroupBox groupBoxAnorexie;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label34;
     }
 }
 
