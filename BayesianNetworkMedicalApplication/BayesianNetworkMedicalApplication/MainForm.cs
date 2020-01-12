@@ -14,12 +14,13 @@ namespace BayesianNetworkInterface
     {
         // Important: always ensure that the affections are in topological order.
         private List<NodeGeneric> affections;
-        NodeGeneric evidenceNode;
+        private NodeGeneric evidenceNode;
 
         private NodeGeneric gripa = new NodeGeneric()
         {
             Name = "Gripa"
         };
+
         private List<TextBox> gripTrueListTextBoxes = new List<TextBox>();
         private List<TextBox> gripFalseListTextBoxes = new List<TextBox>();
 
@@ -27,6 +28,7 @@ namespace BayesianNetworkInterface
         {
             Name = "Abces"
         };
+
         private List<TextBox> abcesTrueListTextBoxes = new List<TextBox>();
         private List<TextBox> abcesFalseListTextBoxes = new List<TextBox>();
 
@@ -34,6 +36,7 @@ namespace BayesianNetworkInterface
         {
             Name = "Febra"
         };
+
         private List<TextBox> febraTrueListTextBoxes = new List<TextBox>();
         private List<TextBox> febraFalseListTextBoxes = new List<TextBox>();
 
@@ -41,6 +44,7 @@ namespace BayesianNetworkInterface
         {
             Name = "Oboseala"
         };
+
         private List<TextBox> obosealaTrueTextBoxes = new List<TextBox>();
         private List<TextBox> obosealaFalseTextBoxes = new List<TextBox>();
 
@@ -48,10 +52,10 @@ namespace BayesianNetworkInterface
         {
             Name = "Anorexie"
         };
+
         private List<TextBox> anorexieTrueTextBoxes = new List<TextBox>();
         private List<TextBox> anorexieFalseTextBoxes = new List<TextBox>();
 
-        // TODO: rename this
         private List<GroupBox> groupBoxList;
 
         public MainForm()
@@ -60,19 +64,18 @@ namespace BayesianNetworkInterface
 
             SetNodeProperties();
 
-            affections = new List<NodeGeneric>() { gripa, abces, febra, oboseala, anorexie };
-            groupBoxList = new List<GroupBox>() { groupBoxGripa, groupBoxAbces, groupBoxFebra, groupBoxOboseala, groupBoxAnorexie };
+            affections = new List<NodeGeneric>() {gripa, abces, febra, oboseala, anorexie};
+            groupBoxList = new List<GroupBox>()
+                {groupBoxGripa, groupBoxAbces, groupBoxFebra, groupBoxOboseala, groupBoxAnorexie};
 
             SetProbabilitiesFromFile(true);
             SetTextBoxProbabilities();
         }
 
-        
 
-        //populare date initiale
+        // Populare date inițiale
         private void button2_Click(object sender, EventArgs e)
         {
-
             SetProbabilitiesFromFile(true);
             SetTextBoxProbabilities();
         }
@@ -100,7 +103,7 @@ namespace BayesianNetworkInterface
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextBox inputTextBox = (TextBox)sender;
+            TextBox inputTextBox = (TextBox) sender;
 
             String textBoxName = inputTextBox.Name;
             int lastIndex = textBoxName.Length - 1;
@@ -137,12 +140,11 @@ namespace BayesianNetworkInterface
                     inputTextBox.Clear();
                 }
             }
-
         }
 
         private void inputTextBox_TextChangedReverse(object sender, EventArgs e)
         {
-            TextBox inputTextBox = (TextBox)sender;
+            TextBox inputTextBox = (TextBox) sender;
 
             String textBoxName = inputTextBox.Name;
             int lastIndex = textBoxName.Length - 1;
@@ -179,7 +181,6 @@ namespace BayesianNetworkInterface
                     inputTextBox.Clear();
                 }
             }
-
         }
 
         private void setStatusValue()
@@ -189,28 +190,31 @@ namespace BayesianNetworkInterface
                 if (groupBoxList[i].Enabled == true)
                 {
                     var checkedRadio = groupBoxList[i].Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
-                    string checkedRadioText = checkedRadio.Text;
-
-                    switch (checkedRadioText)
+                    if (checkedRadio != null)
                     {
-                        case "Da":
-                            affections[i].Status = Status.TRUE;
-                            break;
-                        case "Nu":
-                            affections[i].Status = Status.FALSE;
-                            break;
-                        case "Necunoscut":
-                            affections[i].Status = Status.UNSPECIFIED;
-                            break;
-                        default:
-                            affections[i].Status = Status.NA;
-                            evidenceNode = affections[i];
-                            break;
+                        string checkedRadioText = checkedRadio.Text;
+
+                        switch (checkedRadioText)
+                        {
+                            case "Da":
+                                affections[i].Status = Status.True;
+                                break;
+                            case "Nu":
+                                affections[i].Status = Status.False;
+                                break;
+                            case "Necunoscut":
+                                affections[i].Status = Status.Unspecified;
+                                break;
+                            default:
+                                affections[i].Status = Status.Na;
+                                evidenceNode = affections[i];
+                                break;
+                        }
                     }
                 }
                 else
                 {
-                    affections[i].Status = Status.NA;
+                    affections[i].Status = Status.Na;
                     evidenceNode = affections[i];
                 }
             }
@@ -222,61 +226,59 @@ namespace BayesianNetworkInterface
             SetMatrixValues();
 
             setStatusValue();
-            
+
             resultBox.Text += "\r\nNod evidenta: ";
             resultBox.Text += evidenceNode.Name;
 
             // this.ComputeProbabilityForEvidenceNode();
-            double val = this.ComputeProbabilityForEvidenceNode2();
+            double val = this.ComputeEvidenceNodeProbability();
             resultBox.AppendText("\r\n" + val);
-
         }
+        
+//        public double ComputeProbabilityForEvidenceNode()
+//        {
+//            // Compute a probability for the case when the variable is T, one for F, find alpha and serve the probability.
+//            double trueProb = 1, falseProb = 1;
+//
+//            // Evidence node is considered to be T.
+//            evidenceNode.Status = Status.True;
+//            foreach (var affection in affections)
+//            {
+//                if (affection != evidenceNode)
+//                {
+//                    trueProb *= affection.ComputeProbabilityConsideringParents();
+//                }
+//
+//                // TODO: check if same effect can be obtained with equals()
+//            }
+//
+//            // Evidence node is considered to be F.
+//            evidenceNode.Status = Status.False;
+//            foreach (var affection in affections)
+//            {
+//                if (affection != evidenceNode)
+//                {
+//                    falseProb *= affection.ComputeProbabilityConsideringParents();
+//                }
+//
+//                // TODO: check if same effect can be obtained with equals()
+//            }
+//
+//            double alfa = 1.0 / (trueProb + falseProb);
+//            return alfa * trueProb;
+//        }
 
-        /// <summary>
-        /// Computes the probability for the evidence node, considering the entire BN.
-        /// </summary>
-        /// <returns>The value corresponding for evidence node, when its status is T.</returns>
-        public double ComputeProbabilityForEvidenceNode()
-        {
-            // Compute a probability for the case when the variable is T, one for F, find alpha and serve the probability.
-            double trueProb = 1, falseProb = 1;
-
-            // Evidence node is considered to be T.
-            evidenceNode.Status = Status.TRUE;
-            foreach (var affection in affections)
-            {
-                if (affection != evidenceNode)
-                {
-                    trueProb *= affection.ComputeProbabilityConsideringParents();
-                }
-                // TODO: check if same effect can be obtained with equals()
-            }
-
-            // Evidence node is considered to be F.
-            evidenceNode.Status = Status.FALSE;
-            foreach (var affection in affections)
-            {
-                if (affection != evidenceNode)
-                {
-                    falseProb *= affection.ComputeProbabilityConsideringParents();
-                }
-                // TODO: check if same effect can be obtained with equals()
-            }
-            double alfa = 1.0 / (trueProb + falseProb);
-            return alfa * trueProb;
-        }
-
-        public double EnumerateAll(List<NodeGeneric> affections)
+        private double EnumerateAll(List<NodeGeneric> affections)
         {
             if (affections.Count == 0)
             {
                 return 1.0;
             }
-            // TODO: assure that are 2 different objects, otherwise reference problems will occur
+            
             //List<NodeGeneric> updatedAffections = new List<NodeGeneric>(affections);
             NodeGeneric affection = affections.ElementAt(0);
             affections.RemoveAt(0);
-            if (affection.Status == Status.FALSE || affection.Status == Status.TRUE)
+            if (affection.Status == Status.False || affection.Status == Status.True)
             {
                 double val = affection.ComputeProbabilityConsideringParents();
                 return val * EnumerateAll(affections);
@@ -285,26 +287,29 @@ namespace BayesianNetworkInterface
             {
                 List<NodeGeneric> copy1 = new List<NodeGeneric>(affections);
                 List<NodeGeneric> copy2 = new List<NodeGeneric>(affections);
-                affection.Status = Status.FALSE;
+                affection.Status = Status.False;
                 double falseValue = affection.ComputeProbabilityConsideringParents();
-                falseValue*= EnumerateAll(copy1);
-
-                // here affections is empty and returns 1
-                affection.Status = Status.TRUE;
+                falseValue *= EnumerateAll(copy1);
+                
+                affection.Status = Status.True;
                 double trueValue = affection.ComputeProbabilityConsideringParents();
-                trueValue*= EnumerateAll(copy2);
-                affection.Status = Status.UNSPECIFIED;
+                trueValue *= EnumerateAll(copy2);
+                affection.Status = Status.Unspecified;
                 return falseValue + trueValue;
             }
         }
 
-        public double ComputeProbabilityForEvidenceNode2()
+        /// <summary>
+        /// Computes the probability for the evidence node, considering the entire BN.
+        /// </summary>
+        /// <returns>The value corresponding for evidence node, when its status is T.</returns>
+        private double ComputeEvidenceNodeProbability()
         {
             List<NodeGeneric> copy = new List<NodeGeneric>(affections);
             List<NodeGeneric> copy2 = new List<NodeGeneric>(affections);
-            evidenceNode.Status = Status.TRUE;
+            evidenceNode.Status = Status.True;
             double trueProb = EnumerateAll(copy);
-            evidenceNode.Status = Status.FALSE;
+            evidenceNode.Status = Status.False;
             double falseProb = EnumerateAll(copy2);
             double alfa = 1.0 / (trueProb + falseProb);
             return alfa * trueProb;
@@ -317,6 +322,7 @@ namespace BayesianNetworkInterface
                 node.SetProbabilities(labValue);
             }
         }
+
         private void SetTextBoxProbabilities()
         {
             foreach (var node in affections)
@@ -338,6 +344,7 @@ namespace BayesianNetworkInterface
             SetProbabilitiesFromFile(false);
             SetTextBoxProbabilities();
         }
+
         private void SetNodeProperties()
         {
             febra.ListOfParents.Add(gripa);
