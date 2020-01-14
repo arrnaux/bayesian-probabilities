@@ -63,7 +63,7 @@ namespace BayesianNetworkInterface
             InitializeComponent();
             SetNodeProperties();
 
-            affections = new List<NodeGeneric>() { gripa, abces, febra, oboseala, anorexie };
+            affections = new List<NodeGeneric>() {gripa, abces, febra, oboseala, anorexie};
             groupBoxList = new List<GroupBox>()
                 {groupBoxGripa, groupBoxAbces, groupBoxFebra, groupBoxOboseala, groupBoxAnorexie};
 
@@ -97,12 +97,13 @@ namespace BayesianNetworkInterface
                     }
                 }
             }
+
             (button1 as Button).Enabled = true;
         }
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextBox inputTextBox = (TextBox)sender;
+            TextBox inputTextBox = (TextBox) sender;
 
             String textBoxName = inputTextBox.Name;
             int lastIndex = textBoxName.Length - 1;
@@ -143,7 +144,7 @@ namespace BayesianNetworkInterface
 
         private void inputTextBox_TextChangedReverse(object sender, EventArgs e)
         {
-            TextBox inputTextBox = (TextBox)sender;
+            TextBox inputTextBox = (TextBox) sender;
 
             String textBoxName = inputTextBox.Name;
             int lastIndex = textBoxName.Length - 1;
@@ -231,39 +232,6 @@ namespace BayesianNetworkInterface
             double val = this.ComputeEvidenceNodeProbability() * 100;
             resultBox.AppendText("\r\nProbabilitate: " + val + "%\r\n\r\n");
         }
-
-        //        public double ComputeProbabilityForEvidenceNode()
-        //        {
-        //            // Compute a probability for the case when the variable is T, one for F, find alpha and serve the probability.
-        //            double trueProb = 1, falseProb = 1;
-        //
-        //            // Evidence node is considered to be T.
-        //            evidenceNode.Status = Status.True;
-        //            foreach (var affection in affections)
-        //            {
-        //                if (affection != evidenceNode)
-        //                {
-        //                    trueProb *= affection.ComputeProbabilityConsideringParents();
-        //                }
-        //
-        //                // TODO: check if same effect can be obtained with equals()
-        //            }
-        //
-        //            // Evidence node is considered to be F.
-        //            evidenceNode.Status = Status.False;
-        //            foreach (var affection in affections)
-        //            {
-        //                if (affection != evidenceNode)
-        //                {
-        //                    falseProb *= affection.ComputeProbabilityConsideringParents();
-        //                }
-        //
-        //                // TODO: check if same effect can be obtained with equals()
-        //            }
-        //
-        //            double alfa = 1.0 / (trueProb + falseProb);
-        //            return alfa * trueProb;
-        //        }
 
         private double EnumerateAll(List<NodeGeneric> affections)
         {
