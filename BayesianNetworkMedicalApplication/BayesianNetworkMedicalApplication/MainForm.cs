@@ -360,5 +360,10 @@ namespace BayesianNetworkInterface
             anorexie.ProbTrue = anorexieTrueTextBoxes;
             anorexie.ProbFalse = anorexieFalseTextBoxes;
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "BayesianNetworkMedicalApplication.chm");
+        }
     }
 }
