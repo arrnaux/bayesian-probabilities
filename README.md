@@ -1,4 +1,4 @@
 # bayesian-probabilities
 
 ## License
-**Free software, hell yeah**
+MIT Software. **Free software, hell yeah**
