@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{2086E9AC-EBE8-4D0D-B195-D5F1504522F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BayesianNetworkInterface", "BayesianNetworkMedicalApplication\BayesianNetworkInterface.csproj", "{45717EF5-32CA-4748-8483-67208D1D268E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationTesting", "ApplicationTesting\ApplicationTesting.csproj", "{870DC183-5C9A-4CA1-BD30-7E1737C6FF9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,12 +16,17 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2086E9AC-EBE8-4D0D-B195-D5F1504522F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2086E9AC-EBE8-4D0D-B195-D5F1504522F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2086E9AC-EBE8-4D0D-B195-D5F1504522F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2086E9AC-EBE8-4D0D-B195-D5F1504522F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45717EF5-32CA-4748-8483-67208D1D268E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{45717EF5-32CA-4748-8483-67208D1D268E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45717EF5-32CA-4748-8483-67208D1D268E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45717EF5-32CA-4748-8483-67208D1D268E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{870DC183-5C9A-4CA1-BD30-7E1737C6FF9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{870DC183-5C9A-4CA1-BD30-7E1737C6FF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{870DC183-5C9A-4CA1-BD30-7E1737C6FF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{870DC183-5C9A-4CA1-BD30-7E1737C6FF9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

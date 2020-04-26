@@ -18,6 +18,7 @@
 \documentclass{scrreprt}
 \usepackage{listings}
 \usepackage{underscore}
+\usepackage{graphicx}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage[romanian]{babel}
@@ -133,7 +134,20 @@ example, in the vision and scope document or the project plan).$>$
 \chapter{Cerințe externe de interfață}
 
 \section{Interfața cu utilizatorul}
-@Nicușor?
+Pentru introducerea ușoară a datelor de intrare și pentru a vedea rezultatul final, aplicația dispune de o interfață grafică, prezentată în figura de mai jos:
+
+\begin{center}
+	\includegraphics [scale=0.5] {img/gui.png}
+\end{center}
+
+Această interfață pune la dispoziția utilizatorului posibilitatea de a selecta variabila de interogare dintr-o listă de simptome și variabilele de evidență împreună cu datele cunoscute despre apariția acestora.
+
+Probabilitățile de apariție ale simptomelor pot fi introduse atât manual prin câmpurile de text marcate, cât și încărcate din fișiere externe. După apăsarea butonului \textit{Calculează}, programul analizează toate datele primite și afișează rezultatul în câmpul de text din stânga jos.
+
+Programul pune la dispoziție valorile probabilităților utilizate în laborator, iar la apăsarea butonului \textit{Valori laborator} acestea vor popula câmpurile de text. Pentru a importa date din alte fișiere externe, acestea trebuie să aibă denumirea de forma \textit{simptom.txt} și să conțină lista de probabilități ale cazurilor de adevăr. Fișierele în formatul specificat anterior vor fi salvate in folderul \textit{probabilities/date} din cadrul soluției, iar datele vor fi încărcate în program la apăsarea butonului \textit{Încarcă date}.
+
+În cazul introducerii valorilor de probabilitate în mod manual, utilizatorul va fi împiedicat să scrie date eronate, iar câmpurile alăturate se vor completa automat pentru a ușura acest proces.
+
 
 \section{Interfața hardware}
 Fiind un produs software, acesta nu dispune de o interfață hardware dedicată.
