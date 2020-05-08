@@ -1,12 +1,8 @@
-﻿using System;
+﻿using DataModel;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Security;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
 using System.Windows.Forms;
-using DataModel;
 
 namespace BayesianNetworkInterface
 {
@@ -91,37 +87,7 @@ namespace BayesianNetworkInterface
             int lastIndex = textBoxName.Length - 1;
             int textBoxNumber = (textBoxName[lastIndex]) - '0';
             var x = Int32.Parse(textBoxName.Substring(7)) + 1;
-            var nextBox = "textBox" + x;
-            TextBox nextTextBox = new TextBox();
-            foreach (var c in Controls)
-            {
-                if (c is TextBox && (c as TextBox).Name == nextBox)
-                    nextTextBox = c as TextBox;
-            }
-
-            string input = inputTextBox.Text;
-            double value;
-            if (input != "")
-            {
-                bool result = double.TryParse(input, out value);
-                if (result)
-                {
-                    if (value < 0 || value > 1)
-                    {
-                        MessageBox.Show("Numarul trebuie sa fie in intervalul [0,1]!");
-                        inputTextBox.Clear();
-                    }
-                    else
-                    {
-                        nextTextBox.Text = (1 - value).ToString();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Caracter invalid!");
-                    inputTextBox.Clear();
-                }
-            }
+            ChangeDynamicText(x,inputTextBox);
         }
 
         private void inputTextBox_TextChangedReverse(object sender, EventArgs e)
@@ -132,12 +98,24 @@ namespace BayesianNetworkInterface
             int lastIndex = textBoxName.Length - 1;
             int textBoxNumber = (textBoxName[lastIndex]) - '0';
             var x = int.Parse(textBoxName.Substring(7)) - 1;
+            ChangeDynamicText(x, inputTextBox);
+        }
+
+        private void ChangeDynamicText(int x, TextBox inputTextBox)
+        {
             var nextBox = "textBox" + x;
             TextBox nextTextBox = new TextBox();
             foreach (var c in Controls)
             {
-                if (c is TextBox && (c as TextBox).Name == nextBox)
-                    nextTextBox = c as TextBox;
+                if (c is GroupBox && (c as GroupBox).Name.Contains("Input"))
+                {
+                    GroupBox groupBox = c as GroupBox;
+                    foreach (var textBoxControl in groupBox.Controls)
+                    {
+                        if (textBoxControl is TextBox && (textBoxControl as TextBox).Name == nextBox)
+                            nextTextBox = textBoxControl as TextBox;
+                    }
+                }
             }
 
             string input = inputTextBox.Text;
