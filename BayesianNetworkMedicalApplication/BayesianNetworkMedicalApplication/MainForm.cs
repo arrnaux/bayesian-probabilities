@@ -15,24 +15,24 @@ namespace BayesianNetworkInterface
         // TODO: use a design pattern on this.
         // Maybe a factory?/decorator?
         private GenericNode gripa = new GenericNode("Gripa");
-        private List<TextBox> gripTrueListTextBoxes = new List<TextBox>();
-        private List<TextBox> gripFalseListTextBoxes = new List<TextBox>();
+        //private List<TextBox> gripTrueListTextBoxes = new List<TextBox>();
+        //private List<TextBox> gripFalseListTextBoxes = new List<TextBox>();
 
         private GenericNode abces = new GenericNode("Abces");
-        private List<TextBox> abcesTrueListTextBoxes = new List<TextBox>();
-        private List<TextBox> abcesFalseListTextBoxes = new List<TextBox>();
+        //private List<TextBox> abcesTrueListTextBoxes = new List<TextBox>();
+        //private List<TextBox> abcesFalseListTextBoxes = new List<TextBox>();
 
         private GenericNode febra = new GenericNode("Febra");
-        private List<TextBox> febraTrueListTextBoxes = new List<TextBox>();
-        private List<TextBox> febraFalseListTextBoxes = new List<TextBox>();
+        //private List<TextBox> febraTrueListTextBoxes = new List<TextBox>();
+        //private List<TextBox> febraFalseListTextBoxes = new List<TextBox>();
 
         private GenericNode oboseala = new GenericNode("Oboseala");
-        private List<TextBox> obosealaTrueTextBoxes = new List<TextBox>();
-        private List<TextBox> obosealaFalseTextBoxes = new List<TextBox>();
+        //private List<TextBox> obosealaTrueTextBoxes = new List<TextBox>();
+        //private List<TextBox> obosealaFalseTextBoxes = new List<TextBox>();
 
         private GenericNode anorexie = new GenericNode("Anorexie");
-        private List<TextBox> anorexieTrueTextBoxes = new List<TextBox>();
-        private List<TextBox> anorexieFalseTextBoxes = new List<TextBox>();
+        //private List<TextBox> anorexieTrueTextBoxes = new List<TextBox>();
+        //private List<TextBox> anorexieFalseTextBoxes = new List<TextBox>();
 
         private List<GroupBox> groupBoxList;
 
@@ -65,7 +65,7 @@ namespace BayesianNetworkInterface
                 if (c is GroupBox)
                 {
                     string name = (c as GroupBox).Name;
-                    if (name.Contains(data))
+                    if (name.Contains(data) && !name.Contains("Input"))
                     {
                         (c as GroupBox).Enabled = false;
                     }
@@ -279,48 +279,81 @@ namespace BayesianNetworkInterface
             oboseala._listOfParents.Add(febra);
             anorexie._listOfParents.Add(febra);
 
-            gripTrueListTextBoxes.Add(textBox1);
-            gripFalseListTextBoxes.Add(textBox2);
+            //gripTrueListTextBoxes.Add(textBox1);
+            //gripFalseListTextBoxes.Add(textBox2);
 
-            gripa._trueProbabilityTextBoxes = gripTrueListTextBoxes;
-            gripa._falseProbabilityTextBoxes = gripFalseListTextBoxes;
+            gripa._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa",true);
+            gripa._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa", false);
 
-            abcesTrueListTextBoxes.Add(textBox3);
-            abcesFalseListTextBoxes.Add(textBox4);
+            //abcesTrueListTextBoxes.Add(textBox3);
+            //abcesFalseListTextBoxes.Add(textBox4);
 
-            abces._trueProbabilityTextBoxes = abcesTrueListTextBoxes;
-            abces._falseProbabilityTextBoxes = abcesFalseListTextBoxes;
+            abces._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", true);
+            abces._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", false);
 
-            febraTrueListTextBoxes.Add(textBox5);
-            febraTrueListTextBoxes.Add(textBox7);
-            febraTrueListTextBoxes.Add(textBox9);
-            febraTrueListTextBoxes.Add(textBox11);
 
-            febraFalseListTextBoxes.Add(textBox6);
-            febraFalseListTextBoxes.Add(textBox8);
-            febraFalseListTextBoxes.Add(textBox10);
-            febraFalseListTextBoxes.Add(textBox12);
 
-            febra._trueProbabilityTextBoxes = febraTrueListTextBoxes;
-            febra._falseProbabilityTextBoxes = febraFalseListTextBoxes;
+            //febraTrueListTextBoxes.Add(textBox5);
+            //febraTrueListTextBoxes.Add(textBox7);
+            //febraTrueListTextBoxes.Add(textBox9);
+            //febraTrueListTextBoxes.Add(textBox11);
 
-            obosealaTrueTextBoxes.Add(textBox13);
-            obosealaTrueTextBoxes.Add(textBox15);
+            //febraFalseListTextBoxes.Add(textBox6);
+            //febraFalseListTextBoxes.Add(textBox8);
+            //febraFalseListTextBoxes.Add(textBox10);
+            //febraFalseListTextBoxes.Add(textBox12);
 
-            obosealaFalseTextBoxes.Add(textBox14);
-            obosealaFalseTextBoxes.Add(textBox16);
+            febra._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", true);
+            febra._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", false);
 
-            oboseala._trueProbabilityTextBoxes = obosealaTrueTextBoxes;
-            oboseala._falseProbabilityTextBoxes = obosealaFalseTextBoxes;
+            //obosealaTrueTextBoxes.Add(textBox13);
+            //obosealaTrueTextBoxes.Add(textBox15);
 
-            anorexieTrueTextBoxes.Add(textBox17);
-            anorexieTrueTextBoxes.Add(textBox19);
+            //obosealaFalseTextBoxes.Add(textBox14);
+            //obosealaFalseTextBoxes.Add(textBox16);
 
-            anorexieFalseTextBoxes.Add(textBox18);
-            anorexieFalseTextBoxes.Add(textBox20);
+            oboseala._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", true); ;
+            oboseala._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", false);
 
-            anorexie._trueProbabilityTextBoxes = anorexieTrueTextBoxes;
-            anorexie._falseProbabilityTextBoxes = anorexieFalseTextBoxes;
+            //anorexieTrueTextBoxes.Add(textBox17);
+            //anorexieTrueTextBoxes.Add(textBox19);
+
+            //anorexieFalseTextBoxes.Add(textBox18);
+            //anorexieFalseTextBoxes.Add(textBox20);
+
+            anorexie._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", true); ;
+            anorexie._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", false); ;
+        }
+
+        private List<TextBox> GetTextBoxesForDiseaseName(string name, bool status)
+        {
+            List<TextBox> diseaseList = new List<TextBox>();
+            GroupBox groupBox = null;
+            foreach (var obj in Controls)
+            {
+                if (obj is GroupBox && (obj as GroupBox).Name.Contains(name + "Input"))
+                {
+                    groupBox=obj as GroupBox;
+                }
+            }
+
+            if (groupBox != null)
+                foreach (var textBox in groupBox.Controls)
+                {
+                    if (textBox is TextBox)
+                    {
+                        string textBoxName = (textBox as TextBox).Name;
+                        int lastIndex = textBoxName.Length - 1;
+                        bool textBoxType = ((textBoxName[lastIndex]) - '0') % 2 == 0;
+                        if (textBoxType != status)
+                        {
+                            diseaseList.Add(textBox as TextBox);
+                        }
+                    }
+
+                }
+
+            return diseaseList;
         }
 
         private void button4_Click(object sender, EventArgs e)

@@ -29,6 +29,7 @@ namespace DataModel
         DEFAULT_VALUES
     }
 
+    //TODO: refactor varible names (c# convecntions)
     public class GenericNode : IEquatable<GenericNode>
     {
         public List<GenericNode> _listOfParents;

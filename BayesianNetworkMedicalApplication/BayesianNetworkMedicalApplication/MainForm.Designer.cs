@@ -196,7 +196,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 19);
+            this.textBox3.Location = new System.Drawing.Point(18, 20);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(73, 20);
             this.textBox3.TabIndex = 9;
@@ -204,7 +204,7 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(114, 19);
+            this.textBox4.Location = new System.Drawing.Point(120, 20);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(73, 20);
             this.textBox4.TabIndex = 8;
@@ -562,7 +562,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(9, 3);
+            this.label26.Location = new System.Drawing.Point(17, 4);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(79, 13);
             this.label26.TabIndex = 56;
@@ -571,7 +571,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(111, 3);
+            this.label27.Location = new System.Drawing.Point(117, 4);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(76, 13);
             this.label27.TabIndex = 57;
@@ -898,7 +898,7 @@
             this.groupBoxGripaInput.Controls.Add(this.textBox1);
             this.groupBoxGripaInput.Location = new System.Drawing.Point(418, 14);
             this.groupBoxGripaInput.Name = "groupBoxGripaInput";
-            this.groupBoxGripaInput.Size = new System.Drawing.Size(202, 47);
+            this.groupBoxGripaInput.Size = new System.Drawing.Size(206, 47);
             this.groupBoxGripaInput.TabIndex = 87;
             this.groupBoxGripaInput.TabStop = false;
             // 
@@ -908,9 +908,9 @@
             this.groupBoxAbcesInput.Controls.Add(this.label26);
             this.groupBoxAbcesInput.Controls.Add(this.textBox3);
             this.groupBoxAbcesInput.Controls.Add(this.textBox4);
-            this.groupBoxAbcesInput.Location = new System.Drawing.Point(424, 64);
+            this.groupBoxAbcesInput.Location = new System.Drawing.Point(418, 67);
             this.groupBoxAbcesInput.Name = "groupBoxAbcesInput";
-            this.groupBoxAbcesInput.Size = new System.Drawing.Size(200, 46);
+            this.groupBoxAbcesInput.Size = new System.Drawing.Size(206, 46);
             this.groupBoxAbcesInput.TabIndex = 88;
             this.groupBoxAbcesInput.TabStop = false;
             // 
@@ -938,7 +938,7 @@
             this.groupBoxFebraInput.Controls.Add(this.textBox6);
             this.groupBoxFebraInput.Location = new System.Drawing.Point(347, 126);
             this.groupBoxFebraInput.Name = "groupBoxFebraInput";
-            this.groupBoxFebraInput.Size = new System.Drawing.Size(272, 134);
+            this.groupBoxFebraInput.Size = new System.Drawing.Size(277, 134);
             this.groupBoxFebraInput.TabIndex = 89;
             this.groupBoxFebraInput.TabStop = false;
             // 
@@ -955,7 +955,7 @@
             this.groupBoxObosealaInput.Controls.Add(this.textBox13);
             this.groupBoxObosealaInput.Location = new System.Drawing.Point(347, 272);
             this.groupBoxObosealaInput.Name = "groupBoxObosealaInput";
-            this.groupBoxObosealaInput.Size = new System.Drawing.Size(283, 80);
+            this.groupBoxObosealaInput.Size = new System.Drawing.Size(277, 80);
             this.groupBoxObosealaInput.TabIndex = 90;
             this.groupBoxObosealaInput.TabStop = false;
             // 
@@ -972,7 +972,7 @@
             this.groupBoxAnorexieInput.Controls.Add(this.textBox17);
             this.groupBoxAnorexieInput.Location = new System.Drawing.Point(347, 372);
             this.groupBoxAnorexieInput.Name = "groupBoxAnorexieInput";
-            this.groupBoxAnorexieInput.Size = new System.Drawing.Size(290, 82);
+            this.groupBoxAnorexieInput.Size = new System.Drawing.Size(277, 82);
             this.groupBoxAnorexieInput.TabIndex = 91;
             this.groupBoxAnorexieInput.TabStop = false;
             this.groupBoxAnorexieInput.Text = "groupBox1";
