@@ -9,8 +9,8 @@ namespace BayesianNetworkInterface
     public partial class MainForm : Form
     {
         // Important: always ensure that the affections are in topological order.
-        private List<GenericNode> _affections;
-        private GenericNode _evidenceNode;
+        public List<GenericNode> _affections;
+        public GenericNode _evidenceNode;
 
         // TODO: use a design pattern on this.
         // Maybe a factory?/decorator?
@@ -193,7 +193,7 @@ namespace BayesianNetworkInterface
             resultBox.AppendText("\r\nProbabilitate: " + val + "%\r\n\r\n");
         }
 
-        private double EnumerateAll(List<GenericNode> affections)
+        public double EnumerateAll(List<GenericNode> affections)
         {
             if (affections.Count == 0)
             {
@@ -228,7 +228,7 @@ namespace BayesianNetworkInterface
         /// Computes the probability for the evidence node, considering the entire BN.
         /// </summary>
         /// <returns>The value corresponding for evidence node, when its status is T.</returns>
-        private double ComputeEvidenceNodeProbability()
+        public double ComputeEvidenceNodeProbability()
         {
             List<GenericNode> copy = new List<GenericNode>(_affections);
             List<GenericNode> copy2 = new List<GenericNode>(_affections);
