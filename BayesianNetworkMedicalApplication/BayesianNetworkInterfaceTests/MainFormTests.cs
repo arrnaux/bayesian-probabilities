@@ -16,28 +16,30 @@ namespace BayesianNetworkInterface.Tests
         public void ComputeEvidenceNodeProbabilityTest_1()
         {
             MainForm form = new MainForm();
-            form._evidenceNode = new GenericNode("Febra");
+            form.SetMatrixValues();
+            form._evidenceNode = form._affections[2];
             form._affections[0]._status = Status.True;
             form._affections[1]._status = Status.False;
             form._affections[2]._status = Status.Na;
             form._affections[3]._status = Status.True;
             form._affections[4]._status = Status.Unspecified;
             double val = form.ComputeEvidenceNodeProbability();
-            Assert.AreNotEqual(0.875, val);
+            Assert.AreEqual(0.875, val, 0.01);
         }
 
         [TestMethod]
         public void ComputeEvidenceNodeProbabilityTest_2()
         {
             MainForm form = new MainForm();
-            form._evidenceNode = new GenericNode("Oboseala");
+            form.SetMatrixValues();
+            form._evidenceNode = form._affections[3];
             form._affections[0]._status = Status.False;
             form._affections[1]._status = Status.True;
             form._affections[2]._status = Status.Unspecified;
             form._affections[3]._status = Status.Na;
             form._affections[4]._status = Status.Unspecified;
             double val = form.ComputeEvidenceNodeProbability();
-            Assert.AreNotEqual(0.45, val);
+            Assert.AreEqual(0.3, val, 0.01);
         }
     }
 }

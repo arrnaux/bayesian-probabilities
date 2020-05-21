@@ -257,7 +257,7 @@ namespace BayesianNetworkInterface
         }
 
         //??? ce face asta?
-        private void SetMatrixValues()
+        public void SetMatrixValues()
         {
             foreach (var node in _affections)
             {
