@@ -17,12 +17,12 @@ namespace BayesianNetworkInterface.Tests
         {
             MainForm form = new MainForm();
             form.SetMatrixValues();
-            form._evidenceNode = form._affections[2];
-            form._affections[0]._status = Status.True;
-            form._affections[1]._status = Status.False;
-            form._affections[2]._status = Status.Na;
-            form._affections[3]._status = Status.True;
-            form._affections[4]._status = Status.Unspecified;
+            form.EvidenceNode = form.Affections[2];
+            form.Affections[0].Status = Status.True;
+            form.Affections[1].Status = Status.False;
+            form.Affections[2].Status = Status.Na;
+            form.Affections[3].Status = Status.True;
+            form.Affections[4].Status = Status.Unspecified;
             double val = form.ComputeEvidenceNodeProbability();
             Assert.AreEqual(0.875, val, 0.01);
         }
@@ -32,12 +32,12 @@ namespace BayesianNetworkInterface.Tests
         {
             MainForm form = new MainForm();
             form.SetMatrixValues();
-            form._evidenceNode = form._affections[3];
-            form._affections[0]._status = Status.False;
-            form._affections[1]._status = Status.True;
-            form._affections[2]._status = Status.Unspecified;
-            form._affections[3]._status = Status.Na;
-            form._affections[4]._status = Status.Unspecified;
+            form.EvidenceNode = form.Affections[3];
+            form.Affections[0].Status = Status.False;
+            form.Affections[1].Status = Status.True;
+            form.Affections[2].Status = Status.Unspecified;
+            form.Affections[3].Status = Status.Na;
+            form.Affections[4].Status = Status.Unspecified;
             double val = form.ComputeEvidenceNodeProbability();
             Assert.AreEqual(0.3, val, 0.01);
         }

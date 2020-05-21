@@ -8,35 +8,22 @@ namespace BayesianNetworkInterface
 {
     public partial class MainForm : Form
     {
+        // Important: always ensure that the affections are in topological order.
+        public List<GenericNode> Affections { get; set; }
+        public GenericNode EvidenceNode { get; set; }
+
         private Originator originator=new Originator();
         private Caretaker caretaker=new Caretaker();
 
-
-        // Important: always ensure that the affections are in topological order.
-        public List<GenericNode> _affections;
-        public GenericNode _evidenceNode;
-
-        // TODO: use a design pattern on this.
-        // Maybe a factory?/decorator?
         private GenericNode gripa = new GenericNode("Gripa");
-        //private List<TextBox> gripTrueListTextBoxes = new List<TextBox>();
-        //private List<TextBox> gripFalseListTextBoxes = new List<TextBox>();
 
         private GenericNode abces = new GenericNode("Abces");
-        //private List<TextBox> abcesTrueListTextBoxes = new List<TextBox>();
-        //private List<TextBox> abcesFalseListTextBoxes = new List<TextBox>();
 
         private GenericNode febra = new GenericNode("Febra");
-        //private List<TextBox> febraTrueListTextBoxes = new List<TextBox>();
-        //private List<TextBox> febraFalseListTextBoxes = new List<TextBox>();
-
+        
         private GenericNode oboseala = new GenericNode("Oboseala");
-        //private List<TextBox> obosealaTrueTextBoxes = new List<TextBox>();
-        //private List<TextBox> obosealaFalseTextBoxes = new List<TextBox>();
-
+        
         private GenericNode anorexie = new GenericNode("Anorexie");
-        //private List<TextBox> anorexieTrueTextBoxes = new List<TextBox>();
-        //private List<TextBox> anorexieFalseTextBoxes = new List<TextBox>();
 
         private List<GroupBox> groupBoxList;
 
@@ -45,7 +32,7 @@ namespace BayesianNetworkInterface
             InitializeComponent();
             SetNodeProperties();
 
-            _affections = new List<GenericNode>() {gripa, abces, febra, oboseala, anorexie};
+            Affections = new List<GenericNode>() {gripa, abces, febra, oboseala, anorexie};
             groupBoxList = new List<GroupBox>()
                 {groupBoxGripa, groupBoxAbces, groupBoxFebra, groupBoxOboseala, groupBoxAnorexie};
 
@@ -161,25 +148,25 @@ namespace BayesianNetworkInterface
                         switch (checkedRadioText)
                         {
                             case "Da":
-                                _affections[i]._status = Status.True;
+                                Affections[i].Status = Status.True;
                                 break;
                             case "Nu":
-                                _affections[i]._status = Status.False;
+                                Affections[i].Status = Status.False;
                                 break;
                             case "Necunoscut":
-                                _affections[i]._status = Status.Unspecified;
+                                Affections[i].Status = Status.Unspecified;
                                 break;
                             default:
-                                _affections[i]._status = Status.Na;
-                                _evidenceNode = _affections[i];
+                                Affections[i].Status = Status.Na;
+                                EvidenceNode = Affections[i];
                                 break;
                         }
                     }
                 }
                 else
                 {
-                    _affections[i]._status = Status.Na;
-                    _evidenceNode = _affections[i];
+                    Affections[i].Status = Status.Na;
+                    EvidenceNode = Affections[i];
                 }
             }
         }
@@ -190,7 +177,7 @@ namespace BayesianNetworkInterface
             SetStatusValue();
 
             resultBox.Text += "Variabila de interogare: ";
-            resultBox.Text += _evidenceNode._name;
+            resultBox.Text += EvidenceNode.Name;
 
             // this.ComputeProbabilityForEvidenceNode();
             double val = this.ComputeEvidenceNodeProbability() * 100;
@@ -206,7 +193,7 @@ namespace BayesianNetworkInterface
 
             GenericNode affection = affections.ElementAt(0);
             affections.RemoveAt(0);
-            if (affection._status == Status.False || affection._status == Status.True)
+            if (affection.Status == Status.False || affection.Status == Status.True)
             {
                 double val = affection.ComputeProbabilityConsideringParents();
                 return val * EnumerateAll(affections);
@@ -216,14 +203,14 @@ namespace BayesianNetworkInterface
                 // Use something else here.
                 List<GenericNode> copy1 = new List<GenericNode>(affections);
                 List<GenericNode> copy2 = new List<GenericNode>(affections);
-                affection._status = Status.False;
+                affection.Status = Status.False;
                 double falseValue = affection.ComputeProbabilityConsideringParents();
                 falseValue *= EnumerateAll(copy1);
 
-                affection._status = Status.True;
+                affection.Status = Status.True;
                 double trueValue = affection.ComputeProbabilityConsideringParents();
                 trueValue *= EnumerateAll(copy2);
-                affection._status = Status.Unspecified;
+                affection.Status = Status.Unspecified;
                 return falseValue + trueValue;
             }
         }
@@ -234,11 +221,11 @@ namespace BayesianNetworkInterface
         /// <returns>The value corresponding for evidence node, when its status is T.</returns>
         public double ComputeEvidenceNodeProbability()
         {
-            List<GenericNode> copy = new List<GenericNode>(_affections);
-            List<GenericNode> copy2 = new List<GenericNode>(_affections);
-            _evidenceNode._status = Status.True;
+            List<GenericNode> copy = new List<GenericNode>(Affections);
+            List<GenericNode> copy2 = new List<GenericNode>(Affections);
+            EvidenceNode.Status = Status.True;
             double trueProb = EnumerateAll(copy);
-            _evidenceNode._status = Status.False;
+            EvidenceNode.Status = Status.False;
             double falseProb = EnumerateAll(copy2);
             double alfa = 1.0 / (trueProb + falseProb);
             return alfa * trueProb;
@@ -246,7 +233,7 @@ namespace BayesianNetworkInterface
 
         private void SetProbabilitiesFromFile(bool labValue)
         {
-            foreach (var node in _affections)
+            foreach (var node in Affections)
             {
                 node.SetProbabilities(labValue);
             }
@@ -254,7 +241,7 @@ namespace BayesianNetworkInterface
 
         private void SetTextBoxProbabilities()
         {
-            foreach (var node in _affections)
+            foreach (var node in Affections)
             {
                 node.LoadProabilitiesFromMatrix();
             }
@@ -263,7 +250,7 @@ namespace BayesianNetworkInterface
         //??? ce face asta?
         public void SetMatrixValues()
         {
-            foreach (var node in _affections)
+            foreach (var node in Affections)
             {
                 node.LoadProbabilitiesFromGUI();
             }
@@ -278,55 +265,25 @@ namespace BayesianNetworkInterface
         // TODO: use a design pattern on this.
         private void SetNodeProperties()
         {
-            febra._listOfParents.Add(gripa);
-            febra._listOfParents.Add(abces);
-            oboseala._listOfParents.Add(febra);
-            anorexie._listOfParents.Add(febra);
+            febra.ListOfParents.Add(gripa);
+            febra.ListOfParents.Add(abces);
+            oboseala.ListOfParents.Add(febra);
+            anorexie.ListOfParents.Add(febra);
 
-            //gripTrueListTextBoxes.Add(textBox1);
-            //gripFalseListTextBoxes.Add(textBox2);
+            gripa.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa",true);
+            gripa.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa", false);
 
-            gripa._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa",true);
-            gripa._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa", false);
+            abces.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", true);
+            abces.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", false);
 
-            //abcesTrueListTextBoxes.Add(textBox3);
-            //abcesFalseListTextBoxes.Add(textBox4);
+            febra.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", true);
+            febra.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", false);
 
-            abces._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", true);
-            abces._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", false);
+            oboseala.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", true); ;
+            oboseala.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", false);
 
-
-
-            //febraTrueListTextBoxes.Add(textBox5);
-            //febraTrueListTextBoxes.Add(textBox7);
-            //febraTrueListTextBoxes.Add(textBox9);
-            //febraTrueListTextBoxes.Add(textBox11);
-
-            //febraFalseListTextBoxes.Add(textBox6);
-            //febraFalseListTextBoxes.Add(textBox8);
-            //febraFalseListTextBoxes.Add(textBox10);
-            //febraFalseListTextBoxes.Add(textBox12);
-
-            febra._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", true);
-            febra._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", false);
-
-            //obosealaTrueTextBoxes.Add(textBox13);
-            //obosealaTrueTextBoxes.Add(textBox15);
-
-            //obosealaFalseTextBoxes.Add(textBox14);
-            //obosealaFalseTextBoxes.Add(textBox16);
-
-            oboseala._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", true); ;
-            oboseala._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", false);
-
-            //anorexieTrueTextBoxes.Add(textBox17);
-            //anorexieTrueTextBoxes.Add(textBox19);
-
-            //anorexieFalseTextBoxes.Add(textBox18);
-            //anorexieFalseTextBoxes.Add(textBox20);
-
-            anorexie._trueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", true); ;
-            anorexie._falseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", false); ;
+            anorexie.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", true); ;
+            anorexie.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", false); ;
         }
 
         private List<TextBox> GetTextBoxesForDiseaseName(string name, bool status)
@@ -368,6 +325,8 @@ namespace BayesianNetworkInterface
         private void button6_Click(object sender, EventArgs e)
         {
             //save curremt state;
+            //set originator Properties;
+            originator.EvidenceNode.Name = EvidenceNode.Name;
             caretaker.Memento = originator.SaveMemento();
         }
 

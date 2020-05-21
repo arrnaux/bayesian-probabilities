@@ -23,22 +23,17 @@ namespace DataModel
         Na
     }
 
-    public enum DataSource
-    {
-        FILE,
-        DEFAULT_VALUES
-    }
 
     //TODO: refactor varible names (c# convecntions)
     public class GenericNode : IEquatable<GenericNode>
     {
-        public List<GenericNode> _listOfParents;
+        public List<GenericNode> ListOfParents { get; set; }
 
-        public string _name { get; set; }
-        public List<TextBox> _trueProbabilityTextBoxes;
-        public List<TextBox> _falseProbabilityTextBoxes;
+        public string Name { get; set; }
+        public List<TextBox> TrueProbabilityTextBoxes { get; set; }
+        public List<TextBox> FalseProbabilityTextBoxes { get; set; }
 
-        public Status _status { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         /// The structure is:
@@ -52,29 +47,29 @@ namespace DataModel
 
         public GenericNode(string name)
         {
-            _name = name;
-            _listOfParents = new List<GenericNode>();
-            _trueProbabilityTextBoxes = new List<TextBox>();
-            _falseProbabilityTextBoxes = new List<TextBox>(_trueProbabilityTextBoxes.Count);
-            _status = Status.Na;
+            Name = name;
+            ListOfParents = new List<GenericNode>();
+            TrueProbabilityTextBoxes = new List<TextBox>();
+            FalseProbabilityTextBoxes = new List<TextBox>(TrueProbabilityTextBoxes.Count);
+            Status = Status.Na;
             _probabilities = new double[(int)Math.Pow(2, Constants.MAX_NO_PARENTS), 2];
         }
 
         public void LoadProabilitiesFromMatrix()
         {
-            for (var i = 0; i < _trueProbabilityTextBoxes.Count; i++)
+            for (var i = 0; i < TrueProbabilityTextBoxes.Count; i++)
             {
-                _trueProbabilityTextBoxes[i].Text = _probabilities[i, 0].ToString();
-                _falseProbabilityTextBoxes[i].Text = _probabilities[i, 1].ToString();
+                TrueProbabilityTextBoxes[i].Text = _probabilities[i, 0].ToString();
+                FalseProbabilityTextBoxes[i].Text = _probabilities[i, 1].ToString();
             }
         }
 
         public void LoadProbabilitiesFromGUI()
         {
-            for (var i = 0; i < _trueProbabilityTextBoxes.Count; i++)
+            for (var i = 0; i < TrueProbabilityTextBoxes.Count; i++)
             {
-                _probabilities[i, 0] = double.Parse(_trueProbabilityTextBoxes[i].Text);
-                _probabilities[i, 1] = double.Parse(_falseProbabilityTextBoxes[i].Text);
+                _probabilities[i, 0] = double.Parse(TrueProbabilityTextBoxes[i].Text);
+                _probabilities[i, 1] = double.Parse(FalseProbabilityTextBoxes[i].Text);
             }
         }
 
@@ -85,8 +80,8 @@ namespace DataModel
             try
             {
                 var fileName = (labValue)
-                    ? Path.Combine(basicPath, "laborator", _name.ToLower() + ".txt")
-                    : Path.Combine(basicPath, "date", _name.ToLower() + ".txt");
+                    ? Path.Combine(basicPath, "laborator", Name.ToLower() + ".txt")
+                    : Path.Combine(basicPath, "date", Name.ToLower() + ".txt");
 
                 CultureInfo ci = new CultureInfo("en-US");
                 Thread.CurrentThread.CurrentCulture = ci;
@@ -124,9 +119,9 @@ namespace DataModel
             // The probability of a node is:
             // the probability of that node if has no parents
             // the probability conditioned by the parents if it has any
-            if (0 == _listOfParents.Count)
+            if (0 == ListOfParents.Count)
             {
-                switch (this._status)
+                switch (this.Status)
                 {
                     case Status.True:
                         return this._probabilities[0, 0];
@@ -142,32 +137,32 @@ namespace DataModel
 
                 // By default, the variable is set to TRUE.
                 int column = 0;
-                if (this._status == Status.False)
+                if (this.Status == Status.False)
                 {
                     column = 1;
                 }
 
-                bool[] correspondingValues = new bool[this._listOfParents.Count];
-                for (int i = 0; i < this._listOfParents.Count; ++i)
+                bool[] correspondingValues = new bool[this.ListOfParents.Count];
+                for (int i = 0; i < this.ListOfParents.Count; ++i)
                 {
-                    GenericNode parent = this._listOfParents.ElementAt(i);
-                    if (parent._status == Status.False)
+                    GenericNode parent = this.ListOfParents.ElementAt(i);
+                    if (parent.Status == Status.False)
                     {
                         correspondingValues[i] = false;
                     }
-                    else if (parent._status == Status.True)
+                    else if (parent.Status == Status.True)
                     {
                         correspondingValues[i] = true;
                     }
                 }
 
-                for (int i = 0; i < _listOfParents.Count; i++)
+                for (int i = 0; i < ListOfParents.Count; i++)
                 {
                     correspondingValues[i] = correspondingValues[i] ^ true;
                 }
 
                 int val = 0;
-                for (int i = 0; i < this._listOfParents.Count; ++i)
+                for (int i = 0; i < this.ListOfParents.Count; ++i)
                 {
                     val = (val << 1) | ToDigit(correspondingValues[i]);
                 }
@@ -187,9 +182,9 @@ namespace DataModel
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(_listOfParents, other._listOfParents) && Equals(_trueProbabilityTextBoxes, other._trueProbabilityTextBoxes) &&
-                   Equals(_falseProbabilityTextBoxes, other._falseProbabilityTextBoxes) && Equals(_probabilities, other._probabilities) &&
-                   _name == other._name && _status == other._status;
+            return Equals(ListOfParents, other.ListOfParents) && Equals(TrueProbabilityTextBoxes, other.TrueProbabilityTextBoxes) &&
+                   Equals(FalseProbabilityTextBoxes, other.FalseProbabilityTextBoxes) && Equals(_probabilities, other._probabilities) &&
+                   Name == other.Name && Status == other.Status;
         }
 
         public override bool Equals(object obj)
@@ -204,12 +199,12 @@ namespace DataModel
         {
             unchecked
             {
-                var hashCode = (_listOfParents != null ? _listOfParents.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_trueProbabilityTextBoxes != null ? _trueProbabilityTextBoxes.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_falseProbabilityTextBoxes != null ? _falseProbabilityTextBoxes.GetHashCode() : 0);
+                var hashCode = (ListOfParents != null ? ListOfParents.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (TrueProbabilityTextBoxes != null ? TrueProbabilityTextBoxes.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (FalseProbabilityTextBoxes != null ? FalseProbabilityTextBoxes.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (_probabilities != null ? _probabilities.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_name != null ? _name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int)_status;
+                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (int)Status;
                 return hashCode;
             }
         }

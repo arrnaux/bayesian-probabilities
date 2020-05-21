@@ -25,7 +25,7 @@ namespace DataModel.Tests
             GenericNode node = new GenericNode("Gripa");
             node.LoadProabilitiesFromMatrix();
             node.SetProbabilities(true);
-            node._status = Status.True;            
+            node.Status = Status.True;            
             double val = node.ComputeProbabilityConsideringParents();
             Assert.AreEqual(0.1, val);
         }
@@ -36,7 +36,7 @@ namespace DataModel.Tests
             GenericNode node = new GenericNode("Gripa");
             node.LoadProabilitiesFromMatrix();
             node.SetProbabilities(true);
-            node._status = Status.False;            
+            node.Status = Status.False;            
             double val = node.ComputeProbabilityConsideringParents();
             Assert.AreEqual(0.9, val);
         }
@@ -47,11 +47,11 @@ namespace DataModel.Tests
             GenericNode node = new GenericNode("Febra");
             node.LoadProabilitiesFromMatrix();
             node.SetProbabilities(true);
-            node._status = Status.True;
-            node._listOfParents.Add(new GenericNode("Gripa"));
-            node._listOfParents.Add(new GenericNode("Abces"));
-            node._listOfParents.ElementAt(0)._status = Status.True;
-            node._listOfParents.ElementAt(1)._status = Status.False;
+            node.Status = Status.True;
+            node.ListOfParents.Add(new GenericNode("Gripa"));
+            node.ListOfParents.Add(new GenericNode("Abces"));
+            node.ListOfParents.ElementAt(0).Status = Status.True;
+            node.ListOfParents.ElementAt(1).Status = Status.False;
             double val = node.ComputeProbabilityConsideringParents();
             Assert.AreEqual(0.7, val);
         }
@@ -62,9 +62,9 @@ namespace DataModel.Tests
             GenericNode node = new GenericNode("Oboseala");
             node.LoadProabilitiesFromMatrix();
             node.SetProbabilities(true);
-            node._status = Status.True;
-            node._listOfParents.Add(new GenericNode("Febra"));
-            node._listOfParents.ElementAt(0)._status = Status.True;
+            node.Status = Status.True;
+            node.ListOfParents.Add(new GenericNode("Febra"));
+            node.ListOfParents.ElementAt(0).Status = Status.True;
             double val = node.ComputeProbabilityConsideringParents();
             Assert.AreEqual(0.6, val);
         }
