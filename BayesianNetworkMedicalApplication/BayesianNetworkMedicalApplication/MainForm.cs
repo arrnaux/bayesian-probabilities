@@ -326,7 +326,14 @@ namespace BayesianNetworkInterface
         {
             //save curremt state;
             //set originator Properties;
-            originator.EvidenceNode.Name = EvidenceNode.Name;
+            if (EvidenceNode==null || EvidenceNode.Name.Equals(""))
+            {
+                MessageBox.Show("Nothing to save");
+                return;
+            }
+            originator.SetEvidenceNode(EvidenceNode);
+            originator.SetAffectionList(Affections);
+
             caretaker.Memento = originator.SaveMemento();
         }
 
@@ -334,6 +341,8 @@ namespace BayesianNetworkInterface
         {
             //restor saved state;
             originator.RestoreMemento(caretaker.Memento);
+            Affections = originator.AffectionList;
+            EvidenceNode = originator.EvidenceNode;
         }
     }
 }
