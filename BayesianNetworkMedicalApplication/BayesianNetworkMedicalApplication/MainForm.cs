@@ -8,6 +8,10 @@ namespace BayesianNetworkInterface
 {
     public partial class MainForm : Form
     {
+        private Originator originator=new Originator();
+        private Caretaker caretaker=new Caretaker();
+
+
         // Important: always ensure that the affections are in topological order.
         public List<GenericNode> _affections;
         public GenericNode _evidenceNode;
@@ -359,6 +363,18 @@ namespace BayesianNetworkInterface
         private void button4_Click(object sender, EventArgs e)
         {
             Help.ShowHelp(this, "BayesianNetworkMedicalApplication.chm");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            //save curremt state;
+            caretaker.Memento = originator.SaveMemento();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //restor saved state;
+            originator.RestoreMemento(caretaker.Memento);
         }
     }
 }

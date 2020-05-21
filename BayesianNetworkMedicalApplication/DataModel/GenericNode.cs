@@ -109,6 +109,7 @@ namespace DataModel
             var values = content.Split(' ', '\n');
             for (var i = 0; i < values.Length; i++)
             {
+                //TODO: add check values between [0,1]
                 _probabilities[i, 0] = double.Parse(values[i]);
                 _probabilities[i, 1] = 1 - double.Parse(values[i]);
             }
