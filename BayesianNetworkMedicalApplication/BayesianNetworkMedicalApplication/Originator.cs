@@ -10,42 +10,38 @@ namespace BayesianNetworkInterface
 {
     public class Originator
     {
-        public GenericNode EvidenceNode { get; set; }
-        public List<GenericNode> AffectionList { get; set; }
+        public List<double> textBoxValues { get; set; }
         public Originator()
         {
-
+            textBoxValues = new List<double>();
         }
 
-        public void SetEvidenceNode(GenericNode node)
+        
+        public void SetTextBoxValues(List<TextBox> list)
         {
-            EvidenceNode = new GenericNode(node.Name);
-            EvidenceNode.FalseProbabilityTextBoxes = new List<TextBox>(node.FalseProbabilityTextBoxes);
-            EvidenceNode.TrueProbabilityTextBoxes = new List<TextBox>(node.TrueProbabilityTextBoxes);
-            EvidenceNode.ListOfParents = new List<GenericNode>(node.ListOfParents);
-            EvidenceNode.Status = node.Status;
-        }
-
-        public void SetAffectionList(List<GenericNode> affections)
-        {
-            AffectionList = new List<GenericNode>(affections);
-            //AffectionList.Clear();
-            //foreach (var node in affections)
-            //{
-            //    AffectionList.Add(node);
-            //}
+            textBoxValues.Clear();
+            foreach (var textBox in list)
+            {
+                try
+                {
+                    textBoxValues.Add(Double.Parse(textBox.Text));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
         }
 
         public Memento SaveMemento()
         {
             MessageBox.Show("Saving system state");
-            return new Memento(EvidenceNode, AffectionList);
+            return new Memento(textBoxValues);
         }
 
         public void RestoreMemento(Memento memento)
         {
-            EvidenceNode = memento.EvidenceNode;
-            AffectionList = memento.AffectionList;
+            textBoxValues = memento.textBoxValues;
             MessageBox.Show("Restoring system state");
             //restore data;
         }

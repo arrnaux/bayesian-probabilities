@@ -326,14 +326,18 @@ namespace BayesianNetworkInterface
         {
             //save curremt state;
             //set originator Properties;
-            if (EvidenceNode==null || EvidenceNode.Name.Equals(""))
+            
+            
+            List<TextBox> textBoxes=new List<TextBox>();
+            foreach (var affection in Affections)
             {
-                MessageBox.Show("Nothing to save");
-                return;
+                foreach (var textBox in affection.TrueProbabilityTextBoxes)
+                {
+                    textBoxes.Add(textBox);
+                }
             }
-            originator.SetEvidenceNode(EvidenceNode);
-            originator.SetAffectionList(Affections);
-
+            originator.SetTextBoxValues(textBoxes);
+            
             caretaker.Memento = originator.SaveMemento();
         }
 
@@ -341,8 +345,15 @@ namespace BayesianNetworkInterface
         {
             //restor saved state;
             originator.RestoreMemento(caretaker.Memento);
-            Affections = originator.AffectionList;
-            EvidenceNode = originator.EvidenceNode;
+            int i = 0;
+            foreach (var affection in Affections)
+            {
+                foreach (var textBox in affection.TrueProbabilityTextBoxes)
+                {
+                    textBox.Text = originator.textBoxValues[i].ToString();
+                    i++;
+                }
+            }
         }
     }
 }
