@@ -10,10 +10,10 @@ namespace BayesianNetworkInterface
 {
     public class Memento
     {
-        public List<double> textBoxValues;
+        public List<double> TextBoxValues { get; set; }
         public Memento(List<double> textBoxValues)
         {
-            this.textBoxValues=new List<double>(textBoxValues);
+            this.TextBoxValues=new List<double>(textBoxValues);
         }
     }
 }

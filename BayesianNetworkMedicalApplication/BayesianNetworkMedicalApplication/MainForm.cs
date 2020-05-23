@@ -9,31 +9,27 @@ namespace BayesianNetworkInterface
     public partial class MainForm : Form
     {
         // Important: always ensure that the affections are in topological order.
+        private Originator originator = new Originator();
+        private Caretaker caretaker = new Caretaker();
+
         public List<GenericNode> Affections { get; set; }
         public GenericNode EvidenceNode { get; set; }
 
-        private Originator originator=new Originator();
-        private Caretaker caretaker=new Caretaker();
+        private GenericNode _gripa = new GenericNode("Gripa");
+        private GenericNode _abces = new GenericNode("Abces");
+        private GenericNode _febra = new GenericNode("Febra");
+        private GenericNode _oboseala = new GenericNode("Oboseala");
+        private GenericNode _anorexie = new GenericNode("Anorexie");
 
-        private GenericNode gripa = new GenericNode("Gripa");
-
-        private GenericNode abces = new GenericNode("Abces");
-
-        private GenericNode febra = new GenericNode("Febra");
-        
-        private GenericNode oboseala = new GenericNode("Oboseala");
-        
-        private GenericNode anorexie = new GenericNode("Anorexie");
-
-        private List<GroupBox> groupBoxList;
+        private List<GroupBox> _groupBoxList;
 
         public MainForm()
         {
             InitializeComponent();
             SetNodeProperties();
 
-            Affections = new List<GenericNode>() {gripa, abces, febra, oboseala, anorexie};
-            groupBoxList = new List<GroupBox>()
+            Affections = new List<GenericNode>() { _gripa, _abces, _febra, _oboseala, _anorexie };
+            _groupBoxList = new List<GroupBox>()
                 {groupBoxGripa, groupBoxAbces, groupBoxFebra, groupBoxOboseala, groupBoxAnorexie};
 
             SetProbabilitiesFromFile(true);
@@ -72,29 +68,28 @@ namespace BayesianNetworkInterface
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextBox inputTextBox = (TextBox) sender;
+            TextBox inputTextBox = (TextBox)sender;
 
             string textBoxName = inputTextBox.Name;
             int lastIndex = textBoxName.Length - 1;
             int textBoxNumber = (textBoxName[lastIndex]) - '0';
             var x = Int32.Parse(textBoxName.Substring(7)) + 1;
-            ChangeDynamicText(x,inputTextBox);
+            ChangeDynamicText(x, inputTextBox);
         }
 
         private void inputTextBox_TextChangedReverse(object sender, EventArgs e)
         {
-            TextBox inputTextBox = (TextBox) sender;
+            TextBox inputTextBox = (TextBox)sender;
 
             string textBoxName = inputTextBox.Name;
             int lastIndex = textBoxName.Length - 1;
-            int textBoxNumber = (textBoxName[lastIndex]) - '0';
-            var x = int.Parse(textBoxName.Substring(7)) - 1;
-            ChangeDynamicText(x, inputTextBox);
+            var textBoxNumber = int.Parse(textBoxName.Substring(7)) - 1;
+            ChangeDynamicText(textBoxNumber, inputTextBox);
         }
 
-        private void ChangeDynamicText(int x, TextBox inputTextBox)
+        private void ChangeDynamicText(int textBoxNumber, TextBox inputTextBox)
         {
-            var nextBox = "textBox" + x;
+            var nextBox = "textBox" + textBoxNumber;
             TextBox nextTextBox = new TextBox();
             foreach (var c in Controls)
             {
@@ -110,7 +105,7 @@ namespace BayesianNetworkInterface
             }
 
             string input = inputTextBox.Text;
-            if(input != "")
+            if (input != "")
             {
                 double value = CheckValidNumber(input);
                 if (value != -1)
@@ -122,13 +117,13 @@ namespace BayesianNetworkInterface
                     MessageBox.Show("Eroare! Caracter invalid sau numar in afara intervalului [0,1]!");
                     inputTextBox.Clear();
                 }
-            }           
-        
+            }
+
         }
 
         public double CheckValidNumber(string input)
         {
-            double value;           
+            double value;
             bool result = double.TryParse(input, out value);
             if (result)
             {
@@ -142,11 +137,11 @@ namespace BayesianNetworkInterface
 
         private void SetStatusValue()
         {
-            for (int i = 0; i < groupBoxList.Count; i++)
+            for (int i = 0; i < _groupBoxList.Count; i++)
             {
-                if (groupBoxList[i].Enabled == true)
+                if (_groupBoxList[i].Enabled == true)
                 {
-                    var checkedRadio = groupBoxList[i].Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
+                    var checkedRadio = _groupBoxList[i].Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
                     if (checkedRadio != null)
                     {
                         string checkedRadioText = checkedRadio.Text;
@@ -271,25 +266,25 @@ namespace BayesianNetworkInterface
         // TODO: use a design pattern on this.
         private void SetNodeProperties()
         {
-            febra.ListOfParents.Add(gripa);
-            febra.ListOfParents.Add(abces);
-            oboseala.ListOfParents.Add(febra);
-            anorexie.ListOfParents.Add(febra);
+            _febra.ListOfParents.Add(_gripa);
+            _febra.ListOfParents.Add(_abces);
+            _oboseala.ListOfParents.Add(_febra);
+            _anorexie.ListOfParents.Add(_febra);
 
-            gripa.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa",true);
-            gripa.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa", false);
+            _gripa.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa", true);
+            _gripa.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Gripa", false);
 
-            abces.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", true);
-            abces.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", false);
+            _abces.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", true);
+            _abces.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Abces", false);
 
-            febra.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", true);
-            febra.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", false);
+            _febra.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", true);
+            _febra.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", false);
 
-            oboseala.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", true); ;
-            oboseala.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", false);
+            _oboseala.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", true); ;
+            _oboseala.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", false);
 
-            anorexie.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", true); ;
-            anorexie.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", false); ;
+            _anorexie.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", true); ;
+            _anorexie.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", false); ;
         }
 
         private List<TextBox> GetTextBoxesForDiseaseName(string name, bool status)
@@ -300,7 +295,7 @@ namespace BayesianNetworkInterface
             {
                 if (obj is GroupBox && (obj as GroupBox).Name.Contains(name + "Input"))
                 {
-                    groupBox=obj as GroupBox;
+                    groupBox = obj as GroupBox;
                 }
             }
 
@@ -330,11 +325,10 @@ namespace BayesianNetworkInterface
 
         private void button6_Click(object sender, EventArgs e)
         {
-            //save curremt state;
+            //save current state;
             //set originator Properties;
-            
-            
-            List<TextBox> textBoxes=new List<TextBox>();
+
+            List<TextBox> textBoxes = new List<TextBox>();
             foreach (var affection in Affections)
             {
                 foreach (var textBox in affection.TrueProbabilityTextBoxes)
@@ -342,24 +336,33 @@ namespace BayesianNetworkInterface
                     textBoxes.Add(textBox);
                 }
             }
+            MessageBox.Show("Saving system state");
             originator.SetTextBoxValues(textBoxes);
-            
             caretaker.Memento = originator.SaveMemento();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             //restor saved state;
-            originator.RestoreMemento(caretaker.Memento);
-            int i = 0;
-            foreach (var affection in Affections)
+            try
             {
-                foreach (var textBox in affection.TrueProbabilityTextBoxes)
+                originator.RestoreMemento(caretaker.Memento);
+                int i = 0;
+                foreach (var affection in Affections)
                 {
-                    textBox.Text = originator.textBoxValues[i].ToString();
-                    i++;
+                    foreach (var textBox in affection.TrueProbabilityTextBoxes)
+                    {
+                        textBox.Text = originator.TextBoxValues[i].ToString();
+                        i++;
+                    }
                 }
+                MessageBox.Show("Restoring system state");
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Nothing to restore");
+            }
+            
         }
     }
 }

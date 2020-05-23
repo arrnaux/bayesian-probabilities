@@ -10,21 +10,21 @@ namespace BayesianNetworkInterface
 {
     public class Originator
     {
-        public List<double> textBoxValues { get; set; }
+        public List<double> TextBoxValues { get; set; }
         public Originator()
         {
-            textBoxValues = new List<double>();
+            TextBoxValues = new List<double>();
         }
 
         
         public void SetTextBoxValues(List<TextBox> list)
         {
-            textBoxValues.Clear();
+            TextBoxValues.Clear();
             foreach (var textBox in list)
             {
                 try
                 {
-                    textBoxValues.Add(Double.Parse(textBox.Text));
+                    TextBoxValues.Add(double.Parse(textBox.Text));
                 }
                 catch (Exception e)
                 {
@@ -35,15 +35,13 @@ namespace BayesianNetworkInterface
 
         public Memento SaveMemento()
         {
-            MessageBox.Show("Saving system state");
-            return new Memento(textBoxValues);
+            return new Memento(TextBoxValues);
         }
 
         public void RestoreMemento(Memento memento)
         {
-            textBoxValues = memento.textBoxValues;
-            MessageBox.Show("Restoring system state");
             //restore data;
+            TextBoxValues = memento.TextBoxValues;
         }
     }
 }
