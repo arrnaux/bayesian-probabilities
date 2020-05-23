@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataModel;
+using System.Windows.Forms;
 
 namespace BayesianNetworkInterface.Tests
 {
@@ -155,6 +156,45 @@ namespace BayesianNetworkInterface.Tests
             MainForm form = new MainForm();
             double val = form.CheckValidNumber("0.5");
             Assert.AreEqual(0.5, val);
+        }
+
+        [TestMethod]
+        public void MementoTest_1()
+        {
+            Originator originator = new Originator();
+            Caretaker caretaker = new Caretaker();
+            List<TextBox> list = new List<TextBox>();
+            for(int i=1; i<5; i++)
+            {
+                TextBox textBox = new TextBox();
+                textBox.Text = i.ToString();
+                list.Add(textBox);
+            }            
+            originator.SetTextBoxValues(list);
+            caretaker.Memento = originator.SaveMemento();
+            list[0].Text = "10";
+            originator.SetTextBoxValues(list);
+            Assert.AreEqual(10, originator.TextBoxValues[0]);
+        }
+
+        [TestMethod]
+        public void MementoTest_2()
+        {
+            Originator originator = new Originator();
+            Caretaker caretaker = new Caretaker();
+            List<TextBox> list = new List<TextBox>();
+            for (int i = 1; i < 5; i++)
+            {
+                TextBox textBox = new TextBox();
+                textBox.Text = i.ToString();
+                list.Add(textBox);
+            }
+            originator.SetTextBoxValues(list);
+            caretaker.Memento = originator.SaveMemento();
+            list[0].Text = "10";
+            originator.SetTextBoxValues(list);
+            originator.RestoreMemento(caretaker.Memento);
+            Assert.AreEqual(1, originator.TextBoxValues[0]);
         }
     }
 }
