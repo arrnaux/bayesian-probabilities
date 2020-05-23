@@ -23,12 +23,42 @@ namespace BayesianNetworkInterface.Tests
             form.Affections[2].Status = Status.Na;
             form.Affections[3].Status = Status.True;
             form.Affections[4].Status = Status.Unspecified;
-            double val = form.ComputeEvidenceNodeProbability();
-            Assert.AreEqual(0.875, val, 0.01);
+            double val = form.ComputeEvidenceNodeProbability() * 100;
+            Assert.AreEqual(87.5, val, 0.01);
         }
 
         [TestMethod]
         public void ComputeEvidenceNodeProbabilityTest_2()
+        {
+            MainForm form = new MainForm();
+            form.SetMatrixValues();
+            form.EvidenceNode = form.Affections[0];
+            form.Affections[0].Status = Status.Na;
+            form.Affections[1].Status = Status.Unspecified;
+            form.Affections[2].Status = Status.Unspecified;
+            form.Affections[3].Status = Status.Unspecified;
+            form.Affections[4].Status = Status.Unspecified;
+            double val = form.ComputeEvidenceNodeProbability() * 100;
+            Assert.AreEqual(10, val);
+        }
+
+        [TestMethod]
+        public void ComputeEvidenceNodeProbabilityTest_3()
+        {
+            MainForm form = new MainForm();
+            form.SetMatrixValues();
+            form.EvidenceNode = form.Affections[0];
+            form.Affections[0].Status = Status.Na;
+            form.Affections[1].Status = Status.True;
+            form.Affections[2].Status = Status.False;
+            form.Affections[3].Status = Status.True;
+            form.Affections[4].Status = Status.False;
+            double val = form.ComputeEvidenceNodeProbability() * 100;
+            Assert.AreEqual(2.877, val, 0.001);
+        }
+
+        [TestMethod]
+        public void ComputeEvidenceNodeProbabilityTest_4()
         {
             MainForm form = new MainForm();
             form.SetMatrixValues();
@@ -38,8 +68,93 @@ namespace BayesianNetworkInterface.Tests
             form.Affections[2].Status = Status.Unspecified;
             form.Affections[3].Status = Status.Na;
             form.Affections[4].Status = Status.Unspecified;
-            double val = form.ComputeEvidenceNodeProbability();
-            Assert.AreEqual(0.3, val, 0.01);
+            double val = form.ComputeEvidenceNodeProbability() * 100;
+            Assert.AreEqual(30, val);
+        }
+
+        [TestMethod]
+        public void ComputeEvidenceNodeProbabilityTest_5()
+        {
+            MainForm form = new MainForm();
+            form.SetMatrixValues();
+            form.EvidenceNode = form.Affections[0];
+            form.Affections[0].Status = Status.Na;
+            form.Affections[1].Status = Status.True;
+            form.Affections[2].Status = Status.True;
+            form.Affections[3].Status = Status.True;
+            form.Affections[4].Status = Status.True;
+            double val = form.ComputeEvidenceNodeProbability() * 100;
+            Assert.AreEqual(26.229, val, 0.001);
+        }
+
+        [TestMethod]
+        public void ComputeEvidenceNodeProbabilityTest_6()
+        {
+            MainForm form = new MainForm();
+            form.SetMatrixValues();
+            form.EvidenceNode = form.Affections[1];
+            form.Affections[0].Status = Status.False;
+            form.Affections[1].Status = Status.Na;
+            form.Affections[2].Status = Status.False;
+            form.Affections[3].Status = Status.False;
+            form.Affections[4].Status = Status.False;
+            double val = form.ComputeEvidenceNodeProbability() * 100;
+            Assert.AreEqual(3.989, val, 0.001);
+        }
+
+        [TestMethod]
+        public void ComputeEvidenceNodeProbabilityTest_7()
+        {
+            MainForm form = new MainForm();
+            form.SetMatrixValues();
+            form.EvidenceNode = form.Affections[4];
+            form.Affections[0].Status = Status.Unspecified;
+            form.Affections[1].Status = Status.Unspecified;
+            form.Affections[2].Status = Status.Unspecified;
+            form.Affections[3].Status = Status.Unspecified;
+            form.Affections[4].Status = Status.Na;
+            double val = form.ComputeEvidenceNodeProbability() * 100;
+            Assert.AreEqual(14.98, val, 0.001);
+        }
+
+        [TestMethod]
+        public void CheckValidNumberTest_1()
+        {
+            MainForm form = new MainForm();
+            double val = form.CheckValidNumber("2");
+            Assert.AreEqual(-1, val);
+        }
+
+        [TestMethod]
+        public void CheckValidNumberTest_2()
+        {
+            MainForm form = new MainForm();
+            double val = form.CheckValidNumber("-2");
+            Assert.AreEqual(-1, val);
+        }
+
+        [TestMethod]
+        public void CheckValidNumberTest_3()
+        {
+            MainForm form = new MainForm();
+            double val = form.CheckValidNumber("~abc!");
+            Assert.AreEqual(-1, val);
+        }
+
+        [TestMethod]
+        public void CheckValidNumberTest_4()
+        {
+            MainForm form = new MainForm();
+            double val = form.CheckValidNumber("0.3d");
+            Assert.AreEqual(-1, val);
+        }
+
+        [TestMethod]
+        public void CheckValidNumberTest_5()
+        {
+            MainForm form = new MainForm();
+            double val = form.CheckValidNumber("0.5");
+            Assert.AreEqual(0.5, val);
         }
     }
 }

@@ -172,7 +172,7 @@ namespace DataModel
             return -1;
         }
 
-        private static int ToDigit(bool b)
+        public static int ToDigit(bool b)
         {
             return b ? 1 : 0;
         }

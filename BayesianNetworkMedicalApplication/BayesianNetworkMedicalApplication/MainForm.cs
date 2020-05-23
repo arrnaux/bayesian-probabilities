@@ -110,28 +110,34 @@ namespace BayesianNetworkInterface
             }
 
             string input = inputTextBox.Text;
-            double value;
-            if (input != "")
+            if(input != "")
             {
-                bool result = double.TryParse(input, out value);
-                if (result)
+                double value = CheckValidNumber(input);
+                if (value != -1)
                 {
-                    if (value < 0 || value > 1)
-                    {
-                        MessageBox.Show("Numarul trebuie sa fie in intervalul [0,1]!");
-                        inputTextBox.Clear();
-                    }
-                    else
-                    {
-                        nextTextBox.Text = (1 - value).ToString();
-                    }
+                    nextTextBox.Text = (1 - value).ToString();
                 }
                 else
                 {
-                    MessageBox.Show("Caracter invalid!");
+                    MessageBox.Show("Eroare! Caracter invalid sau numar in afara intervalului [0,1]!");
                     inputTextBox.Clear();
                 }
+            }           
+        
+        }
+
+        public double CheckValidNumber(string input)
+        {
+            double value;           
+            bool result = double.TryParse(input, out value);
+            if (result)
+            {
+                if (value >= 0 && value <= 1)
+                {
+                    return value;
+                }
             }
+            return -1;
         }
 
         private void SetStatusValue()
