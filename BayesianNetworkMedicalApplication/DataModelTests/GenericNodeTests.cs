@@ -23,7 +23,7 @@ namespace DataModel.Tests
         public void ComputeProbabilityConsideringParentsTest_2()
         {
             GenericNode node = new GenericNode("Gripa");
-            node.LoadProabilitiesFromMatrix();
+            node.LoadProbabilitiesFromMatrix();
             node.SetProbabilities(true);
             node.Status = Status.True;
             double val = node.ComputeProbabilityConsideringParents();
@@ -34,7 +34,7 @@ namespace DataModel.Tests
         public void ComputeProbabilityConsideringParentsTest_3()
         {
             GenericNode node = new GenericNode("Gripa");
-            node.LoadProabilitiesFromMatrix();
+            node.LoadProbabilitiesFromMatrix();
             node.SetProbabilities(true);
             node.Status = Status.False;
             double val = node.ComputeProbabilityConsideringParents();
@@ -45,7 +45,7 @@ namespace DataModel.Tests
         public void ComputeProbabilityConsideringParentsTest_4()
         {
             GenericNode node = new GenericNode("Febra");
-            node.LoadProabilitiesFromMatrix();
+            node.LoadProbabilitiesFromMatrix();
             node.SetProbabilities(true);
             node.Status = Status.True;
             node.ListOfParents.Add(new GenericNode("Gripa"));
@@ -60,7 +60,7 @@ namespace DataModel.Tests
         public void ComputeProbabilityConsideringParentsTest_5()
         {
             GenericNode node = new GenericNode("Febra");
-            node.LoadProabilitiesFromMatrix();
+            node.LoadProbabilitiesFromMatrix();
             node.SetProbabilities(true);
             node.Status = Status.False;
             node.ListOfParents.Add(new GenericNode("Gripa"));
@@ -75,7 +75,7 @@ namespace DataModel.Tests
         public void ComputeProbabilityConsideringParentsTest_6()
         {
             GenericNode node = new GenericNode("Oboseala");
-            node.LoadProabilitiesFromMatrix();
+            node.LoadProbabilitiesFromMatrix();
             node.SetProbabilities(true);
             node.Status = Status.True;
             node.ListOfParents.Add(new GenericNode("Febra"));

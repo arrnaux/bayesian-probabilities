@@ -890,7 +890,7 @@
             this.button4.TabIndex = 86;
             this.button4.Text = "Help";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.HelpButton_Click);
             // 
             // groupBoxGripaInput
             // 
@@ -986,7 +986,7 @@
             this.button5.TabIndex = 93;
             this.button5.Text = "Revenire stare anterioara";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.RestoreStateBtn_Click);
             // 
             // button6
             // 
@@ -996,7 +996,7 @@
             this.button6.TabIndex = 92;
             this.button6.Text = "Salvare stare";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button6.Click += new System.EventHandler(this.SaveStateBtn_Click);
             // 
             // MainForm
             // 

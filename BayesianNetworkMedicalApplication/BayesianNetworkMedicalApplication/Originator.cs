@@ -8,15 +8,19 @@ using DataModel;
 
 namespace BayesianNetworkInterface
 {
+    /// <summary>
+    /// Implements the memento pattern.
+    /// </summary>
     public class Originator
     {
         public List<double> TextBoxValues { get; set; }
+
         public Originator()
         {
             TextBoxValues = new List<double>();
         }
 
-        
+
         public void SetTextBoxValues(List<TextBox> list)
         {
             TextBoxValues.Clear();
@@ -40,9 +44,11 @@ namespace BayesianNetworkInterface
 
         public void RestoreMemento(Memento memento)
         {
-            //restore data;
-            if(memento==null)
-                throw new Exception("Nothing to restore");
+            if (memento == null)
+            {
+                throw new Exception("Nu exista o stare care sa poata fi restaurata.");
+            }
+
             TextBoxValues = memento.TextBoxValues;
         }
     }

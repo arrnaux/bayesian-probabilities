@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BayesianNetworkInterface
 {
+    /// <summary>
+    /// Part of memento pattern.
+    /// </summary>
     public class Caretaker
     {
         public Memento Memento { get; set; }

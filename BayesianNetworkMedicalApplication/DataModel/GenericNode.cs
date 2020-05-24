@@ -11,7 +11,7 @@ namespace DataModel
 {
     static class Constants
     {
-        public const int MAX_NO_PARENTS = 3;
+        public const int MaxNoParents = 3;
     }
 
     public enum Status
@@ -22,8 +22,9 @@ namespace DataModel
         Na
     }
 
-
-    //TODO: refactor varible names (c# convecntions)
+    /// <summary>
+    /// A generic node representing an affection.
+    /// </summary>
     public class GenericNode : IEquatable<GenericNode>
     {
         public List<GenericNode> ListOfParents { get; set; }
@@ -51,10 +52,10 @@ namespace DataModel
             TrueProbabilityTextBoxes = new List<TextBox>();
             FalseProbabilityTextBoxes = new List<TextBox>(TrueProbabilityTextBoxes.Count);
             Status = Status.Na;
-            _probabilities = new double[(int)Math.Pow(2, Constants.MAX_NO_PARENTS), 2];
+            _probabilities = new double[(int) Math.Pow(2, Constants.MaxNoParents), 2];
         }
 
-        public void LoadProabilitiesFromMatrix()
+        public void LoadProbabilitiesFromMatrix()
         {
             for (var i = 0; i < TrueProbabilityTextBoxes.Count; i++)
             {
@@ -63,7 +64,7 @@ namespace DataModel
             }
         }
 
-        public void LoadProbabilitiesFromGUI()
+        public void LoadProbabilitiesFromGui()
         {
             for (var i = 0; i < TrueProbabilityTextBoxes.Count; i++)
             {
@@ -72,7 +73,11 @@ namespace DataModel
             }
         }
 
-        // TODO: replace its parameter with a value from DataSource
+        /// <summary>
+        /// Loads probabilities value from a file. 
+        /// </summary>
+        /// <param name="labValue">If the parameters is true, then the default-laboratory values will be loaded.
+        /// Otherwise, the default file from the project will be used for load the data.</param>
         public void SetProbabilities(bool labValue)
         {
             const string basicPath = @"../../../probabilities/";
@@ -95,6 +100,10 @@ namespace DataModel
             }
         }
 
+        /// <summary>
+        /// Loads probabilities from a specific file.
+        /// </summary>
+        /// <param name="fileName"></param>
         private void LoadProbabilitiesFromFile(string fileName)
         {
             var fileStream = File.OpenRead(fileName);
@@ -103,7 +112,6 @@ namespace DataModel
             var values = content.Split(' ', '\n');
             for (var i = 0; i < values.Length; i++)
             {
-                //TODO: add check values between [0,1]
                 _probabilities[i, 0] = double.Parse(values[i]);
                 _probabilities[i, 1] = 1 - double.Parse(values[i]);
             }
@@ -120,12 +128,12 @@ namespace DataModel
             // the probability conditioned by the parents if it has any
             if (0 == ListOfParents.Count)
             {
-                switch (this.Status)
+                switch (Status)
                 {
                     case Status.True:
-                        return this._probabilities[0, 0];
+                        return _probabilities[0, 0];
                     case Status.False:
-                        return this._probabilities[0, 1];
+                        return _probabilities[0, 1];
                 }
             }
             else
@@ -141,10 +149,10 @@ namespace DataModel
                     column = 1;
                 }
 
-                bool[] correspondingValues = new bool[this.ListOfParents.Count];
-                for (int i = 0; i < this.ListOfParents.Count; ++i)
+                bool[] correspondingValues = new bool[ListOfParents.Count];
+                for (int i = 0; i < ListOfParents.Count; ++i)
                 {
-                    GenericNode parent = this.ListOfParents.ElementAt(i);
+                    GenericNode parent = ListOfParents.ElementAt(i);
                     if (parent.Status == Status.False)
                     {
                         correspondingValues[i] = false;
@@ -161,12 +169,12 @@ namespace DataModel
                 }
 
                 int val = 0;
-                for (int i = 0; i < this.ListOfParents.Count; ++i)
+                for (int i = 0; i < ListOfParents.Count; ++i)
                 {
                     val = (val << 1) | ToDigit(correspondingValues[i]);
                 }
 
-                return this._probabilities[val, column];
+                return _probabilities[val, column];
             }
 
             return -1;
@@ -181,8 +189,10 @@ namespace DataModel
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(ListOfParents, other.ListOfParents) && Equals(TrueProbabilityTextBoxes, other.TrueProbabilityTextBoxes) &&
-                   Equals(FalseProbabilityTextBoxes, other.FalseProbabilityTextBoxes) && Equals(_probabilities, other._probabilities) &&
+            return Equals(ListOfParents, other.ListOfParents) &&
+                   Equals(TrueProbabilityTextBoxes, other.TrueProbabilityTextBoxes) &&
+                   Equals(FalseProbabilityTextBoxes, other.FalseProbabilityTextBoxes) &&
+                   Equals(_probabilities, other._probabilities) &&
                    Name == other.Name && Status == other.Status;
         }
 
@@ -191,7 +201,7 @@ namespace DataModel
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((GenericNode)obj);
+            return Equals((GenericNode) obj);
         }
 
         public override int GetHashCode()
@@ -199,11 +209,13 @@ namespace DataModel
             unchecked
             {
                 var hashCode = (ListOfParents != null ? ListOfParents.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (TrueProbabilityTextBoxes != null ? TrueProbabilityTextBoxes.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FalseProbabilityTextBoxes != null ? FalseProbabilityTextBoxes.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^
+                           (TrueProbabilityTextBoxes != null ? TrueProbabilityTextBoxes.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^
+                           (FalseProbabilityTextBoxes != null ? FalseProbabilityTextBoxes.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (_probabilities != null ? _probabilities.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int)Status;
+                hashCode = (hashCode * 397) ^ (int) Status;
                 return hashCode;
             }
         }

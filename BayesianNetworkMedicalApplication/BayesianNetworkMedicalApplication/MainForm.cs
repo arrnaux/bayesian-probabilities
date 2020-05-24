@@ -184,7 +184,7 @@ namespace BayesianNetworkInterface
 
             resultBox.Text += "Variabila de interogare: ";
             resultBox.Text += EvidenceNode.Name;
-            
+
             double val = ComputeEvidenceNodeProbability() * 100;
             resultBox.AppendText("\r\nProbabilitate: " + val + "%\r\n\r\n");
         }
@@ -248,26 +248,35 @@ namespace BayesianNetworkInterface
         {
             foreach (var node in Affections)
             {
-                node.LoadProabilitiesFromMatrix();
+                node.LoadProbabilitiesFromMatrix();
             }
         }
 
-        //??? ce face asta?
+        /// <summary>
+        /// Populate the matrix from the values found in GUI textboxes.
+        /// </summary>
         public void SetMatrixValues()
         {
             foreach (var node in Affections)
             {
-                node.LoadProbabilitiesFromGUI();
+                node.LoadProbabilitiesFromGui();
             }
         }
 
+        /// <summary>
+        /// Populate with custom values that were previously defined in default file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             SetProbabilitiesFromFile(false);
             SetTextBoxProbabilities();
         }
 
-        // TODO: use a design pattern on this.
+        /// <summary>
+        /// Setup the bayesian network with nodes corresponding to the affections.
+        /// </summary>
         private void SetNodeProperties()
         {
             _febra.ListOfParents.Add(_gripa);
@@ -285,18 +294,21 @@ namespace BayesianNetworkInterface
             _febra.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Febra", false);
 
             _oboseala.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", true);
-            ;
             _oboseala.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Oboseala", false);
 
             _anorexie.TrueProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", true);
-            ;
             _anorexie.FalseProbabilityTextBoxes = GetTextBoxesForDiseaseName("Anorexie", false);
-            ;
         }
 
+        /// <summary>
+        /// Get the textBoxes associated with a specific disease.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
         private List<TextBox> GetTextBoxesForDiseaseName(string name, bool status)
         {
-            List<TextBox> diseaseList = new List<TextBox>();
+            List<TextBox> diseasesList = new List<TextBox>();
             GroupBox groupBox = null;
             foreach (var obj in Controls)
             {
@@ -316,24 +328,31 @@ namespace BayesianNetworkInterface
                         bool textBoxType = ((textBoxName[lastIndex]) - '0') % 2 == 0;
                         if (textBoxType != status)
                         {
-                            diseaseList.Add(textBox as TextBox);
+                            diseasesList.Add(textBox as TextBox);
                         }
                     }
                 }
 
-            return diseaseList;
+            return diseasesList;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Shows the help menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HelpButton_Click(object sender, EventArgs e)
         {
             Help.ShowHelp(this, "BayesianNetworkMedicalApplication.chm");
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Save the current values from GUI to be restored in a future moment.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveStateBtn_Click(object sender, EventArgs e)
         {
-            //save current state;
-            //set originator Properties;
-
             List<TextBox> textBoxes = new List<TextBox>();
             foreach (var affection in Affections)
             {
@@ -343,14 +362,13 @@ namespace BayesianNetworkInterface
                 }
             }
 
-            MessageBox.Show("Saving system state");
+            MessageBox.Show("Starea sistemului a fost salvata.");
             originator.SetTextBoxValues(textBoxes);
             caretaker.Memento = originator.SaveMemento();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void RestoreStateBtn_Click(object sender, EventArgs e)
         {
-            //restor saved state;
             try
             {
                 originator.RestoreMemento(caretaker.Memento);
@@ -364,7 +382,7 @@ namespace BayesianNetworkInterface
                     }
                 }
 
-                MessageBox.Show("Restoring system state");
+                MessageBox.Show("Starea sistemului a fost restaurata.");
             }
             catch (Exception exception)
             {
