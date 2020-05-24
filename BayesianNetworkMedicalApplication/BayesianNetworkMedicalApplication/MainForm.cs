@@ -360,7 +360,7 @@ namespace BayesianNetworkInterface
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Nothing to restore");
+                MessageBox.Show(exception.Message);
             }
             
         }
