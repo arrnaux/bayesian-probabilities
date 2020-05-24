@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.computeProbabilityBtn = new System.Windows.Forms.Button();
             this.resultBox = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -129,14 +129,14 @@
             // 
             // button1
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(15, 320);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Calculează";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.computeProbabilityBtn.Enabled = false;
+            this.computeProbabilityBtn.Location = new System.Drawing.Point(15, 320);
+            this.computeProbabilityBtn.Name = "computeProbabilityBtn";
+            this.computeProbabilityBtn.Size = new System.Drawing.Size(75, 23);
+            this.computeProbabilityBtn.TabIndex = 1;
+            this.computeProbabilityBtn.Text = "Calculează";
+            this.computeProbabilityBtn.UseVisualStyleBackColor = true;
+            this.computeProbabilityBtn.Click += new System.EventHandler(this.ComputeProbabilityBtn_Click);
             // 
             // resultBox
             // 
@@ -1023,7 +1023,7 @@
             this.Controls.Add(this.label25);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.resultBox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.computeProbabilityBtn);
             this.Name = "MainForm";
             this.Text = "Bayesian Network Interface";
             this.groupBoxGripa.ResumeLayout(false);
@@ -1052,7 +1052,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button computeProbabilityBtn;
         private System.Windows.Forms.TextBox resultBox;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox1;

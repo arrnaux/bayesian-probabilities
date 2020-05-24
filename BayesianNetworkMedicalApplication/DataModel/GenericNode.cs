@@ -136,7 +136,7 @@ namespace DataModel
 
                 // By default, the variable is set to TRUE.
                 int column = 0;
-                if (this.Status == Status.False)
+                if (Status == Status.False)
                 {
                     column = 1;
                 }
