@@ -41,6 +41,8 @@ namespace BayesianNetworkInterface
         public void RestoreMemento(Memento memento)
         {
             //restore data;
+            if(memento==null)
+                throw new Exception("Nothing to restore");
             TextBoxValues = memento.TextBoxValues;
         }
     }
