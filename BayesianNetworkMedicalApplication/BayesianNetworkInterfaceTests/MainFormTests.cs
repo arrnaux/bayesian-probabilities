@@ -212,5 +212,22 @@ namespace BayesianNetworkInterface.Tests
             originator.RestoreMemento(caretaker.Memento);
             Assert.AreEqual(1, originator.TextBoxValues[0]);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void MementoTest_3()
+        {
+            Originator originator = new Originator();
+            Caretaker caretaker = new Caretaker();
+            List<TextBox> list = new List<TextBox>();
+            for (int i = 1; i < 5; i++)
+            {
+                TextBox textBox = new TextBox();
+                textBox.Text = i.ToString();
+                list.Add(textBox);
+            }
+            originator.SetTextBoxValues(list);
+            originator.RestoreMemento(caretaker.Memento);
+        }
     }
 }
