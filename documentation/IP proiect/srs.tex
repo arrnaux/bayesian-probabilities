@@ -54,7 +54,7 @@
         \vspace{1.7cm}
         \LARGE{Versiunea \myversion}\\
         \vspace{1.7cm}
-        Creat de N. Boca, Ș. Ignătescu, G. Răileanu\\
+        Autori: N. Boca, Ș. Ignătescu, G. Răileanu\\
         \vspace{1.7cm}
         Universitatea Tehnică „Gheorghe Asachi” Iași\\
         \vspace{1.7cm}
@@ -80,10 +80,10 @@
 \chapter{Introducere}
 
 \section{Scopul documentului}
-Scopul acestui document este descrierea cu exactitate a capabilităților pe care produsul software \textit{Bayesian Network Medical Application} le oferă utilizatorilor săi finali, specificând cerințele funcționale și non-funcționale pe care aplicația le implementează.
+Scopul acestui document este descrierea cu exactitate a funcționalităților pe care produsul software \textit{Bayesian Network Medical Application} le oferă utilizatorilor săi finali, specificând cerințele funcționale și non-funcționale pe care aplicația le implementează.
 
 \section{Convențiile documentului}
-Documentul urmărește formatarea standard IEEE pentru dezvoltarea de software. Standardul definește o formatare obișnuită a documentului care urmează, incluzând scrierea la persoana a III-a, voce pasivă, precum și text coerent și corect din punct de vedere gramatical.
+Documentul urmărește formatarea standard IEEE pentru dezvoltarea de software. Standardul definește o formatare obișnuită a documentului care urmează, incluzând scrierea la persoana a III-a, vocea pasivă, precum și text coerent și corect din punct de vedere gramatical.
 
 \section{Publicul destinat}
 Documentul este destinat publicului tehnic, care deține cunoștințe de bază ale unor limbaje de programare orientate-obiect, alături de noțiuni elementare de statistică, necesare pentru înțelegerea problematicii expuse.
@@ -97,8 +97,7 @@ Programul descris a avut ca referință aplicația din laboratorul numărul 11 c
 \chapter{Descrierea generală}
 
 \section{Perspectivele produsului}
-Deși există numeroase sisteme expert sau motoare de inferență care pot calcula probabilități dându-se date cunoscute, aplicația de față se folosește în calcul de metoda inferenței prin enumerare, caracteristică rețelelor bayesiene. Faptul că astfel de rețele sunt deseori reprezentate prin intermediul grafurilor ajută în procesul de înțelegere, acest lucru constituind un avantaj față de celelalte metode expuse.\par
-\textbf{Adaugă aici o poză cu interfața (sau cu componente: dll-ul și modulul din care îl apelăm)}
+Deși există numeroase sisteme expert sau motoare de inferență care pot calcula probabilități dându-se date cunoscute, aplicația de față se folosește în calcul de metoda inferenței prin enumerare, caracteristică rețelelor bayesiene. Faptul că astfel de rețele sunt deseori reprezentate prin intermediul grafurilor ajută în procesul de înțelegere, acest lucru constituind un avantaj față de alte metode existente.\par
 
 \section{Funcțiile produsului}
 \begin{itemize}
@@ -107,36 +106,29 @@ Deși există numeroase sisteme expert sau motoare de inferență care pot calcu
 \end{itemize}
 
 \section{Clase de utilizatori și caracteristici}
-Întrucât aplicația este una de uz general, nu există o categorie de utilizatori aparte. Ea este accesibilă oricui și poate fi folosită.
+Întrucât aplicația este una de uz general, nu există o categorie de utilizatori aparte. Ea este accesibilă oricui și poate fi folosită de un public larg.
 
 \section{Mediul de utilizare}
-Pentru executarea aplicației este nevoie de un sistem de operare Windows. Alternativ, pentru utilizatorii sistemelor UNIX/Linux se pot pot folosi soluții precum \textit{Wine} sau \textit{Mono}, care permit rularea aplicației.
+Pentru executarea aplicației este nevoie de un sistem de operare Windows. Ca alternativă, pentru utilizatorii sistemelor UNIX/Linux se pot pot folosi soluții precum \textit{Wine} sau \textit{Mono}, care permit rularea aplicației. Pentru dezvoltarea altor funcționalități, se recomandă medii de dezvoltare precum Visual Studio, respectiv JetBrains Rider pentru sisteme Linux.
 
 \section{Proiectarea și implementarea constrângerilor}
-Aplicația dispune de o licențiere MIT, dezvoltatorul fiind responsabil pentru orice extindere a funcționalităților aplicației. Aceasta poate interfața cu alte limbaje de programare și poate expune.\par
-\textbf{Aici, facem MVP???}
+Aplicația dispune de o licențiere GNU GPL, dând dreptul oricărui utilizator de a copia, modifica și redistribui programe și coduri sursă ale programatorilor care își licențiază munca sub tutela GPL.
 
 \section{Documentația utilizatorului}
-Utilizatorul poate folosi ghidul aplicației, pus la dispoziție de către dezvoltatori în format \textbf{.chm}.
+Utilizatorul poate folosi ghidul aplicației, pus la dispoziție de către dezvoltatori în format \textbf{.chm} odată cu executabilul/codul sursă. În plus, există un meniu contextual care poate fi accesat de utilizatori în cadrul aplicației.
 
 \section{Ipoteze și dependențe}
-$<$List any assumed factors (as opposed to known facts) that could affect the 
-requirements stated in the SRS. These could include third-party or commercial 
-components that you plan to use, issues around the development or operating 
-environment, or constraints. The project could be affected if these assumptions 
-are incorrect, are not shared, or change. Also identify any dependencies the 
-project has on external factors, such as software components that you intend to 
-reuse from another project, unless they are already documented elsewhere (for 
-example, in the vision and scope document or the project plan).$>$
-
+Ipotezele de la care pornește aplicația sunt factorii externi de care nu depinde în mod direct aplicația, cum ar fi funcționarea în parametri a calculatorului, inexistența unor erori majore în operațiile de calcul în virgulă mobilă etc.
 
 \chapter{Cerințe externe de interfață}
-
 \section{Interfața cu utilizatorul}
 Pentru introducerea ușoară a datelor de intrare și pentru a vedea rezultatul final, aplicația dispune de o interfață grafică, prezentată în figura de mai jos:
 
 \begin{center}
+\begin{figure}[h]
 	\includegraphics [scale=0.5] {img/gui.png}
+	\caption{Interfața aplicației}
+\end{figure}
 \end{center}
 
 Această interfață pune la dispoziția utilizatorului posibilitatea de a selecta variabila de interogare dintr-o listă de simptome și variabilele de evidență împreună cu datele cunoscute despre apariția acestora.
@@ -157,7 +149,6 @@ Aplicația de față nu necesită o conexiune cu baza de date, toate datele nece
 Aplicația este livrată ca software independent și nu necesită alte componente pentru comunicare, fiind gândită să fie \textit{self-contained}.
 
 \chapter{Cerințe funcționale}
-\textbf{?? Vezi exact ce se întâmplă aici}
 
 \section{Cerințe de performanță}
 Aplicația va oferi răspunsul cerut de utilizator în timp real și o aproximare cât mai exactă, aceasta depinzând de precizia calculatorului pe care este rulată.
@@ -166,9 +157,6 @@ Aplicația va oferi răspunsul cerut de utilizator în timp real și o aproximar
 Întrucât aplicația este una software, fiabilitatea ei este determinată de cerințele sistemului pe care rulează. Astfel, pot apărea erori la migrarea aplicației pe o altă platformă cu o configurație diferită, deși acest lucru este puțin probabil în cazul migrării către configurații cu aceeași familie de sisteme de operare.
 
 \subsection{Cerințe de securitate}
-Sistemul nu necesită măsuri de securitate, altele în afara de cele recomandate pentru sistemul dumneavoastră de operare, neavând acces la componente esențiale din nucleul sistemului de operare și nici la alte fișiere din sistem.
-
-\section{Appendix A: Glossary}
-?? Need this?
+Sistemul nu necesită măsuri de securitate, altele în afara celor recomandate pentru sistemul dumneavoastră de operare, neavând acces la componente esențiale din nucleul sistemului de operare și nici la alte fișiere din sistem.
 
 \end{document}
