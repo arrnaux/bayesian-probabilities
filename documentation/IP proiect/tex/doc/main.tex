@@ -1,48 +1,75 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[romanian]{babel}
+\usepackage{graphicx}
+\usepackage{csvsimple}
+\usepackage{pdfpages}
+
 \input{structure.tex} % Include the file specifying the document structure and custom commands
 \title{Ingineria programării. Proiect: inferența prin enumerare} % Title of the assignment
 
 \author{\textbf{Nicolae Boca, Ștefan Ignătescu, Gabriel Răileanu}\\ \texttt{1409A}}
-\date{aprilie 2020}
+\date{mai 2020}
 
 \begin{document}
 
 \maketitle % Print the title
 
 \section{Introducerea}
-Programul de față calculează probabilitățile de apariție ale unor afecțiuni medicale, având în vedere diferite afecțiuni pre-existente. Pe baza probabilităților deja cunoscute, se pot defini noduri observate și noduri evidență.
+Programul de față calculează probabilitățile de apariție ale unor afecțiuni medicale, pe baza datelor deja existente despre anumite comorbidități. Pe baza probabilităților deja cunoscute, se pot defini noduri observate și noduri evidență.
 \par
 Proiectul de față își propune respectarea unor standarde în ceea ce privește stilul codului, tratarea excepțiilor, dar și modalitățile în care se realizează testarea unităților.
 \par
-De asemenea, s-au urmărit toate etapele existente în cadrul evoluției unui produs software (de la proiectare, la implementare, apoi la testare, ciclul încheindu-se cu livrarea artefactului software)
+De asemenea, s-au urmărit toate etapele prezente în dezvoltarea unui produs software (proiectare, implementare, testare și livrarea artefactului software).
 \section{Diagrame UML}
+diagramele UML: cazuride utilizare, clase, activități, secven
 \section{Modul de utilizare al programului}
-Pentru a ajunge la scopul final al proiectului (realizarea de operații de căutare pe colecția inițială), s-a realizat 2 tipuri de indecși:
-\begin{itemize}
-	\item index direct cantitativ
-	\item index invers cantitativ
-\end{itemize}
-Fiecare astfel de index este persistat într-o bază de date non-relațională (în acest caz alegându-se o bază de date orientată document: MongoDB).
-\section{Capturi de ecran}
-\subsubsection{Concluzii}
+Aplicația dispune de o interfață grafică din care utilizatorul poate seta valorile probabilităților pentru afecțiunile disponibile. De asemenea, există posibilitatea importării unui set predefinit de date (cele folosite în cadrul laboratorului de inteligență artificială), dar și opțiunea de a încărca datele dintr-un fișier, care trebuie să respecte un anumit format, ilustrat în tabelul \ref{probabilitiesFileFormatTable}.
 
+\begin{table}[h!]
+	\begin{center}
+	\caption{Exemplu de format pentru probabilități, în cazul unui nod cu doi părinți}
+	\label{probabilitiesFileFormatTable}
+\begin{tabular}{c|c|c}
+	\hline
+	\textbf{first parent}&\textbf{second parent} &\textbf{val(P(x)=true)}
+	\\ \hline
+	true & true & value \\
+	true & false & value \\
+	false & true & value \\
+	false & false & value \\
+	\hline
+\end{tabular}
+\end{center}
+\end{table}
+În cazul introducerii valorilor de probabilitate în mod manual, utilizatorul va fi împiedicat să scrie date eronate, iar câmpurile alăturate se vor completa automat pentru a ușura acest proces.
+\par
+După alegerea valorilor pentru probabilități, utilizatorul poate alege din meniuri de tip radio sau drop-down nodurile de interes (noduri evidențe sau noduri observate).
+\section{Testarea aplicației}
+Pentru aplicatia dezvoltată au fost testate atât funcționarea în parametri	 a interfeței grafice, cât și logica pentru calcularea probabilităților condiționate. 
+Aceste cazuri de test sunt prezentate în figura 1.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.38]{raport}
+	\label{fig:testCases}
+	\caption{Cazurile de test}
+\end{figure}
+\section{Capturi de ecran}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics [scale=0.5] {img/gui.png}
+		\caption{Interfața aplicației}
+	\end{figure}
+	\begin{figure}[!h]
+	\centering
+	\includegraphics [scale=0.3] {img/help.png}
+	\caption{Captură de ecran din meniul de \textit{help}}
+\end{figure}
 \section{Contribuții individuale}
 \begin{itemize}
-	\item Nicolae Boca:
-	\item Ștefan Ignătescu:
-	\item Gabriel Răileanu:
+	\item \textbf{Nicolae Boca}: creare meniu \textit{help}, design cazuri de test și testarea unităților
+	\item \textbf{Ștefan Ignătescu}: refactorizare, implementare șablon de proiectare, respectarea stilului de codare
+	\item \textbf{Gabriel Răileanu}: documentație, document SRS, coordonare echipă
 \end{itemize}
-\newpage
-\section{Bibliografie}
-\begin{thebibliography}{9}
-	\bibitem{hadoopInAction} 
-	ceva aici
-	
-	\bibitem{HDFSBlocks} 
-	ceva aici2
-\end{thebibliography}
+\includepdf[pages=-]{../srs/srs.pdf}
 \end{document}
-
-\appendix{Anexa 1}
-fsadsdfasf

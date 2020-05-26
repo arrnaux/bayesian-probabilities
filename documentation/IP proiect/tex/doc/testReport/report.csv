@@ -1,0 +1,68 @@
+Nume test,Date intrare,"Rezultat 
+așteptat","Rezultat 
+obținut",Observații
+ComputeEvidenceNodeProbabilityTest_1,"Gripă: da
+Abces: nu
+Febră: nod evidență
+Oboseală: da
+Anorexie: nespecificat",87.5,87.5,corect
+ComputeEvidenceNodeProbabilityTest_2,"Gripă: nod evidență
+Abces: nespecificat
+Febră: nespecificat
+Oboseală: nespecificat
+Anorexie: nespecificat",10,10,corect
+ComputeEvidenceNodeProbabilityTest_3,"Gripă: nod evidență
+Abces: da
+Febră: nu
+Oboseală: da
+Anorexie: nu",2.877,2.877,corect
+ComputeEvidenceNodeProbabilityTest_4,"Gripă: nu
+Abces: da
+Febră: nespecificat
+Oboseală: nod evidență
+Anorexie: nespecificat",30,30,corect
+ComputeEvidenceNodeProbabilityTest_5,"Gripă: nod evidență
+Abces: da
+Febră: da
+Oboseală: da
+Anorexie: da",26.229,26.229,corect
+ComputeEvidenceNodeProbabilityTest_6,"Gripă: nu
+Abces: nod evidență
+Febră: nu
+Oboseală: nu
+Anorexie: nu",3.989,3.989,corect
+ComputeEvidenceNodeProbabilityTest_7,"Gripă: nespecificat
+Abces: nespecificat
+Febră: nespecificat
+Oboseală: nespecificat
+Anorexie: nod evidență",14.98,14.98,corect
+CheckValidNumberTest_1,2,-1,-1,corect
+CheckValidNumberTest_2,-2,-1,-1,corect
+CheckValidNumberTest_3,~abc!,-1,-1,corect
+CheckValidNumberTest_4,0.3d,-1,-1,corect
+CheckValidNumberTest_5,0.5,0.5,0.5,corect
+MementoTest_1,"variabila = 1 
+SaveMemento()
+variabila = 10",10,10,corect
+MementoTest_2,"variabila = 1 
+SaveMemento()
+variabila = 10
+RestoreMomento()",1,1,corect
+MementoTest_3,"variabila = 1 
+RestoreMomento()",Exception,Exception,corect
+ComputeProbabilityConsideringParentsTest_1,"nod: Gripă
+status: nespecificat",-1,-1,corect
+ComputeProbabilityConsideringParentsTest_2,"nod: Gripă
+status: true",0.1,0.1,corect
+ComputeProbabilityConsideringParentsTest_3,"nod: Gripă
+status: false",0.9,0.9,corect
+ComputeProbabilityConsideringParentsTest_4,"nod: Febră, status: true
+părinte1: Gripă, status: true
+părinte2: Abces, status: false",0.7,0.7,corect
+ComputeProbabilityConsideringParentsTest_5,"nod: Febră, status: false
+părinte1: Gripă, status: false
+părinte2: Abces, status: true",0.75,0.75,corect
+ComputeProbabilityConsideringParentsTest_6,"nod: Oboseală, status: true
+părinte: Febră, status: true",0.6,0.6,corect
+ToDigitTest_1,TRUE,1,1,corect
+ToDigitTest_2,FALSE,0,0,corect
