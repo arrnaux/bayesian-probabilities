@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{csvsimple}
 \usepackage{pdfpages}
+\usepackage{float}
 
 \input{structure.tex} % Include the file specifying the document structure and custom commands
 \title{Ingineria programării. Proiect: inferența prin enumerare} % Title of the assignment
@@ -13,16 +14,31 @@
 
 \begin{document}
 
-\maketitle % Print the title
+\maketitle
 
-\section{Introducerea}
+\section{Introducere}
 Programul de față calculează probabilitățile de apariție ale unor afecțiuni medicale, pe baza datelor deja existente despre anumite comorbidități. Pe baza probabilităților deja cunoscute, se pot defini noduri observate și noduri evidență.
 \par
 Proiectul de față își propune respectarea unor standarde în ceea ce privește stilul codului, tratarea excepțiilor, dar și modalitățile în care se realizează testarea unităților.
 \par
 De asemenea, s-au urmărit toate etapele prezente în dezvoltarea unui produs software (proiectare, implementare, testare și livrarea artefactului software).
 \section{Diagrame UML}
-diagramele UML: cazuride utilizare, clase, activități, secven
+Sunt prezentate diagrame UML pentru: cazuri de utilizare, clase, activități și secvențe.
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/useCaseDiagram.png}
+	\caption{Diagramă de activitate}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{img/diagrama-activitate.png}
+	\caption{Diagramă de activitate}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\linewidth]{img/sequenceDiagram.png}
+	\caption{Diagramă de secvențe}
+\end{figure}
 \section{Modul de utilizare al programului}
 Aplicația dispune de o interfață grafică din care utilizatorul poate seta valorile probabilităților pentru afecțiunile disponibile. De asemenea, există posibilitatea importării unui set predefinit de date (cele folosite în cadrul laboratorului de inteligență artificială), dar și opțiunea de a încărca datele dintr-un fișier, care trebuie să respecte un anumit format, ilustrat în tabelul \ref{probabilitiesFileFormatTable}.
 
@@ -46,16 +62,16 @@ Aplicația dispune de o interfață grafică din care utilizatorul poate seta va
 \par
 După alegerea valorilor pentru probabilități, utilizatorul poate alege din meniuri de tip radio sau drop-down nodurile de interes (noduri evidențe sau noduri observate).
 \section{Testarea aplicației}
-Pentru aplicatia dezvoltată au fost testate atât funcționarea în parametri	 a interfeței grafice, cât și logica pentru calcularea probabilităților condiționate. 
+Pentru aplicația dezvoltată au fost testate atât funcționarea în parametri	 a interfeței grafice, cât și logica pentru calcularea probabilităților condiționate. 
 Aceste cazuri de test sunt prezentate în figura 1.
-\begin{figure}[!h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.38]{raport}
 	\label{fig:testCases}
 	\caption{Cazurile de test}
 \end{figure}
 \section{Capturi de ecran}
-	\begin{figure}[!h]
+	\begin{figure}[H]
 		\centering
 		\includegraphics [scale=0.5] {img/gui.png}
 		\caption{Interfața aplicației}
@@ -63,7 +79,7 @@ Aceste cazuri de test sunt prezentate în figura 1.
 	\begin{figure}[!h]
 	\centering
 	\includegraphics [scale=0.3] {img/help.png}
-	\caption{Captură de ecran din meniul de \textit{help}}
+	\caption{Captură de ecran din meniul de \textit{help} al aplicației}
 \end{figure}
 \section{Contribuții individuale}
 \begin{itemize}
