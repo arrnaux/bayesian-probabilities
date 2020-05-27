@@ -1,2 +1,0 @@
-- De văzut ce e de scris la referințe (jarul de la laboratorul 11 de la IA)
-- nu se mai pot folosi noduri generice & nu se poate defini propria reț€a bayesiană
