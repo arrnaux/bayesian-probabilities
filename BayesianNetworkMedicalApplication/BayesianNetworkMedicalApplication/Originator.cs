@@ -1,9 +1,9 @@
 ﻿/**************************************************************************
  *                                                                        *
- *  File:        Originator.cs                                           *
+ *  File:        Originator.cs                                            *
  *  Copyright:   (c) 2020 Gabriel Răileanu, Nicolae Boca, Ștefan Ignătescu*
  *  Website:     https://github.com/arrnaux/bayesian-probabilities        *
- *  Description: Generates file information headers.                      *
+ *  Description: Implements the memento pattern.                          *
  *                                                                        *
  *  This program is free software; you can redistribute it and/or modify  *
  *  it under the terms of the GNU General Public License as published by  *
