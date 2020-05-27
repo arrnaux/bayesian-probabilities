@@ -1,9 +1,9 @@
 ﻿/**************************************************************************
  *                                                                        *
- *  File:        Program.cs                                           *
+ *  File:        Program.cs                                               *
  *  Copyright:   (c) 2020 Gabriel Răileanu, Nicolae Boca, Ștefan Ignătescu*
  *  Website:     https://github.com/arrnaux/bayesian-probabilities        *
- *  Description: Generates file information headers.                      *
+ *  Description: The main entry point for the application.                *
  *                                                                        *
  *  This program is free software; you can redistribute it and/or modify  *
  *  it under the terms of the GNU General Public License as published by  *
